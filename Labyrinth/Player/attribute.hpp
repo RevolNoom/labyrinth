@@ -1,23 +1,34 @@
+#ifndef ATTRIBUTE_HPP
+#define ATTRIBUTE_HPP
+
 using Int = signed int32_t;
 
 class Attribute
 {
 public:
+	Attribute() : _value(0), _max(0)
+	{}
+
+	Attribute(int value, int max) : _value(value), _max(max)
+	{}
+
+
 	Int max();
 	Int value();
 
+
 	// Increase current value by @amount
-	Int Increase(Int amount);
+	void Increase(Int amount);
 	// Reduce current value by @amount
-	Int Decrease(Int amount);
+	void Decrease(Int amount);
 
 
 	// Increase maximum capacity by @amount
 	// Can't go below 0
-	Int Grow(Int amount);
+	void Grow(Int amount);
 	// Decrease maximum capacity by @amount
 	// Can't go below 0
-	Int Shrink(Int amount);
+	void Shrink(Int amount);
 
 private:
 	Int _value;
@@ -34,3 +45,5 @@ public:
 	Attribute speed;
 	// more attributes down here
 };
+
+#endif /* ATTRIBUTE_HPP */
