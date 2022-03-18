@@ -16,6 +16,9 @@
     <Filter Include="TrainingFramework\src\GameStates">
       <UniqueIdentifier>{2a875364-1a2b-4ea6-a6fe-716988208916}</UniqueIdentifier>
     </Filter>
+    <Filter Include="TrainingFramework\src\World">
+      <UniqueIdentifier>{73e3daea-e13f-44e2-a9c3-59b6e5bf9666}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Application.cpp">
@@ -48,10 +51,10 @@
     <ClCompile Include="src\GameObject\Font.cpp">
       <Filter>TrainingFramework\src\GameObject</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameStates\GameStateBase.cpp">
+    <ClCompile Include="src\GameStates\Scene.cpp">
       <Filter>TrainingFramework\src\GameStates</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameStates\GameStateMachine.cpp">
+    <ClCompile Include="src\GameStates\SceneDirector.cpp">
       <Filter>TrainingFramework\src\GameStates</Filter>
     </ClCompile>
     <ClCompile Include="src\GameStates\GSIntro.cpp">
@@ -71,6 +74,18 @@
     </ClCompile>
     <ClCompile Include="src\GameObject\SpriteAnimation.cpp">
       <Filter>TrainingFramework\src\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="src\World\Player\attribute.cpp">
+      <Filter>TrainingFramework\src\World</Filter>
+    </ClCompile>
+    <ClCompile Include="src\World\TopdownWorld.cpp">
+      <Filter>TrainingFramework\src\World</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameStates\Canvas.cpp">
+      <Filter>TrainingFramework\src\GameStates</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameStates\InputEvent.cpp">
+      <Filter>TrainingFramework\src\GameStates</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -110,10 +125,10 @@
     <ClInclude Include="src\GameObject\Font.h">
       <Filter>TrainingFramework\src\GameObject</Filter>
     </ClInclude>
-    <ClInclude Include="src\GameStates\GameStateBase.h">
+    <ClInclude Include="src\GameStates\Scene.h">
       <Filter>TrainingFramework\src\GameStates</Filter>
     </ClInclude>
-    <ClInclude Include="src\GameStates\GameStateMachine.h">
+    <ClInclude Include="src\GameStates\SceneDirector.h">
       <Filter>TrainingFramework\src\GameStates</Filter>
     </ClInclude>
     <ClInclude Include="src\GameStates\GSIntro.h">
@@ -133,6 +148,21 @@
     </ClInclude>
     <ClInclude Include="src\GameObject\SpriteAnimation.h">
       <Filter>TrainingFramework\src\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="src\World\TopdownWorld.hpp">
+      <Filter>TrainingFramework\src\World</Filter>
+    </ClInclude>
+    <ClInclude Include="src\World\Player\attribute.hpp">
+      <Filter>TrainingFramework\src\World</Filter>
+    </ClInclude>
+    <ClInclude Include="src\World\WorldObject.hpp">
+      <Filter>TrainingFramework\src\World</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameStates\Canvas.hpp">
+      <Filter>TrainingFramework\src\GameStates</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameStates\InputEvent.hpp">
+      <Filter>TrainingFramework\src\GameStates</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

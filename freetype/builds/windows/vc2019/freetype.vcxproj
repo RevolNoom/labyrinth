@@ -269,6 +269,9 @@
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Release Singlethreaded|Win32'">freetype</TargetName>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Release Singlethreaded|x64'">freetype254ST</TargetName>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IncludePath>C:\Users\Administrator\source\repos\labyrinth\box2d\include;$(IncludePath)</IncludePath>
+  </PropertyGroup>
   <Import Project="$(SolutionDir)\freetype.user.props" Condition="exists('$(SolutionDir)\freetype.user.props')" Label="UserProperties" />
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

@@ -1,6 +1,6 @@
 #include "GSIntro.h"
 
-GSIntro::GSIntro() : GameStateBase(StateType::STATE_INTRO), m_time(0.0f)
+GSIntro::GSIntro() : Scene(StateType::STATE_INTRO), m_time(0.0f)
 {
 }
 
@@ -39,15 +39,15 @@ void GSIntro::HandleEvents()
 {
 }
 
-void GSIntro::HandleKeyEvents(int key, bool bIsPressed)
+void GSIntro::HandleKeyPress(const InputEventKeyPress* ev)
 {
 }
 
-void GSIntro::HandleTouchEvents(int x, int y, bool bIsPressed)
+void GSIntro::HandleMouseClick(const InputEventMouseClick* ev)
 {
 }
 
-void GSIntro::HandleMouseMoveEvents(int x, int y)
+void GSIntro::HandleMouseMotion(const InputEventMouseMotion* ev)
 {
 }
 
@@ -56,7 +56,7 @@ void GSIntro::Update(float deltaTime)
 	m_time += deltaTime;
 	if (m_time > 1.5)
 	{
-		GameStateMachine::GetInstance()->ChangeState(StateType::STATE_MENU);
+		SceneDirector::GetInstance()->ChangeState(StateType::STATE_MENU);
 		m_time = 0;
 	}
 }

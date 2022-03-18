@@ -9,7 +9,7 @@ public:
 	GameButton(std::shared_ptr<Model> model, std::shared_ptr<Shader> shader, std::shared_ptr<Texture> texture);
 	~GameButton();
 	void	SetOnClick(std::function<void(void)>pBtClick);
-	bool	HandleTouchEvents(GLint x, GLint y, bool bIsPressed);
+	bool	HandleMouseClick(const InputEventMouseClick* ev);
 	bool	IsHolding();
 
 private:

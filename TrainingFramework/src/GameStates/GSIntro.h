@@ -1,7 +1,7 @@
 #pragma once
-#include "GameStateBase.h"
+#include "Scene.h"
 
-class GSIntro : public GameStateBase
+class GSIntro : public Scene
 {
 public:
 	GSIntro();
@@ -14,9 +14,9 @@ public:
 	void	Resume() override;
 
 	void	HandleEvents() override;
-	void	HandleKeyEvents(int key, bool bIsPressed) override;
-	void	HandleTouchEvents(int x, int y, bool bIsPressed) override;
-	void	HandleMouseMoveEvents(int x, int y) override;
+	void	HandleKeyPress(const InputEventKeyPress* ev) override;
+	void	HandleMouseClick(const InputEventMouseClick* ev) override;
+	void	HandleMouseMotion(const InputEventMouseMotion* ev) override;
 	void	Update(float deltaTime) override;
 	void	Draw() override;
 

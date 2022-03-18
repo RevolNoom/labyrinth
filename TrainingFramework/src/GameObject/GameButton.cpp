@@ -14,10 +14,11 @@ void GameButton::SetOnClick(std::function<void(void)> pBtClick)
 	m_pBtClick = pBtClick;
 }
 
-bool GameButton::HandleTouchEvents(GLint x, GLint y, bool bIsPressed)
+bool GameButton::HandleMouseClick(const InputEventMouseClick* ev)
 {
+	GLint x = ev->GetPosition().x, y = ev->GetPosition().y;
 	bool isHandled = false;
-	if (bIsPressed)
+	if (ev->IsPressed())
 	{
 		if ((x > m_position.x - m_iWidth / 2) && (x < m_position.x + m_iWidth / 2)
 			&& (y > m_position.y - m_iHeight / 2) && (y < m_position.y + m_iHeight / 2))

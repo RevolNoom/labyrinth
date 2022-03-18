@@ -3,7 +3,7 @@
 #include "../World/WorldObject.hpp"
 
 
-GSMenu::GSMenu() : GameStateBase(StateType::STATE_MENU), 
+GSMenu::GSMenu() : Scene(StateType::STATE_MENU), 
 	m_background(nullptr), m_listButton(std::list<std::shared_ptr<GameButton>>{}), m_textGameName(nullptr)
 {
 }
@@ -49,7 +49,7 @@ void GSMenu::Init()
 	button->Set2DPosition(Globals::screenWidth / 2, Globals::screenHeight / 2);
 	button->SetSize(200, 200);
 	button->SetOnClick([]() {
-			GameStateMachine::GetInstance()->ChangeState(StateType::STATE_PLAY);
+			SceneDirector::GetInstance()->ChangeState(StateType::STATE_PLAY);
 		});
 	_canvas.Insert(1, button);
 
@@ -93,17 +93,17 @@ void GSMenu::HandleEvents()
 {
 }
 
-void GSMenu::HandleKeyEvents(int key, bool bIsPressed)
+void GSMenu::HandleKeyPress(const InputEventKeyPress* ev)
 {
 }
 
-void GSMenu::HandleTouchEvents(int x, int y, bool bIsPressed)
+void GSMenu::HandleMouseClick(const InputEventMouseClick* ev)
 {
 	for (auto obj : _canvas.GetAll())
-		obj->HandleTouchEvents(x, y, bIsPressed);
+		obj->HandleMouseClick(ev);
 }
 
-void GSMenu::HandleMouseMoveEvents(int x, int y)
+void GSMenu::HandleMouseMotion(const InputEventMouseMotion* ev)
 {
 }
 

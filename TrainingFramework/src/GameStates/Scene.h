@@ -1,15 +1,15 @@
 #pragma once
-#include "GameStateMachine.h"
+#include "SceneDirector.h"
 #include "GameManager/ResourceManagers.h"
 #include "Canvas.hpp"
 
 
-class GameStateBase
+class Scene
 {
 public:
-	GameStateBase() : m_stateType(StateType::STATE_INVALID){}
-	GameStateBase(StateType stateType);
-	virtual ~GameStateBase() {}
+	Scene() : m_stateType(StateType::STATE_INVALID){}
+	Scene(StateType stateType);
+	virtual ~Scene() {}
 
 	virtual void Init() = 0;
 	virtual void Exit() = 0;
@@ -18,14 +18,22 @@ public:
 	virtual void Resume() = 0;
 
 	virtual void HandleEvents() = 0;
-	virtual void HandleKeyEvents(int key, bool bIsPressed) = 0;
-	virtual void HandleTouchEvents(int x, int y, bool bIsPressed) = 0;
-	virtual void HandleMouseMoveEvents(int x, int y) = 0;
+
 
 // Rev's Modification:
 // OVERRIDE MEEEEEEEE
 // Provide default behaviours to objects that are 
 // user-added
+
+	// OVERRIDE ME
+	virtual void HandleKeyPress(const InputEventKeyPress* ev) {}
+
+	// OVERRIDE ME
+	virtual void HandleMouseClick(const InputEventMouseClick* ev) {}
+
+	// OVERRIDE ME
+	virtual void HandleMouseMotion(const InputEventMouseMotion* ev) {}
+
 
 	virtual void Update(float deltaTime) = 0;
 
@@ -38,7 +46,7 @@ public:
 		_canvas.Draw();
 	}
 
-	static std::shared_ptr<GameStateBase> CreateState(StateType stt);
+	static std::shared_ptr<Scene> CreateState(StateType stt);
 	StateType GetGameStateType();
 
 protected:

@@ -1,11 +1,12 @@
 #pragma once
 #include "utilities.h" 
-
+#include "InputEvent.hpp"
 
 class Shader;
 class Model;
 class Texture;
-class Camera;
+class Camera; 
+
 class BaseObject
 {
 public:
@@ -50,6 +51,16 @@ public:
 
 	void SetScale(Vector3 scale) { m_scale = scale; }
 	Vector3 GetScale() { return m_scale; }
+
+
+	// OVERRIDE ME
+	virtual bool HandleMouseMotion(const InputEventMouseMotion* event) { return false; }
+
+	// OVERRIDE ME
+	virtual bool HandleMouseClick(const InputEventMouseClick* event) { return false; }
+
+	// OVERRIDE ME
+	virtual bool HandleKeyPress(const InputEventKeyPress* event) { return false; }
 
 	void CalculateWorldMatrix() {
 		Matrix Rx, Ry, Rz, R, S, T;

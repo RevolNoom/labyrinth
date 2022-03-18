@@ -6,14 +6,14 @@
 #include "GSIntro.h"
 #include "GSMenu.h"
 
-#include "GameStatebase.h"
+#include "Scene.h"
 
-GameStateBase::GameStateBase(StateType stateType) : m_stateType(stateType)
+Scene::Scene(StateType stateType) : m_stateType(stateType)
 {}
 
-std::shared_ptr<GameStateBase> GameStateBase::CreateState(StateType stt)
+std::shared_ptr<Scene> Scene::CreateState(StateType stt)
 {
-	std::shared_ptr<GameStateBase> gs = nullptr;
+	std::shared_ptr<Scene> gs = nullptr;
 	switch (stt)
 	{
 	case StateType::STATE_INVALID:
@@ -33,7 +33,7 @@ std::shared_ptr<GameStateBase> GameStateBase::CreateState(StateType stt)
 	return gs;
 }
 
-StateType GameStateBase::GetGameStateType()
+StateType Scene::GetGameStateType()
 {
 	return m_stateType;
 }

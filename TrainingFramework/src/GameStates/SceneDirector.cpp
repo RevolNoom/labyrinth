@@ -1,18 +1,18 @@
 
-#include "GameStateMachine.h"
-#include "GameStateBase.h"
+#include "SceneDirector.h"
+#include "Scene.h"
 
-GameStateMachine::GameStateMachine() : m_running(true), m_pActiveState(nullptr), m_pNextState(nullptr), m_fullscreen(false)
+SceneDirector::SceneDirector() : m_running(true), m_pActiveState(nullptr), m_pNextState(nullptr), m_fullscreen(false)
 {
 }
 
 
-GameStateMachine::~GameStateMachine()
+SceneDirector::~SceneDirector()
 {
 }
 
 
-void GameStateMachine::Cleanup()
+void SceneDirector::Cleanup()
 {
 	// cleanup the all states
 	while (!m_StateStack.empty()) {
@@ -21,20 +21,20 @@ void GameStateMachine::Cleanup()
 	}
 }
 
-void GameStateMachine::ChangeState(StateType state)
+void SceneDirector::ChangeState(StateType state)
 {
-	std::shared_ptr<GameStateBase> nextState = GameStateBase::CreateState(state);
+	std::shared_ptr<Scene> nextState = Scene::CreateState(state);
 	ChangeState(nextState);
 }
 
-void GameStateMachine::ChangeState(std::shared_ptr<GameStateBase> state)
+void SceneDirector::ChangeState(std::shared_ptr<Scene> state)
 {
 	m_pNextState = state;
 }
 
-void GameStateMachine::PushState(StateType state)
+void SceneDirector::PushState(StateType state)
 {
-	std::shared_ptr<GameStateBase> nextState = GameStateBase::CreateState(state);
+	std::shared_ptr<Scene> nextState = Scene::CreateState(state);
 	// pause current state
 	if (!m_StateStack.empty()) {
 		m_StateStack.back()->Pause();
@@ -43,7 +43,7 @@ void GameStateMachine::PushState(StateType state)
 	m_pNextState = nextState;
 }
 
-void GameStateMachine::PopState()
+void SceneDirector::PopState()
 {
 	// cleanup the current state
 	if (!m_StateStack.empty()) {
@@ -58,7 +58,7 @@ void GameStateMachine::PopState()
 	}
 }
 
-void  GameStateMachine::PerformStateChange()
+void  SceneDirector::PerformStateChange()
 {
 	if (m_pNextState != 0)
 	{
@@ -83,4 +83,9 @@ void  GameStateMachine::PerformStateChange()
 	}
 
 	m_pNextState = 0;
+}
+
+void SceneDirector::HandleEvent(std::shared_ptr<InputEvent> ev)
+{
+	ev->HandledBy(CurrentState());
 }

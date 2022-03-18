@@ -125,6 +125,8 @@
     <OutDir>$(SolutionDir)\BIN-Nvidia\</OutDir>
     <IntDir>$(Configuration)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
+    <IncludePath>C:\Users\Administrator\source\repos\labyrinth\Box2D\box2d\include;C:\Users\Administrator\source\repos\labyrinth\TrainingFramework\src\GameStates;$(IncludePath)</IncludePath>
+    <AllProjectIncludesArePublic>true</AllProjectIncludesArePublic>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-AMD|Win32'">
     <OutDir>$(SolutionDir)\BIN-AMD\</OutDir>
@@ -190,6 +192,7 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <AdditionalDependencies>libEGL.lib;libGLESv2.lib;WinMM.Lib;soloud_static.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -335,6 +338,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Box2D\Box2D.vcxproj">
+      <Project>{53aabc35-618d-4d3f-b5ca-e63279c334c5}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\freetype\builds\windows\vc2019\freetype.vcxproj">
       <Project>{78b079bd-9fc7-4b9e-b4a6-96da0f00248b}</Project>
     </ProjectReference>
@@ -356,14 +362,22 @@
     <ClCompile Include="src\GameObject\SpriteAnimation.cpp" />
     <ClCompile Include="src\GameObject\Text.cpp" />
     <ClCompile Include="src\GameObject\Texture.cpp" />
-    <ClCompile Include="src\GameStates\GameStateBase.cpp" />
-    <ClCompile Include="src\GameStates\GameStateMachine.cpp" />
+    <ClCompile Include="src\GameStates\Canvas.cpp" />
+    <ClCompile Include="src\GameStates\Scene.cpp" />
+    <ClCompile Include="src\GameStates\SceneDirector.cpp" />
     <ClCompile Include="src\GameStates\GSIntro.cpp" />
     <ClCompile Include="src\GameStates\GSMenu.cpp" />
     <ClCompile Include="src\GameStates\GSPlay.cpp" />
+    <ClCompile Include="src\GameStates\InputEvent.cpp" />
     <ClCompile Include="src\TrainingFramework.cpp" />
+    <ClCompile Include="src\World\Player\attribute.cpp" />
+    <ClCompile Include="src\World\TopdownWorld.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\GameStates\Canvas.hpp" />
+    <ClInclude Include="src\GameStates\InputEvent.hpp" />
+    <ClInclude Include="src\World\Player\attribute.hpp" />
+    <ClInclude Include="src\World\TopdownWorld.hpp" />
     <ClInclude Include="src\Application.h" />
     <ClInclude Include="src\GameConfig.h" />
     <ClInclude Include="src\GameManager\ResourceManagers.h" />
@@ -379,11 +393,12 @@
     <ClInclude Include="src\GameObject\SpriteAnimation.h" />
     <ClInclude Include="src\GameObject\Text.h" />
     <ClInclude Include="src\GameObject\Texture.h" />
-    <ClInclude Include="src\GameStates\GameStateBase.h" />
-    <ClInclude Include="src\GameStates\GameStateMachine.h" />
+    <ClInclude Include="src\GameStates\Scene.h" />
+    <ClInclude Include="src\GameStates\SceneDirector.h" />
     <ClInclude Include="src\GameStates\GSIntro.h" />
     <ClInclude Include="src\GameStates\GSMenu.h" />
     <ClInclude Include="src\GameStates\GSPlay.h" />
+    <ClInclude Include="src\World\WorldObject.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

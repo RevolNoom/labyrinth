@@ -2,8 +2,9 @@
 #include "GameManager/Singleton.h"
 #include "GameConfig.h"
 #include <list>
+#include "InputEvent.hpp"
 
-class GameStateBase;
+class Scene;
 
 enum class StateType
 {
@@ -13,15 +14,15 @@ enum class StateType
 	STATE_PLAY
 };
 
-class GameStateMachine : public CSingleton<GameStateMachine>
+class SceneDirector : public CSingleton<SceneDirector>
 {
 public:
-	GameStateMachine();
-	~GameStateMachine();
+	SceneDirector();
+	~SceneDirector();
 
 	void	Cleanup();
 
-	void	ChangeState(std::shared_ptr<GameStateBase> state);
+	void	ChangeState(std::shared_ptr<Scene> state);
 	void	ChangeState(StateType stt);
 	void	PushState(StateType stt);
 	void	PopState();
@@ -30,7 +31,9 @@ public:
 	void	Quit() { m_running = false; }
 	void	PerformStateChange();
 
-	inline std::shared_ptr<GameStateBase> CurrentState()const
+	void	HandleEvent(std::shared_ptr<InputEvent> ev);
+
+	inline std::shared_ptr<Scene> CurrentState()const
 	{
 		return m_pActiveState;
 	}
@@ -46,9 +49,9 @@ public:
 	}
 
 private:
-	std::list < std::shared_ptr<GameStateBase>>	m_StateStack;
-	std::shared_ptr<GameStateBase>				m_pActiveState;
-	std::shared_ptr<GameStateBase>				m_pNextState;
+	std::list < std::shared_ptr<Scene>>	m_StateStack;
+	std::shared_ptr<Scene>				m_pActiveState;
+	std::shared_ptr<Scene>				m_pNextState;
 	bool	m_running;
 	bool	m_fullscreen;
 };

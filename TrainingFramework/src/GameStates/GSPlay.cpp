@@ -41,7 +41,7 @@ void GSPlay::Init()
 	button->Set2DPosition(Globals::screenWidth - 50, 50);
 	button->SetSize(50, 50);
 	button->SetOnClick([this]() {
-			GameStateMachine::GetInstance()->PopState();
+			SceneDirector::GetInstance()->PopState();
 		});
 	m_listButton.push_back(button);
 
@@ -80,22 +80,22 @@ void GSPlay::HandleEvents()
 {
 }
 
-void GSPlay::HandleKeyEvents(int key, bool bIsPressed)
+void GSPlay::HandleKeyPress(const InputEventKeyPress* ev)
 {
 }
 
-void GSPlay::HandleTouchEvents(int x, int y, bool bIsPressed)
+void GSPlay::HandleMouseClick(const InputEventMouseClick* ev)
 {
 	for (auto button : m_listButton)
 	{
-		if(button->HandleTouchEvents(x, y, bIsPressed))
+		if(button->HandleMouseClick(ev))
 		{
 			break;
 		}
 	}
 }
 
-void GSPlay::HandleMouseMoveEvents(int x, int y)
+void GSPlay::HandleMouseMotion(const InputEventMouseMotion* ev)
 {
 }
 

@@ -1,6 +1,6 @@
 #include "Application.h"
-#include "GameStates/GameStateMachine.h"
-#include "GameStates/GameStatebase.h"
+#include "GameStates/SceneDirector.h"
+#include "GameStates/Scene.h"
 
 Application::Application()
 {
@@ -19,42 +19,43 @@ void Application::Init()
 	// Create a 2D camera
 	m_camera = std::make_shared<Camera>(0, 0, Globals::screenWidth, 0, Globals::screenHeight, -1.0f, 1.0f, 10.0f);
 
-	GameStateMachine::GetInstance()->PushState(StateType::STATE_INTRO);
+	SceneDirector::GetInstance()->PushState(StateType::STATE_INTRO);
 }
-
 void Application::Update(GLfloat deltaTime)
 {
-	GameStateMachine::GetInstance()->PerformStateChange();
+	SceneDirector::GetInstance()->PerformStateChange();
 
-	if (GameStateMachine::GetInstance()->HasState())
-		GameStateMachine::GetInstance()->CurrentState()->Update(deltaTime);
+	if (SceneDirector::GetInstance()->HasState())
+		SceneDirector::GetInstance()->CurrentState()->Update(deltaTime);
 }
 
 void Application::Render()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	if (GameStateMachine::GetInstance()->HasState())
-		GameStateMachine::GetInstance()->CurrentState()->Draw();
+	if (SceneDirector::GetInstance()->HasState())
+		SceneDirector::GetInstance()->CurrentState()->Draw();
 }
 
-void Application::HandleKeyEvent(unsigned char key, bool bIsPresseded)
+void Application::HandleKeyEvent(unsigned char key, bool bIsPressed)
 {
-	if (GameStateMachine::GetInstance()->HasState())
-		GameStateMachine::GetInstance()->CurrentState()->HandleKeyEvents(key, bIsPresseded);
-
+	HandleEvent(std::make_shared<InputEventKeyPress>(key, bIsPressed));
 }
 
-void Application::HandleTouchEvent(GLint x, GLint y, bool bIsPresseded)
+void Application::HandleTouchEvent(GLint x, GLint y, bool bIsPressed)
 {
-	if (GameStateMachine::GetInstance()->HasState())
-		GameStateMachine::GetInstance()->CurrentState()->HandleTouchEvents(x, y, bIsPresseded);
+	HandleEvent(std::make_shared<InputEventMouseClick>(Vector2(x, y), bIsPressed));
 }
 
 void Application::HandleMouseMoveEvent(GLint x, GLint y)
 {
-	if (GameStateMachine::GetInstance()->HasState())
-		GameStateMachine::GetInstance()->CurrentState()->HandleMouseMoveEvents(x, y);
+	HandleEvent(std::make_shared<InputEventMouseMotion>(Vector2(x, y)));
+}
+
+void Application::HandleEvent(std::shared_ptr<InputEvent> ev)
+{
+	if (SceneDirector::GetInstance()->HasState())
+		SceneDirector::GetInstance()->HandleEvent(ev);
 }
 
 void Application::Exit()
