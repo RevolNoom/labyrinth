@@ -13,11 +13,11 @@
     <Filter Include="TrainingFramework\src\GameManager">
       <UniqueIdentifier>{7027cc7e-3941-43d3-9fd3-7009a76c222b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="TrainingFramework\src\GameStates">
-      <UniqueIdentifier>{2a875364-1a2b-4ea6-a6fe-716988208916}</UniqueIdentifier>
-    </Filter>
     <Filter Include="TrainingFramework\src\World">
       <UniqueIdentifier>{73e3daea-e13f-44e2-a9c3-59b6e5bf9666}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TrainingFramework\src\GameScenes">
+      <UniqueIdentifier>{0202c33c-5e35-4f4e-a2bb-ebbe246504c6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -51,21 +51,6 @@
     <ClCompile Include="src\GameObject\Font.cpp">
       <Filter>TrainingFramework\src\GameObject</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameStates\Scene.cpp">
-      <Filter>TrainingFramework\src\GameStates</Filter>
-    </ClCompile>
-    <ClCompile Include="src\GameStates\SceneDirector.cpp">
-      <Filter>TrainingFramework\src\GameStates</Filter>
-    </ClCompile>
-    <ClCompile Include="src\GameStates\GSIntro.cpp">
-      <Filter>TrainingFramework\src\GameStates</Filter>
-    </ClCompile>
-    <ClCompile Include="src\GameStates\GSMenu.cpp">
-      <Filter>TrainingFramework\src\GameStates</Filter>
-    </ClCompile>
-    <ClCompile Include="src\GameStates\GSPlay.cpp">
-      <Filter>TrainingFramework\src\GameStates</Filter>
-    </ClCompile>
     <ClCompile Include="src\GameManager\ResourceManagers.cpp">
       <Filter>TrainingFramework\src\GameManager</Filter>
     </ClCompile>
@@ -81,11 +66,20 @@
     <ClCompile Include="src\World\TopdownWorld.cpp">
       <Filter>TrainingFramework\src\World</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameStates\Canvas.cpp">
-      <Filter>TrainingFramework\src\GameStates</Filter>
+    <ClCompile Include="src\GameScenes\Canvas.cpp">
+      <Filter>TrainingFramework\src\GameScenes</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameStates\InputEvent.cpp">
-      <Filter>TrainingFramework\src\GameStates</Filter>
+    <ClCompile Include="src\GameScenes\InputEvent.cpp">
+      <Filter>TrainingFramework\src\GameScenes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameScenes\Scene.cpp">
+      <Filter>TrainingFramework\src\GameScenes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameScenes\SceneDirector.cpp">
+      <Filter>TrainingFramework\src\GameScenes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameScenes\SceneIntro.cpp">
+      <Filter>TrainingFramework\src\GameScenes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -125,21 +119,6 @@
     <ClInclude Include="src\GameObject\Font.h">
       <Filter>TrainingFramework\src\GameObject</Filter>
     </ClInclude>
-    <ClInclude Include="src\GameStates\Scene.h">
-      <Filter>TrainingFramework\src\GameStates</Filter>
-    </ClInclude>
-    <ClInclude Include="src\GameStates\SceneDirector.h">
-      <Filter>TrainingFramework\src\GameStates</Filter>
-    </ClInclude>
-    <ClInclude Include="src\GameStates\GSIntro.h">
-      <Filter>TrainingFramework\src\GameStates</Filter>
-    </ClInclude>
-    <ClInclude Include="src\GameStates\GSMenu.h">
-      <Filter>TrainingFramework\src\GameStates</Filter>
-    </ClInclude>
-    <ClInclude Include="src\GameStates\GSPlay.h">
-      <Filter>TrainingFramework\src\GameStates</Filter>
-    </ClInclude>
     <ClInclude Include="src\GameManager\ResourceManagers.h">
       <Filter>TrainingFramework\src\GameManager</Filter>
     </ClInclude>
@@ -158,11 +137,23 @@
     <ClInclude Include="src\World\WorldObject.hpp">
       <Filter>TrainingFramework\src\World</Filter>
     </ClInclude>
-    <ClInclude Include="src\GameStates\Canvas.hpp">
-      <Filter>TrainingFramework\src\GameStates</Filter>
+    <ClInclude Include="src\GameScenes\Canvas.hpp">
+      <Filter>TrainingFramework\src\GameScenes</Filter>
     </ClInclude>
-    <ClInclude Include="src\GameStates\InputEvent.hpp">
-      <Filter>TrainingFramework\src\GameStates</Filter>
+    <ClInclude Include="src\GameScenes\InputEvent.hpp">
+      <Filter>TrainingFramework\src\GameScenes</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameScenes\Music.hpp">
+      <Filter>TrainingFramework\src\GameScenes</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameScenes\Scene.h">
+      <Filter>TrainingFramework\src\GameScenes</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameScenes\SceneDirector.h">
+      <Filter>TrainingFramework\src\GameScenes</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameScenes\SceneIntro.h">
+      <Filter>TrainingFramework\src\GameScenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

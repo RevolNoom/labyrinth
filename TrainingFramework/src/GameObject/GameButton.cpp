@@ -16,30 +16,29 @@ void GameButton::SetOnClick(std::function<void(void)> pBtClick)
 
 bool GameButton::HandleMouseClick(const InputEventMouseClick* ev)
 {
-	GLint x = ev->GetPosition().x, y = ev->GetPosition().y;
 	bool isHandled = false;
-	if (ev->IsPressed())
+	if (ev->IsPressed() && MouseIsHoveringOnButton(ev))
 	{
-		if ((x > m_position.x - m_iWidth / 2) && (x < m_position.x + m_iWidth / 2)
-			&& (y > m_position.y - m_iHeight / 2) && (y < m_position.y + m_iHeight / 2))
-		{
-			// The button is being pressed down
-			m_isHolding = true;
-		}
+		m_isHolding = true;
 	}
 	else
 	{
-		if ((x > m_position.x - m_iWidth / 2) && (x < m_position.x + m_iWidth / 2)
-			&& (y > m_position.y - m_iHeight / 2) && (y < m_position.y + m_iHeight / 2)
-			&& m_isHolding == true)
+		// Only perform click action when the same button was pressed down and released
+		if (MouseIsHoveringOnButton(ev)	&& IsHolding())
 		{
-			// Only perform click action when the same button was pressed down and released
 			m_pBtClick();
 			isHandled = true;
 		}
 		m_isHolding = false;
 	}
 	return isHandled;
+}
+
+bool GameButton::MouseIsHoveringOnButton(const InputEventMouseClick* ev)
+{
+	GLint x = ev->GetPosition().x, y = ev->GetPosition().y;
+	return (x > m_position.x - m_iWidth / 2) && (x < m_position.x + m_iWidth / 2)
+		&& (y > m_position.y - m_iHeight / 2) && (y < m_position.y + m_iHeight / 2);
 }
 
 bool GameButton::IsHolding()

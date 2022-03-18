@@ -1,6 +1,6 @@
 #include "Application.h"
-#include "GameStates/SceneDirector.h"
-#include "GameStates/Scene.h"
+#include "GameScenes/SceneDirector.h"
+#include "GameScenes/Scene.h"
 
 Application::Application()
 {
@@ -18,23 +18,20 @@ void Application::Init()
 
 	// Create a 2D camera
 	m_camera = std::make_shared<Camera>(0, 0, Globals::screenWidth, 0, Globals::screenHeight, -1.0f, 1.0f, 10.0f);
-
-	SceneDirector::GetInstance()->PushState(StateType::STATE_INTRO);
+	
+	// Initiallize SceneDirector
+	SceneDirector::GetInstance();
 }
 void Application::Update(GLfloat deltaTime)
 {
-	SceneDirector::GetInstance()->PerformStateChange();
-
-	if (SceneDirector::GetInstance()->HasState())
-		SceneDirector::GetInstance()->CurrentState()->Update(deltaTime);
+	SceneDirector::GetInstance()->Update(deltaTime);
 }
 
 void Application::Render()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	if (SceneDirector::GetInstance()->HasState())
-		SceneDirector::GetInstance()->CurrentState()->Draw();
+	SceneDirector::GetInstance()->CurrentScene()->Draw();
 }
 
 void Application::HandleKeyEvent(unsigned char key, bool bIsPressed)
@@ -54,8 +51,7 @@ void Application::HandleMouseMoveEvent(GLint x, GLint y)
 
 void Application::HandleEvent(std::shared_ptr<InputEvent> ev)
 {
-	if (SceneDirector::GetInstance()->HasState())
-		SceneDirector::GetInstance()->HandleEvent(ev);
+	SceneDirector::GetInstance()->HandleEvent(ev);
 }
 
 void Application::Exit()

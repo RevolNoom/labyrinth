@@ -15,13 +15,10 @@ class WorldObject: public Sprite2D
 {
 public:
 	WorldObject(std::shared_ptr<Texture> texture):
-		Sprite2D()
+		Sprite2D(ResourceManagers::GetInstance()->GetModel("Sprite2D.nfg"),
+				ResourceManagers::GetInstance()->GetShader("TextureShader"),
+				texture)
 	{
-		// I know. I know. This introduces coupling between WorldObject and Rss Manager
-		// I don't think it's too much of a problem for this small game though
-		SetModels(ResourceManagers::GetInstance()->GetModel("Sprite2D.nfg"));
-		SetShaders(ResourceManagers::GetInstance()->GetShader("TextureShader"));
-		SetTexture(texture);
 		RegisterToWorld();
 	}
 

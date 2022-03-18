@@ -23,7 +23,6 @@ public:
 
 	virtual void Init() = 0;
 	virtual void Draw() = 0;
-	virtual void Update(GLfloat deltaTime) = 0;
 
 	void SetObjectID(GLuint id) { m_id = id; }
 	GLint GetObjectID(GLuint id) { return	m_id; }
@@ -52,6 +51,9 @@ public:
 	void SetScale(Vector3 scale) { m_scale = scale; }
 	Vector3 GetScale() { return m_scale; }
 
+
+	// OVERRIDE ME
+	virtual void Update(GLfloat deltaTime) {};
 
 	// OVERRIDE ME
 	virtual bool HandleMouseMotion(const InputEventMouseMotion* event) { return false; }

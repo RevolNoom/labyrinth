@@ -7,3 +7,10 @@
 **/*.recipe
 **/*.ilk
 **/*.cd
+**/.*
+**/*.exe
+**/*.lib
+**/*.pdb
+**/*.iobj
+**/*.ipdb
+**/*.FileListAbsolute.txt

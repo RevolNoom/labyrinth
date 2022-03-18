@@ -13,6 +13,8 @@ public:
 	bool	IsHolding();
 
 private:
+	bool	MouseIsHoveringOnButton(const InputEventMouseClick* ev);
+
 	std::function<void(void)>m_pBtClick;
 	bool	m_isHolding;
 };

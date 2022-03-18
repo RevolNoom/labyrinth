@@ -125,7 +125,7 @@
     <OutDir>$(SolutionDir)\BIN-Nvidia\</OutDir>
     <IntDir>$(Configuration)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>C:\Users\Administrator\source\repos\labyrinth\Box2D\box2d\include;C:\Users\Administrator\source\repos\labyrinth\TrainingFramework\src\GameStates;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Users\Administrator\source\repos\labyrinth\Box2D\box2d\include;C:\Users\Administrator\source\repos\labyrinth\TrainingFramework\src;C:\Users\Administrator\source\repos\labyrinth\TrainingFramework\src\GameScenes;$(IncludePath)</IncludePath>
     <AllProjectIncludesArePublic>true</AllProjectIncludesArePublic>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-AMD|Win32'">
@@ -362,20 +362,22 @@
     <ClCompile Include="src\GameObject\SpriteAnimation.cpp" />
     <ClCompile Include="src\GameObject\Text.cpp" />
     <ClCompile Include="src\GameObject\Texture.cpp" />
-    <ClCompile Include="src\GameStates\Canvas.cpp" />
-    <ClCompile Include="src\GameStates\Scene.cpp" />
-    <ClCompile Include="src\GameStates\SceneDirector.cpp" />
-    <ClCompile Include="src\GameStates\GSIntro.cpp" />
-    <ClCompile Include="src\GameStates\GSMenu.cpp" />
-    <ClCompile Include="src\GameStates\GSPlay.cpp" />
-    <ClCompile Include="src\GameStates\InputEvent.cpp" />
+    <ClCompile Include="src\GameScenes\Canvas.cpp" />
+    <ClCompile Include="src\GameScenes\InputEvent.cpp" />
+    <ClCompile Include="src\GameScenes\Scene.cpp" />
+    <ClCompile Include="src\GameScenes\SceneDirector.cpp" />
+    <ClCompile Include="src\GameScenes\SceneIntro.cpp" />
     <ClCompile Include="src\TrainingFramework.cpp" />
     <ClCompile Include="src\World\Player\attribute.cpp" />
     <ClCompile Include="src\World\TopdownWorld.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\GameStates\Canvas.hpp" />
-    <ClInclude Include="src\GameStates\InputEvent.hpp" />
+    <ClInclude Include="src\GameScenes\Canvas.hpp" />
+    <ClInclude Include="src\GameScenes\InputEvent.hpp" />
+    <ClInclude Include="src\GameScenes\Music.hpp" />
+    <ClInclude Include="src\GameScenes\Scene.h" />
+    <ClInclude Include="src\GameScenes\SceneDirector.h" />
+    <ClInclude Include="src\GameScenes\SceneIntro.h" />
     <ClInclude Include="src\World\Player\attribute.hpp" />
     <ClInclude Include="src\World\TopdownWorld.hpp" />
     <ClInclude Include="src\Application.h" />
@@ -393,11 +395,6 @@
     <ClInclude Include="src\GameObject\SpriteAnimation.h" />
     <ClInclude Include="src\GameObject\Text.h" />
     <ClInclude Include="src\GameObject\Texture.h" />
-    <ClInclude Include="src\GameStates\Scene.h" />
-    <ClInclude Include="src\GameStates\SceneDirector.h" />
-    <ClInclude Include="src\GameStates\GSIntro.h" />
-    <ClInclude Include="src\GameStates\GSMenu.h" />
-    <ClInclude Include="src\GameStates\GSPlay.h" />
     <ClInclude Include="src\World\WorldObject.hpp" />
   </ItemGroup>
   <ItemGroup>
