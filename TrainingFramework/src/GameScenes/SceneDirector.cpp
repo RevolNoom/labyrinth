@@ -1,7 +1,7 @@
 #include "SceneDirector.h"
 #include "Scene.h"
 #include "SceneIntro.h"
-#include "World/WorldObject.hpp"
+#include "World/SolidObject.hpp"
 #include "SpriteAnimation.h"
 #include "GameButton.h"
 
@@ -139,11 +139,11 @@ void SceneDirector::SetupScenePlay()
 	auto play = std::make_shared<Scene>();
 
 	auto model = ResourceManagers::GetInstance()->GetModel("Sprite2D.nfg");
-	auto texture = ResourceManagers::GetInstance()->GetTexture("bg_play1.tga");
 	auto shader = ResourceManagers::GetInstance()->GetShader("TextureShader");
 
 
 	// background
+	auto texture = ResourceManagers::GetInstance()->GetTexture("bg_play1.tga");
 	auto background = std::make_shared<Sprite2D>(model, shader, texture);
 	background->Set2DPosition((float)Globals::screenWidth / 2, (float)Globals::screenHeight / 2);
 	background->SetSize(Globals::screenWidth, Globals::screenHeight);
@@ -164,11 +164,21 @@ void SceneDirector::SetupScenePlay()
 	// score
 	shader = ResourceManagers::GetInstance()->GetShader("TextShader");
 	std::shared_ptr<Font> font = ResourceManagers::GetInstance()->GetFont("Brightly Crush Shine.otf");
-	auto score = std::make_shared< Text>(shader, font, "score: 10", TextColor::RED, 1.0);
+	auto score = std::make_shared<Text>(shader, font, "score: 10", TextColor::RED, 1.0);
 	score->Set2DPosition(Vector2(5, 25));
 	play->GetCanvas().Insert(3, score);
 
 
+	// Wall
+	auto wallTxtr = ResourceManagers::GetInstance()->GetTexture("WallVertical.tga");
+	std::shared_ptr<SolidObject> wall = std::make_shared<SolidObject>(wallTxtr);
+	wall->Set2DPosition(100, 100);
+	wall->SetSize(100, 100);
+	play->GetCanvas().Insert(2, wall);
+
+
+
+	// Animation
 	shader = ResourceManagers::GetInstance()->GetShader("Animation");
 	texture = ResourceManagers::GetInstance()->GetTexture("Actor1_2.tga");
 	auto obj = std::make_shared<SpriteAnimation>(model, shader, texture, 9, 6, 5, 0.1f);

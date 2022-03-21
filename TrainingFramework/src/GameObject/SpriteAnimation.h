@@ -4,7 +4,7 @@ class SpriteAnimation : public BaseObject
 {
 private:
 	std::string		m_Text;
-	void			CaculateWorldMatrix();
+	void			CalculateWorldMatrix();
 protected:
 	Vector2			m_Vec2DPos;
 	GLint			m_iHeight;

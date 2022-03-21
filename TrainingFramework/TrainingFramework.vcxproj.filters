@@ -81,6 +81,10 @@
     <ClCompile Include="src\GameScenes\SceneIntro.cpp">
       <Filter>TrainingFramework\src\GameScenes</Filter>
     </ClCompile>
+    <ClCompile Include="src\World\SolidObject.cpp">
+      <Filter>TrainingFramework\src\World</Filter>
+    </ClCompile>
+    <ClCompile Include="Cell.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Application.h">
@@ -134,7 +138,7 @@
     <ClInclude Include="src\World\Player\attribute.hpp">
       <Filter>TrainingFramework\src\World</Filter>
     </ClInclude>
-    <ClInclude Include="src\World\WorldObject.hpp">
+    <ClInclude Include="src\World\SolidObject.hpp">
       <Filter>TrainingFramework\src\World</Filter>
     </ClInclude>
     <ClInclude Include="src\GameScenes\Canvas.hpp">
@@ -155,6 +159,10 @@
     <ClInclude Include="src\GameScenes\SceneIntro.h">
       <Filter>TrainingFramework\src\GameScenes</Filter>
     </ClInclude>
+    <ClInclude Include="src\World\Maze\Maze.hpp">
+      <Filter>TrainingFramework\src\World</Filter>
+    </ClInclude>
+    <ClInclude Include="Cell.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

@@ -5,7 +5,7 @@
 #include "Camera.h"
 #include "Texture.h"
 
-void SpriteAnimation::CaculateWorldMatrix()
+void SpriteAnimation::CalculateWorldMatrix()
 {
 	Matrix m_Sc, m_T;
 	m_Sc.SetScale(m_scale);
@@ -40,7 +40,7 @@ SpriteAnimation::~SpriteAnimation()
 
 void SpriteAnimation::Init()
 {
-	CaculateWorldMatrix();
+	CalculateWorldMatrix();
 }
 
 void SpriteAnimation::Draw()
@@ -139,7 +139,7 @@ void SpriteAnimation::Set2DPosition(GLfloat width, GLfloat height)
 	float yy = 1.0 - (2.0 * m_Vec2DPos.y) /  Globals::screenHeight;
 	m_position = Vector3(xx, yy, 1.0);
 
-	CaculateWorldMatrix();
+	CalculateWorldMatrix();
 }
 
 void SpriteAnimation::Set2DPosition(Vector2 pos)
@@ -150,7 +150,7 @@ void SpriteAnimation::Set2DPosition(Vector2 pos)
 	float yy = 1.0 - (2.0 * m_Vec2DPos.y) /  Globals::screenHeight;
 	m_position = Vector3(xx, yy, 1.0);
 
-	CaculateWorldMatrix();
+	CalculateWorldMatrix();
 }
 
 Vector2 SpriteAnimation::Get2DPosition()
@@ -164,5 +164,5 @@ void SpriteAnimation::SetSize(GLint width, GLint height)
 	m_iWidth = width;
 	m_iHeight = height;
 	m_scale = Vector3((float)m_iWidth /  Globals::screenWidth, (float)m_iHeight /  Globals::screenHeight, 1);
-	CaculateWorldMatrix();
+	CalculateWorldMatrix();
 }
