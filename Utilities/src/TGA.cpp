@@ -85,7 +85,11 @@ void LoadUncompressedImage(char* pDest, char* pSrc, TGA_HEADER* pHeader)
 	int h = pHeader->height;
 	int rowSize = w * pHeader->bits / 8;
 	bool bInverted = ((pHeader->descriptor & (1 << 5)) != 0);
-	bInverted = !bInverted;
+	
+	// Rev's Mod:
+	// I have ABSOLUTELY no idea why you would flip an UncompressedImage,
+	// but not a compressed one
+	//bInverted = !bInverted;
 	for (int i = 0; i < h; i++)
 	{
 		char* pSrcRow = pSrc +

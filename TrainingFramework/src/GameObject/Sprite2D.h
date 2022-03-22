@@ -13,6 +13,13 @@ public:
 	Sprite2D(GLint id, std::shared_ptr<Model> model, std::shared_ptr<Shader> shader, std::shared_ptr<Texture> texture);
 	Sprite2D(GLint id, std::shared_ptr<Model> model, std::shared_ptr<Shader> shader, Vector4 color);
 	Sprite2D(std::shared_ptr<Model> model, std::shared_ptr<Shader> shader, std::shared_ptr<Texture> texture);
+
+	// Rev's mod:
+	// Obviously, a Sprite2D only use 
+	// Sprite2D.nfg model and TextureShader
+	// So, remove them from constructor
+	Sprite2D(std::shared_ptr<Texture> texture);
+	
 	~Sprite2D();
 
 	void		Init() override;
@@ -22,5 +29,6 @@ public:
 	void		Set2DPosition(GLint x, GLint y);
 	void		Set2DPosition(Vector2 position);
 	void		SetSize(GLint width, GLint height);
+
 };
 

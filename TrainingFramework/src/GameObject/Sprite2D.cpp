@@ -4,6 +4,7 @@
 #include "Camera.h"
 #include "Texture.h"
 #include "Application.h"
+#include "ResourceManagers.h"
 
 Sprite2D::Sprite2D(GLint id, std::shared_ptr<Model> model, std::shared_ptr<Shader> shader, std::shared_ptr<Texture> texture)
 	: BaseObject(id, model, shader, texture), m_iWidth(100), m_iHeight(50), m_vboId(0)
@@ -22,6 +23,12 @@ Sprite2D::Sprite2D(std::shared_ptr<Model> model, std::shared_ptr<Shader> shader,
 {
 	Init();
 }
+
+Sprite2D::Sprite2D(std::shared_ptr<Texture> texture):
+Sprite2D(ResourceManagers::GetInstance()->GetModel("Sprite2D.nfg"),
+		ResourceManagers::GetInstance()->GetShader("TextureShader"),
+		texture)
+{}
 
 Sprite2D::~Sprite2D()
 {

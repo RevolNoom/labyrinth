@@ -1,11 +1,10 @@
 #include "SolidObject.hpp"
 
 SolidObject::SolidObject(std::shared_ptr<Texture> texture, Vector2 pos) :
-	Sprite2D(ResourceManagers::GetInstance()->GetModel("Sprite2D.nfg"),
-		ResourceManagers::GetInstance()->GetShader("TextureShader"),
-		texture)
+	Sprite2D(texture)
 {
-	SetPosition(Vector3(pos.x, pos.y, 0));
+	//SetPosition(Vector3(pos.x, pos.y, 0));
+	Set2DPosition(pos);
 	RegisterToWorld(pos);
 }
 

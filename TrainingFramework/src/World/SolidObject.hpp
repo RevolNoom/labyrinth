@@ -25,8 +25,6 @@ private:
 	// TODO: Need to take into account of m_scale. 
 	Vector2	GetSize() const;
 
-	std::shared_ptr<Sprite2D> _sprite;
-
 	// Can't use shared_ptr here because
 	// b2World manage memory for this body already
 	// I guess?

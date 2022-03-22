@@ -19,6 +19,12 @@
     <Filter Include="TrainingFramework\src\GameScenes">
       <UniqueIdentifier>{0202c33c-5e35-4f4e-a2bb-ebbe246504c6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="TrainingFramework\src\World\Maze">
+      <UniqueIdentifier>{507d7db0-8d07-4737-896b-c15b051c7e58}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TrainingFramework\src\World\Player">
+      <UniqueIdentifier>{be14ba30-ff92-41d2-9b9f-1eeac22c45d8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Application.cpp">
@@ -84,7 +90,18 @@
     <ClCompile Include="src\World\SolidObject.cpp">
       <Filter>TrainingFramework\src\World</Filter>
     </ClCompile>
-    <ClCompile Include="Cell.cpp" />
+    <ClCompile Include="src\World\Maze\Cell.cpp">
+      <Filter>TrainingFramework\src\World\Maze</Filter>
+    </ClCompile>
+    <ClCompile Include="src\World\Player\Unit.cpp">
+      <Filter>TrainingFramework\src\World\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="src\World\Maze\MazeLayout.cpp">
+      <Filter>TrainingFramework\src\World\Maze</Filter>
+    </ClCompile>
+    <ClCompile Include="src\World\Maze\Maze.cpp">
+      <Filter>TrainingFramework\src\World\Maze</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Application.h">
@@ -159,12 +176,17 @@
     <ClInclude Include="src\GameScenes\SceneIntro.h">
       <Filter>TrainingFramework\src\GameScenes</Filter>
     </ClInclude>
-    <ClInclude Include="src\World\Maze\Maze.hpp">
-      <Filter>TrainingFramework\src\World</Filter>
+    <ClInclude Include="src\World\Maze\Cell.h">
+      <Filter>TrainingFramework\src\World\Maze</Filter>
     </ClInclude>
-    <ClInclude Include="Cell.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ClassDiagram.cd" />
+    <ClInclude Include="src\World\Player\Unit.hpp">
+      <Filter>TrainingFramework\src\World\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="src\World\Maze\Maze.hpp">
+      <Filter>TrainingFramework\src\World\Maze</Filter>
+    </ClInclude>
+    <ClInclude Include="src\World\Maze\MazeLayout.hpp">
+      <Filter>TrainingFramework\src\World\Maze</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

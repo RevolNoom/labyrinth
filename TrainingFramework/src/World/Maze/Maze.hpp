@@ -3,6 +3,9 @@
 
 #include <vector>
 #include <memory>
+#include "BaseObject.h"
+#include "MazeLayout.hpp"
+
 
 /*
  * How a maze is generated:
@@ -11,14 +14,21 @@
  * +) Randomly pick one cell for destination (Ariadne)
  * +) Randomly generates Items across the Maze
  */
-class Maze
+class Maze: public BaseObject
 {
+public:
+	Maze(Vector2 initPos, int width, int height);
+
+	void Init() override {}
+
+	void Draw() override;
+
+private:
+	MazeLayout _mzl;
 };
 
 
 
-
-// Defines the routes in a Maze
 // How a Maze layout is created:
 // +) Create an entrance
 // +) Apply BFS algorithm:
@@ -26,14 +36,6 @@ class Maze
 // 	-) Pick one undiscovered cell randomly
 // 	-) Connect that undiscovered cell to a random adjacent discovered one
 // 	-) Mark that cell as discovered
-class MazeLayout
-{
-public:
-
-private:
-//	std::vector<std::vector<std::shared_ptr<Site>>> _layout;
-};
-
 // class LayoutGenerator;
 
 // class ItemGenerator;

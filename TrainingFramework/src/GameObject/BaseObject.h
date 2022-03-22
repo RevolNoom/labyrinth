@@ -45,7 +45,12 @@ public:
 	void SetPosition(Vector3 position) { m_position = position; }
 	Vector3 GetPosition() { return m_position; }
 
-	void SetRotation(Vector3 rotation) { m_rotation = rotation; }
+	// Rev's mod:
+	// Without a world matrix recalculation,
+	// Derived-class objects wouldn't rotate 
+	// Such as Sprite2D, and possibly SpriteAnimation
+	void SetRotation(Vector3 rotation) { m_rotation = rotation; CalculateWorldMatrix(); }
+
 	Vector3 GetRotation() { return m_rotation; }
 
 	void SetScale(Vector3 scale) { m_scale = scale; }

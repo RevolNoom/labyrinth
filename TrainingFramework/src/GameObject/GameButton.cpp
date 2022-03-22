@@ -5,6 +5,10 @@ GameButton::GameButton(std::shared_ptr<Model> model, std::shared_ptr<Shader> sha
 {
 }
 
+GameButton::GameButton(std::shared_ptr<Texture> texture): Sprite2D(texture)
+{
+}
+
 GameButton::~GameButton()
 {
 }
