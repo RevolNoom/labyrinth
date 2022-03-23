@@ -87,7 +87,9 @@ void SceneDirector::SetupSceneMenu()
 	auto menu = std::make_shared<Scene>();
 	_scene[SCENE_ID::SCENE_MENU] = menu;
 
-	menu->GetCanvas().Insert(1, std::make_shared<Maze>(Vector2(0, 0), 2, 2));
+	menu->GetCanvas().Insert(1, std::make_shared<Maze>(30, 30));
+
+
 	/*
 	auto texture = ResourceManagers::GetInstance()->GetTexture("bg_main_menu.tga");
 
@@ -171,12 +173,6 @@ void SceneDirector::SetupScenePlay()
 	score->Set2DPosition(Vector2(5, 25));
 	play->GetCanvas().Insert(3, score);
 
-
-	// Wall
-	auto wallTxtr = ResourceManagers::GetInstance()->GetTexture("WallVertical.tga");
-	std::shared_ptr<SolidObject> wall = std::make_shared<SolidObject>(wallTxtr, Vector2(100,100));
-	wall->SetSize(100, 100);
-	play->GetCanvas().Insert(2, wall);
 
 
 

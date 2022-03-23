@@ -116,8 +116,7 @@ void Sprite2D::Set2DPosition(GLint x, GLint y)
 
 void Sprite2D::Set2DPosition(Vector2 position)
 {
-	m_position = Vector3(position.x, position.y, 0.0f);
-	CalculateWorldMatrix();
+	Set2DPosition(position.x, position.y);
 }
 
 void Sprite2D::SetSize(GLint width, GLint height)

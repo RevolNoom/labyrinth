@@ -26,9 +26,9 @@ public:
 	void		Draw() override;
 	void		Update(GLfloat deltatime) override;
 
-	void		Set2DPosition(GLint x, GLint y);
-	void		Set2DPosition(Vector2 position);
-	void		SetSize(GLint width, GLint height);
+	virtual void		Set2DPosition(GLint x, GLint y);
+	virtual void		Set2DPosition(Vector2 position);
+	virtual void		SetSize(GLint width, GLint height);
 
 };
 

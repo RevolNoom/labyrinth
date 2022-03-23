@@ -1,11 +1,11 @@
 #include "SolidObject.hpp"
 
-SolidObject::SolidObject(std::shared_ptr<Texture> texture, Vector2 pos) :
+SolidObject::SolidObject(std::shared_ptr<Texture> texture) :
 	Sprite2D(texture)
 {
 	//SetPosition(Vector3(pos.x, pos.y, 0));
-	Set2DPosition(pos);
-	RegisterToWorld(pos);
+	//Set2DPosition(pos);
+	//RegisterToWorld(pos);
 }
 
 void SolidObject::RegisterToWorld(Vector2 pos)

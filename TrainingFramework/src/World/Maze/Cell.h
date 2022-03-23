@@ -11,7 +11,7 @@ class Cell : public Sprite2D
 {
 public:
 
-	static constexpr int CORNER_SIZE = 25;
+	static constexpr int CORNER_SIZE = 2;
 	static constexpr int CELL_SIZE = 8 * CORNER_SIZE;
 	static constexpr int WALL_WIDTH = CORNER_SIZE;
 	static constexpr int WALL_HEIGHT = 6 * CORNER_SIZE;
@@ -31,22 +31,35 @@ public:
 		EAST = 2,
 		SOUTH = 3,
 
-		MASK = 0xF,
+		ALLWALL = 0xF,
 	}; 
 
-	// Yes. This is the Only constructor.
-	// Don't even try to make a default one.
-	// A cell needs to communicate with the Box2D world
-	// So it Must knows what initial position it's in
-	explicit Cell(Vector2 initPos);
+	Cell();
 
 	void Init() {}
 
 	void Draw();
-	
+
+	// Return the wall bits of this cell
+	int GetWalls();
+
+	// Set the walls into this configuration
 	void SetWalls(int wallBits);
 
+	// Add walls in specified positions, if they haven't been there already
+	void AddWalls(int wallBits);
+
+	// Remove the walls in specified positions, if they are still there
+	void RemoveWalls(int wallBits);
+
+
+	// The size in... uhhh... pixels (?) of this Cell
+	// TODO: I may remove it if I deem it useless
 	Vector2 GetSize() const;
+
+	virtual void Set2DPosition(Vector2 pos) override;
+
+
 
 private:
 	enum Corner
@@ -66,12 +79,15 @@ private:
 	};
 
 
-	void BuildCorners();
+	// Create objects
 	void BuildWalls();
+	void BuildCorners();
 
 	void DrawCorners();
 	void DrawWalls();
 
+	void SetWallPositions(Vector2 pos);
+	void SetCornerPositions(Vector2 pos);
 private:
 
 

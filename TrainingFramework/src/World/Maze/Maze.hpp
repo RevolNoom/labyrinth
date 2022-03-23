@@ -1,10 +1,10 @@
 #ifndef MAZE_HPP
 #define MAZE_HPP
 
+#include "BaseObject.h"
+#include "World/Maze/MazeLayoutGenerator.h"
 #include <vector>
 #include <memory>
-#include "BaseObject.h"
-#include "MazeLayout.hpp"
 
 
 /*
@@ -17,26 +17,17 @@
 class Maze: public BaseObject
 {
 public:
-	Maze(Vector2 initPos, int width, int height);
+	Maze(int width, int height);
 
 	void Init() override {}
 
 	void Draw() override;
 
 private:
-	MazeLayout _mzl;
+	std::shared_ptr<MazeLayout> _mzl;
 };
 
 
-
-// How a Maze layout is created:
-// +) Create an entrance
-// +) Apply BFS algorithm:
-// 	-) Find all undiscovered cells next to discovered ones
-// 	-) Pick one undiscovered cell randomly
-// 	-) Connect that undiscovered cell to a random adjacent discovered one
-// 	-) Mark that cell as discovered
-// class LayoutGenerator;
 
 // class ItemGenerator;
 

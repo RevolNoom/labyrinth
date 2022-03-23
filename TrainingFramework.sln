@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.1.32228.430
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32228.343
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TrainingFramework", "TrainingFramework\TrainingFramework.vcxproj", "{FC024EC8-32F4-4657-A2CB-14D2B3A931F8}"
 EndProject
@@ -14,7 +14,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.gitignore = .gitignore
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Box2D", "Box2D\Box2D.vcxproj", "{53AABC35-618D-4D3F-B5CA-E63279C334C5}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Box2D", "Box2D\Box2D.vcxproj", "{B0CC3369-927F-4AD9-9427-45E642F6255D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -132,38 +132,38 @@ Global
 		{78B079BD-9FC7-4B9E-B4A6-96DA0F00248B}.Release-Nvidia|Win32.Build.0 = Release|Win32
 		{78B079BD-9FC7-4B9E-B4A6-96DA0F00248B}.Release-Nvidia|x64.ActiveCfg = Release-AMD|x64
 		{78B079BD-9FC7-4B9E-B4A6-96DA0F00248B}.Release-Nvidia|x64.Build.0 = Release-AMD|x64
-		{53AABC35-618D-4D3F-B5CA-E63279C334C5}.Debug|Win32.ActiveCfg = Debug|Win32
-		{53AABC35-618D-4D3F-B5CA-E63279C334C5}.Debug|Win32.Build.0 = Debug|Win32
-		{53AABC35-618D-4D3F-B5CA-E63279C334C5}.Debug|x64.ActiveCfg = Debug|x64
-		{53AABC35-618D-4D3F-B5CA-E63279C334C5}.Debug|x64.Build.0 = Debug|x64
-		{53AABC35-618D-4D3F-B5CA-E63279C334C5}.Debug-AMD|Win32.ActiveCfg = Debug|Win32
-		{53AABC35-618D-4D3F-B5CA-E63279C334C5}.Debug-AMD|Win32.Build.0 = Debug|Win32
-		{53AABC35-618D-4D3F-B5CA-E63279C334C5}.Debug-AMD|x64.ActiveCfg = Debug|x64
-		{53AABC35-618D-4D3F-B5CA-E63279C334C5}.Debug-AMD|x64.Build.0 = Debug|x64
-		{53AABC35-618D-4D3F-B5CA-E63279C334C5}.Debug-Angle|Win32.ActiveCfg = Debug|Win32
-		{53AABC35-618D-4D3F-B5CA-E63279C334C5}.Debug-Angle|Win32.Build.0 = Debug|Win32
-		{53AABC35-618D-4D3F-B5CA-E63279C334C5}.Debug-Angle|x64.ActiveCfg = Debug|x64
-		{53AABC35-618D-4D3F-B5CA-E63279C334C5}.Debug-Angle|x64.Build.0 = Debug|x64
-		{53AABC35-618D-4D3F-B5CA-E63279C334C5}.Debug-Nvidia|Win32.ActiveCfg = Debug|Win32
-		{53AABC35-618D-4D3F-B5CA-E63279C334C5}.Debug-Nvidia|Win32.Build.0 = Debug|Win32
-		{53AABC35-618D-4D3F-B5CA-E63279C334C5}.Debug-Nvidia|x64.ActiveCfg = Debug|x64
-		{53AABC35-618D-4D3F-B5CA-E63279C334C5}.Debug-Nvidia|x64.Build.0 = Debug|x64
-		{53AABC35-618D-4D3F-B5CA-E63279C334C5}.Release|Win32.ActiveCfg = Release|Win32
-		{53AABC35-618D-4D3F-B5CA-E63279C334C5}.Release|Win32.Build.0 = Release|Win32
-		{53AABC35-618D-4D3F-B5CA-E63279C334C5}.Release|x64.ActiveCfg = Release|x64
-		{53AABC35-618D-4D3F-B5CA-E63279C334C5}.Release|x64.Build.0 = Release|x64
-		{53AABC35-618D-4D3F-B5CA-E63279C334C5}.Release-AMD|Win32.ActiveCfg = Release|Win32
-		{53AABC35-618D-4D3F-B5CA-E63279C334C5}.Release-AMD|Win32.Build.0 = Release|Win32
-		{53AABC35-618D-4D3F-B5CA-E63279C334C5}.Release-AMD|x64.ActiveCfg = Release|x64
-		{53AABC35-618D-4D3F-B5CA-E63279C334C5}.Release-AMD|x64.Build.0 = Release|x64
-		{53AABC35-618D-4D3F-B5CA-E63279C334C5}.Release-Angle|Win32.ActiveCfg = Release|Win32
-		{53AABC35-618D-4D3F-B5CA-E63279C334C5}.Release-Angle|Win32.Build.0 = Release|Win32
-		{53AABC35-618D-4D3F-B5CA-E63279C334C5}.Release-Angle|x64.ActiveCfg = Release|x64
-		{53AABC35-618D-4D3F-B5CA-E63279C334C5}.Release-Angle|x64.Build.0 = Release|x64
-		{53AABC35-618D-4D3F-B5CA-E63279C334C5}.Release-Nvidia|Win32.ActiveCfg = Release|Win32
-		{53AABC35-618D-4D3F-B5CA-E63279C334C5}.Release-Nvidia|Win32.Build.0 = Release|Win32
-		{53AABC35-618D-4D3F-B5CA-E63279C334C5}.Release-Nvidia|x64.ActiveCfg = Release|x64
-		{53AABC35-618D-4D3F-B5CA-E63279C334C5}.Release-Nvidia|x64.Build.0 = Release|x64
+		{B0CC3369-927F-4AD9-9427-45E642F6255D}.Debug|Win32.ActiveCfg = Debug|Win32
+		{B0CC3369-927F-4AD9-9427-45E642F6255D}.Debug|Win32.Build.0 = Debug|Win32
+		{B0CC3369-927F-4AD9-9427-45E642F6255D}.Debug|x64.ActiveCfg = Debug|x64
+		{B0CC3369-927F-4AD9-9427-45E642F6255D}.Debug|x64.Build.0 = Debug|x64
+		{B0CC3369-927F-4AD9-9427-45E642F6255D}.Debug-AMD|Win32.ActiveCfg = Debug|Win32
+		{B0CC3369-927F-4AD9-9427-45E642F6255D}.Debug-AMD|Win32.Build.0 = Debug|Win32
+		{B0CC3369-927F-4AD9-9427-45E642F6255D}.Debug-AMD|x64.ActiveCfg = Debug|x64
+		{B0CC3369-927F-4AD9-9427-45E642F6255D}.Debug-AMD|x64.Build.0 = Debug|x64
+		{B0CC3369-927F-4AD9-9427-45E642F6255D}.Debug-Angle|Win32.ActiveCfg = Debug|Win32
+		{B0CC3369-927F-4AD9-9427-45E642F6255D}.Debug-Angle|Win32.Build.0 = Debug|Win32
+		{B0CC3369-927F-4AD9-9427-45E642F6255D}.Debug-Angle|x64.ActiveCfg = Debug|x64
+		{B0CC3369-927F-4AD9-9427-45E642F6255D}.Debug-Angle|x64.Build.0 = Debug|x64
+		{B0CC3369-927F-4AD9-9427-45E642F6255D}.Debug-Nvidia|Win32.ActiveCfg = Debug|Win32
+		{B0CC3369-927F-4AD9-9427-45E642F6255D}.Debug-Nvidia|Win32.Build.0 = Debug|Win32
+		{B0CC3369-927F-4AD9-9427-45E642F6255D}.Debug-Nvidia|x64.ActiveCfg = Debug|x64
+		{B0CC3369-927F-4AD9-9427-45E642F6255D}.Debug-Nvidia|x64.Build.0 = Debug|x64
+		{B0CC3369-927F-4AD9-9427-45E642F6255D}.Release|Win32.ActiveCfg = Release|Win32
+		{B0CC3369-927F-4AD9-9427-45E642F6255D}.Release|Win32.Build.0 = Release|Win32
+		{B0CC3369-927F-4AD9-9427-45E642F6255D}.Release|x64.ActiveCfg = Release|x64
+		{B0CC3369-927F-4AD9-9427-45E642F6255D}.Release|x64.Build.0 = Release|x64
+		{B0CC3369-927F-4AD9-9427-45E642F6255D}.Release-AMD|Win32.ActiveCfg = Release|Win32
+		{B0CC3369-927F-4AD9-9427-45E642F6255D}.Release-AMD|Win32.Build.0 = Release|Win32
+		{B0CC3369-927F-4AD9-9427-45E642F6255D}.Release-AMD|x64.ActiveCfg = Release|x64
+		{B0CC3369-927F-4AD9-9427-45E642F6255D}.Release-AMD|x64.Build.0 = Release|x64
+		{B0CC3369-927F-4AD9-9427-45E642F6255D}.Release-Angle|Win32.ActiveCfg = Release|Win32
+		{B0CC3369-927F-4AD9-9427-45E642F6255D}.Release-Angle|Win32.Build.0 = Release|Win32
+		{B0CC3369-927F-4AD9-9427-45E642F6255D}.Release-Angle|x64.ActiveCfg = Release|x64
+		{B0CC3369-927F-4AD9-9427-45E642F6255D}.Release-Angle|x64.Build.0 = Release|x64
+		{B0CC3369-927F-4AD9-9427-45E642F6255D}.Release-Nvidia|Win32.ActiveCfg = Release|Win32
+		{B0CC3369-927F-4AD9-9427-45E642F6255D}.Release-Nvidia|Win32.Build.0 = Release|Win32
+		{B0CC3369-927F-4AD9-9427-45E642F6255D}.Release-Nvidia|x64.ActiveCfg = Release|x64
+		{B0CC3369-927F-4AD9-9427-45E642F6255D}.Release-Nvidia|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

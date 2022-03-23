@@ -14,7 +14,7 @@
 class SolidObject: public Sprite2D
 {
 public:
-	SolidObject(std::shared_ptr<Texture> texture, Vector2 pos);
+	SolidObject(std::shared_ptr<Texture> texture);
 
 private:
 	void RegisterToWorld(Vector2 pos);

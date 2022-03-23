@@ -1,6 +1,6 @@
 #include "Unit.hpp"
 Theseus::Theseus(std::string animTextrName, Vector2 initPos):
-	SolidObject(std::shared_ptr<Texture>(nullptr), initPos)
+	SolidObject(std::shared_ptr<Texture>(nullptr))
 {
 	/*
 	auto model = ResourceManagers::GetInstance()->GetModel("Sprite2D.nfg");
