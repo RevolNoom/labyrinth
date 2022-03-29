@@ -46,7 +46,6 @@ private:
 	void SetupSceneMenu();
 	void SetupScenePlay();
 
-
 private:
 	std::map <SCENE__ID, std::shared_ptr<Scene>>	_scene;
 	std::list < std::shared_ptr<Scene>>	_sceneStack;

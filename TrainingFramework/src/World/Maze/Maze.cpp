@@ -51,6 +51,12 @@ void Maze::Draw()
 }
 
 
+void Maze::SetEnable(bool enable)
+{
+	for (auto& c : _cells)
+		c.SetEnable(enable);
+}
+
 void Maze::Set2DPosition(Vector2 topLeftCornerPos)
 {
 	for (int col = 0; col < _size.first; ++col)

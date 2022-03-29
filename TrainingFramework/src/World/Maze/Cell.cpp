@@ -14,6 +14,9 @@ void Cell::RegisterToWorld(b2World* world)
 {
 	for (auto& w : _wallObj)
 		w->RegisterToWorld(world);
+
+	// Enabling wall collision
+	SetOrganization(GetOrganization());
 }
 
 void Cell::BuildWalls()
@@ -59,7 +62,6 @@ void Cell::DrawWalls()
 									{WallOrganization::Direction::E, EAST},
 									{WallOrganization::Direction::S ,SOUTH} };
 
-	//std::cout << "Draw wall: " << _worg.Value() << "\n";
 	for (auto& w : wall)
 	{
 		if (_worg.HasWalls(w.first))
@@ -71,9 +73,28 @@ void Cell::SetOrganization(WallOrganization org)
 {
 	// TODO: Disable/Enable walls
 	_worg = org;
+
+	using WALL_BIT = WallOrganization::Direction;
+	using WALL_INDEX = int;
+	std::pair<WALL_BIT, WALL_INDEX> wall[]{
+									{WallOrganization::Direction::W, WEST},
+									{WallOrganization::Direction::N, NORTH},
+									{WallOrganization::Direction::E, EAST},
+									{WallOrganization::Direction::S ,SOUTH} };
+
+	// Set/Reset Enabled state
+	// Only when walls are up
+	for (auto& w : wall)
+		_wallObj[w.second]->SetEnable(_worg.HasWalls(w.first));
 }
 
 
+
+void Cell::SetEnable(bool enable)
+{
+	for (auto& w : _wallObj)
+		w->SetEnable(enable);
+}
 
 void Cell::Set2DPosition(Vector2 pos)
 {

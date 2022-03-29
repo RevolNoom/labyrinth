@@ -31,13 +31,15 @@ public:
 	// OVERRIDE ME
 	virtual void SetVelocity(Vector2 velocity) {};
 
+	virtual void SetEnable(bool enable) = 0;
+
 	b2Vec2 ToPhysicCoordinate(Vector2 graphicalWorldCoord);
 	b2Vec2 ToPhysicCoordinate(Vector3 graphicalWorldCoord);
 	Vector2 ToGraphicCoordinate(b2Vec2 physicalWorldCoord);
 
 private:
 
-	static constexpr float GRAPHIC_TO_PHYSIC_SIZE_RATIO = 100;
+	static constexpr float GRAPHIC_TO_PHYSIC_SIZE_RATIO = 1;
 
 
 	// virtual void GetPosition() = 0

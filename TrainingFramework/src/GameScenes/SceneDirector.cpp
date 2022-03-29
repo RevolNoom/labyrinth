@@ -80,7 +80,7 @@ void SceneDirector::SetupScenes()
 
 void SceneDirector::SetupSceneIntro()
 {
-	_scene[SCENE_ID::SCENE_INTRO] = std::make_shared<SceneIntro>();
+	_scene[SCENE_ID::SCENE_INTRO] = std::make_shared<ScenePlay>();// std::make_shared<SceneIntro>();
 }
 
 
@@ -88,7 +88,7 @@ void SceneDirector::SetupSceneIntro()
 void SceneDirector::SetupSceneMenu()
 {
 	// TODO: I'm putting ScenePlay here for debuggin
-	_scene[SCENE_ID::SCENE_MENU] = std::make_shared<ScenePlay>();
+	//_scene[SCENE_ID::SCENE_MENU] = std::make_shared<ScenePlay>();
 
 
 	/*

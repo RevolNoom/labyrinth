@@ -1,7 +1,7 @@
 #include "Wall.h"
 
 Wall::Wall(std::shared_ptr<Texture> texture):
-	Sprite2D(texture)
+	Sprite2D(texture), _body(nullptr)
 {
 
 }
@@ -13,8 +13,8 @@ void Wall::RegisterToWorld(b2World* world)
 	// Specify the initial position of the body
 	b2BodyDef groundBodyDef;
 	groundBodyDef.type = b2BodyType::b2_staticBody;// A wall does not move
-	auto phyPos = ToPhysicCoordinate(GetPosition());
 
+	auto phyPos = ToPhysicCoordinate(GetPosition());
 	groundBodyDef.position.Set(phyPos.x, phyPos.y);
 	groundBodyDef.angle = GetRotation().z; // Set the body rotation
 
@@ -23,11 +23,18 @@ void Wall::RegisterToWorld(b2World* world)
 
 	// Create the collision shape for this body
 	b2PolygonShape groundBox;
-	auto phySize = ToPhysicCoordinate(GetSize()); 
-	std::cout << "Wall _body Size: " << phySize.x << " " << phySize.y << "\n";
+	auto phySize = ToPhysicCoordinate(GetSize()/2); 
 	groundBox.SetAsBox(phySize.x, phySize.y);
 
 	// Attach the body to the shape
 	_body->CreateFixture(&groundBox, 0);
-	std::cout << "Wall _body Pos: " << _body->GetPosition().x << " " << _body->GetPosition().y << "\n";
+
+	//std::cout << "Wall _body Size: " << phySize.x << " " << phySize.y << "\n";
+	//std::cout << "Wall _body Pos: " << _body->GetPosition().x << " " << _body->GetPosition().y << "\n";
+}
+
+void Wall::SetEnable(bool enable)
+{
+	if (_body)
+		_body->SetEnabled(enable);
 }

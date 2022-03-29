@@ -27,6 +27,7 @@ public:
 
 	void Draw() override;
 
+	virtual void SetEnable(bool enable) override;
 	virtual void Set2DPosition(Vector2 newPos) override;
 
 	// TODO: Put this back to private after debugging

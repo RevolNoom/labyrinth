@@ -87,10 +87,9 @@ public:
 	// TODO: I may remove it if I deem it useless
 	Vector2 GetSize() const;
 
+	virtual void SetEnable(bool enable) override;
 	virtual void Set2DPosition(Vector2 pos) override;
 
-	// Debugging
-	std::shared_ptr<Wall> wall() { return _wallObj[0]; };
 private:
 	enum
 	{

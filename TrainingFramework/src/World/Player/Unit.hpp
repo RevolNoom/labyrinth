@@ -22,6 +22,8 @@ public:
 
 	virtual void Draw() override;
 	virtual void Update(float delta) override;
+	virtual void SetEnable(bool enable) override;
+	virtual void Set2DPosition(Vector2 newPos) override;
 
 	virtual bool HandleKeyPress(const InputEventKeyPress* ev) override;
 
