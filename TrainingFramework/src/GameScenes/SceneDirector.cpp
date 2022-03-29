@@ -1,10 +1,13 @@
 #include "SceneDirector.h"
 #include "Scene.h"
 #include "SceneIntro.h"
-#include "World/SolidObject.hpp"
+#include "ScenePlay.h"
+
+#include "World/PhysicObject.hpp"
 #include "SpriteAnimation.h"
 #include "GameButton.h"
 #include "World/Maze/Maze.hpp"
+#include "World/Player/Unit.hpp"
 
 SceneDirector::SceneDirector() : m_running(true), m_fullscreen(false)
 {
@@ -84,10 +87,8 @@ void SceneDirector::SetupSceneIntro()
 
 void SceneDirector::SetupSceneMenu()
 {
-	auto menu = std::make_shared<Scene>();
-	_scene[SCENE_ID::SCENE_MENU] = menu;
-
-	menu->GetCanvas().Insert(1, std::make_shared<Maze>(30, 30));
+	// TODO: I'm putting ScenePlay here for debuggin
+	_scene[SCENE_ID::SCENE_MENU] = std::make_shared<ScenePlay>();
 
 
 	/*
@@ -127,10 +128,6 @@ void SceneDirector::SetupSceneMenu()
 	textGameName->Set2DPosition(Vector2(60, 200));
 	menu->GetCanvas().Insert(3, textGameName);
 
-	auto cell = std::make_shared<Cell>(Vector2(200, 200));
-	cell->SetWalls(Cell::Wall::N | Cell::Wall::E);
-	menu->GetCanvas().Insert(2, cell);
-
 	// Some cheery music
 	menu->SetBackgroundMusic(Music("Alarm01.wav"));
 
@@ -144,49 +141,5 @@ void SceneDirector::SetupSceneMenu()
 
 void SceneDirector::SetupScenePlay()
 {
-	auto play = std::make_shared<Scene>();
-
-
-	// background
-	auto texture = ResourceManagers::GetInstance()->GetTexture("bg_play1.tga");
-	auto background = std::make_shared<Sprite2D>(texture);
-	background->Set2DPosition((float)Globals::screenWidth / 2, (float)Globals::screenHeight / 2);
-	background->SetSize(Globals::screenWidth, Globals::screenHeight);
-	play->GetCanvas().Insert(1, background);
-
-
-	// button close
-	texture = ResourceManagers::GetInstance()->GetTexture("btn_close.tga");
-	auto button = std::make_shared<GameButton>(texture);
-	button->Set2DPosition(Globals::screenWidth - 50, 50);
-	button->SetSize(50, 50);
-	button->SetOnClick([this]() {
-		SceneDirector::GetInstance()->PopScene();
-		});
-	play->GetCanvas().Insert(4, button);
-
-
-	// score
-	auto shader = ResourceManagers::GetInstance()->GetShader("TextShader");
-	std::shared_ptr<Font> font = ResourceManagers::GetInstance()->GetFont("Brightly Crush Shine.otf");
-	auto score = std::make_shared<Text>(shader, font, "score: 10", TextColor::RED, 1.0);
-	score->Set2DPosition(Vector2(5, 25));
-	play->GetCanvas().Insert(3, score);
-
-
-
-
-	// Animation
-	/*
-	shader = ResourceManagers::GetInstance()->GetShader("Animation");
-	texture = ResourceManagers::GetInstance()->GetTexture("Actor1_2.tga");
-	auto obj = std::make_shared<SpriteAnimation>(texture, 9, 6, 5, 0.1f);
-	obj->Set2DPosition(240, 400);
-	obj->SetSize(334, 223);
-	//obj->SetRotation(Vector3(0.0f, 3.14f, 0.0f));
-	play->GetCanvas().Insert(2, obj);
-	*/
-
-
-	_scene[SCENE_ID::SCENE_PLAY] = play;
+	//_scene[SCENE_ID::SCENE_PLAY] = std::make_shared<ScenePlay>();
 }

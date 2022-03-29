@@ -8,29 +8,30 @@
 class MazeLayout
 {
 public:
+	using Coordinate = std::pair<int, int>;
 
 	// Create a Maze of width x height
 	// Width, height > 0
-	MazeLayout(int width, int height, Vector2 initPos = Vector2(0, 0));
+	MazeLayout(int width, int height);//, Vector2 initPos = Vector2(0, 0));
 
-	void Draw();
+	//void Draw();
 
-	// Return the cell on plane Oxy
+	// Return the wall organization of this cell
 	// with O at the Top Left corner
-	std::shared_ptr<Cell> GetCell(int x, int y);
+	WallOrganization& GetCell(int x, int y);
 
 	// Return <width, height>
-	std::pair<int, int> GetSize() const;
+	Coordinate GetSize() const;
 
 	// Set the position of the layout's Top Left corner
-	void Set2DPosition(Vector2 topLeftCornerPos);
+	// void Set2DPosition(Vector2 topLeftCornerPos);
 
 private:
 
 	Vector2 _pos;
 
-	int _width, _height;
-	std::vector<std::shared_ptr<Cell>> _layout;
+	Coordinate _size;
+	std::vector<WallOrganization> _layout;
 };
 
 #endif /* MAZE_LAYOUT_HPP */

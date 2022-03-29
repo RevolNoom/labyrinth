@@ -2,9 +2,6 @@
 #include "BaseObject.h"
 class SpriteAnimation : public BaseObject
 {
-private:
-	std::string		m_Text;
-	void			CalculateWorldMatrix();
 protected:
 	Vector2			m_Vec2DPos;
 	GLint			m_iHeight;
@@ -24,8 +21,8 @@ public:
 	void		Draw() final;
 	void		Update(GLfloat deltatime) override;
 
-	void		Set2DPosition(GLfloat x, GLfloat y);
-	void		Set2DPosition(Vector2 pos);
+	void		Set2DPosition(GLint x, GLint y);
+	void		SetRotation(Vector3 rotation);
 
 	Vector2		Get2DPosition();
 	void		SetSize(GLint width, GLint height);

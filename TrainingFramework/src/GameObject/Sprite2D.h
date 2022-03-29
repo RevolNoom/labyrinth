@@ -30,5 +30,7 @@ public:
 	virtual void		Set2DPosition(Vector2 position);
 	virtual void		SetSize(GLint width, GLint height);
 
+	Vector2 GetSize();
+
 };
 

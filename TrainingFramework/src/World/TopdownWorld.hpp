@@ -11,10 +11,10 @@
 class TopdownWorld
 {
 public:
-	static std::shared_ptr<b2World> get_instance()
+	static b2World* get_instance()
 	{
 		if (_singleton == nullptr)
-			_singleton = std::make_shared<b2World>(b2Vec2(0, 0));
+			_singleton = new b2World(b2Vec2(0, 0));
 		return _singleton;
 	}
 
@@ -22,7 +22,7 @@ public:
 	{
 	}
 private:
-	static std::shared_ptr<b2World> _singleton ;
+	static b2World* _singleton ;
 };
 
 

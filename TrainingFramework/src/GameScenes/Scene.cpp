@@ -15,7 +15,7 @@ void Scene::Init() {}
 
 void Scene::HandleEvent(std::shared_ptr<InputEvent> ev)
 {
-	for (auto obj : _canvas.GetAll())
+	for (auto &obj : _canvas.GetAll())
 		if (ev->HandledBy(obj))
 			break;
 }

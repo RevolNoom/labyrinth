@@ -29,9 +29,9 @@ public:
 	virtual bool HandledBy(std::shared_ptr<BaseObject> obj) const override;
 
 	bool IsPressed() const {return _isPressed;}
-	bool Key() const {return _key;}
+	unsigned int Key() const {return _key;}
 private:
-	int _key;
+	unsigned int _key;
 	bool _isPressed;
 };
 

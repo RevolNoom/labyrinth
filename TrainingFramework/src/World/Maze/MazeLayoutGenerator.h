@@ -18,9 +18,7 @@ public:
 	std::shared_ptr<MazeLayout> Generate(int width, int height);
 
 private:
-	using X = int;
-	using Y = int;
-	using Coordinate = std::pair < X, Y>;
+	using Coordinate = MazeLayout::Coordinate;
 
 	// Pick Entrances and smash a way in
 	std::vector<Coordinate> PickEntrances(int numOfEntrances, std::shared_ptr<MazeLayout> layout);

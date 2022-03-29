@@ -370,27 +370,31 @@
     <ClCompile Include="src\GameScenes\Scene.cpp" />
     <ClCompile Include="src\GameScenes\SceneDirector.cpp" />
     <ClCompile Include="src\GameScenes\SceneIntro.cpp" />
+    <ClCompile Include="src\GameScenes\ScenePlay.cpp" />
     <ClCompile Include="src\TrainingFramework.cpp" />
     <ClCompile Include="src\World\Maze\Cell.cpp" />
     <ClCompile Include="src\World\Maze\Maze.cpp" />
     <ClCompile Include="src\World\Maze\MazeLayout.cpp" />
     <ClCompile Include="src\World\Maze\MazeLayoutGenerator.cpp" />
+    <ClCompile Include="src\World\Maze\Wall.cpp" />
     <ClCompile Include="src\World\Player\attribute.cpp" />
     <ClCompile Include="src\World\Player\Unit.cpp" />
-    <ClCompile Include="src\World\SolidObject.cpp" />
+    <ClCompile Include="src\World\PhysicObject.cpp" />
     <ClCompile Include="src\World\TopdownWorld.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="MazeLayoutGenerator.h" />
     <ClInclude Include="src\GameScenes\Canvas.hpp" />
     <ClInclude Include="src\GameScenes\InputEvent.hpp" />
     <ClInclude Include="src\GameScenes\Music.hpp" />
     <ClInclude Include="src\GameScenes\Scene.h" />
     <ClInclude Include="src\GameScenes\SceneDirector.h" />
     <ClInclude Include="src\GameScenes\SceneIntro.h" />
+    <ClInclude Include="src\GameScenes\ScenePlay.h" />
     <ClInclude Include="src\World\Maze\Cell.h" />
     <ClInclude Include="src\World\Maze\Maze.hpp" />
     <ClInclude Include="src\World\Maze\MazeLayout.hpp" />
+    <ClInclude Include="src\World\Maze\MazeLayoutGenerator.h" />
+    <ClInclude Include="src\World\Maze\Wall.h" />
     <ClInclude Include="src\World\Player\attribute.hpp" />
     <ClInclude Include="src\World\Player\Unit.hpp" />
     <ClInclude Include="src\World\TopdownWorld.hpp" />
@@ -409,7 +413,7 @@
     <ClInclude Include="src\GameObject\SpriteAnimation.h" />
     <ClInclude Include="src\GameObject\Text.h" />
     <ClInclude Include="src\GameObject\Texture.h" />
-    <ClInclude Include="src\World\SolidObject.hpp" />
+    <ClInclude Include="src\World\PhysicObject.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

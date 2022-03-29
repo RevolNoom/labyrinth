@@ -14,17 +14,27 @@
  * +) Randomly pick one cell for destination (Ariadne)
  * +) Randomly generates Items across the Maze
  */
-class Maze: public BaseObject
+class Maze: public Sprite2D, public PhysicObject
 {
 public:
 	Maze(int width, int height);
+
+	virtual void RegisterToWorld(b2World* world);
+
+	void SwapLayout(std::shared_ptr<MazeLayout> l);
 
 	void Init() override {}
 
 	void Draw() override;
 
+	virtual void Set2DPosition(Vector2 newPos) override;
+
+	// TODO: Put this back to private after debugging
+	Cell& GetCell(int row, int col);
 private:
-	std::shared_ptr<MazeLayout> _mzl;
+
+	MazeLayout::Coordinate _size;
+	std::vector<Cell> _cells;
 };
 
 

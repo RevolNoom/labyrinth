@@ -16,6 +16,7 @@ void main()
 	vec4 posL = vec4(a_posL, 1.0);
 	gl_Position = u_matMVP * posL;
 	//v_uv = a_uv;
-	v_uv = vec2 (a_uv.x*(1.0/u_numFrames)+(1.0/u_numFrames)*u_currentFrame, a_uv.y*(1.0/u_numActions)+(1.0/u_numActions)*u_currentAction);
+	v_uv = vec2 ((1.0/u_numFrames)*(a_uv.x + u_currentFrame), (1.0/u_numActions)*(a_uv.y + u_currentAction));
+	//v_uv = vec2 (a_uv.x*(1.0/u_numFrames) + (1.0/u_numFrames)*u_currentFrame, a_uv.y*(1.0/u_numActions) + (1.0/u_numActions)*u_currentAction));
 }
    

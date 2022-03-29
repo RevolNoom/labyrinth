@@ -15,6 +15,12 @@ std::shared_ptr<MazeLayout> MLG::Generate(int width, int height)
 
 	DigTunnels(newLayout, entrances);
 
+	/*
+	std::cout << "Generated: ";
+	for (int iii = 0; iii < width; ++iii)
+		for (int jjj = 0; jjj < height; ++jjj)
+			std::cout<<newLayout->GetCell(iii, jjj).Value()<<" ";
+			*/
 	return newLayout;
 }
 
@@ -25,10 +31,10 @@ std::vector<MLG::Coordinate> MLG::PickEntrances(int numOfEntrances, std::shared_
 
 	auto entrances = std::vector<Coordinate>(numOfEntrances, { -1, -1 });
 
-	std::array<Coordinate, 4> corners{			std::pair(0, 0),
-																{0, height - 1}, 
-														{width - 1, height - 1}, 
-														{width - 1, 0} };
+	std::array<Coordinate, 4> corners{	Coordinate(0, 0),
+										Coordinate(0, height - 1),
+										Coordinate(width - 1, height - 1),
+										Coordinate(width - 1, 0) };
 
 	for (auto& e : entrances)
 	{
@@ -49,25 +55,25 @@ std::vector<MLG::Coordinate> MLG::PickEntrances(int numOfEntrances, std::shared_
 			case LEFT:
 				x = 0;
 				y = random % height;
-				layout->GetCell(x, y)->RemoveWalls(Cell::Wall::W);
+				layout->GetCell(x, y).RemoveWalls(WallOrganization::Direction::W);
 				break;
 
 			case RIGHT:
 				x = width - 1;
 				y = random % height;
-				layout->GetCell(x, y)->RemoveWalls(Cell::Wall::E);
+				layout->GetCell(x, y).RemoveWalls(WallOrganization::Direction::E);
 				break;
 
 			case TOP:
 				y = 0;
 				x = random % width;
-				layout->GetCell(x, y)->RemoveWalls(Cell::Wall::N);
+				layout->GetCell(x, y).RemoveWalls(WallOrganization::Direction::N);
 				break;
 
 			case BOTTOM:// fallthrough
 				y = height - 1;
 				x = random % width;
-				layout->GetCell(x, y)->RemoveWalls(Cell::Wall::S);
+				layout->GetCell(x, y).RemoveWalls(WallOrganization::Direction::S);
 				break;
 			}
 
@@ -98,7 +104,7 @@ void MLG::DigTunnels(std::shared_ptr<MazeLayout> layout, std::vector<Coordinate>
 	};
 
 	auto isDiscovered = [&](MLG::Coordinate cell) {
-		return layout->GetCell(cell.first, cell.second)->GetWalls() != Cell::ALLWALL;
+		return !(layout->GetCell(cell.first, cell.second).HasWalls(WallOrganization::Direction::ALLWALL));
 	};
 
 	auto connect = [&](MLG::Coordinate cellFrom, MLG::Coordinate cellTo)
@@ -106,31 +112,31 @@ void MLG::DigTunnels(std::shared_ptr<MazeLayout> layout, std::vector<Coordinate>
 		// To From
 		if (cellFrom.first - cellTo.first == 1)
 		{
-			layout->GetCell(cellFrom.first, cellFrom.second)->RemoveWalls(Cell::Wall::W);
-			layout->GetCell(cellTo.first, cellTo.second)->RemoveWalls(Cell::Wall::E);
+			layout->GetCell(cellFrom.first, cellFrom.second).RemoveWalls(WallOrganization::Direction::W);
+			layout->GetCell(cellTo.first, cellTo.second).RemoveWalls(WallOrganization::Direction::E);
 		}
 
 		// To  
 		//From
 		else if (cellFrom.second - cellTo.second == 1)
 		{
-			layout->GetCell(cellFrom.first, cellFrom.second)->RemoveWalls(Cell::Wall::N);
-			layout->GetCell(cellTo.first, cellTo.second)->RemoveWalls(Cell::Wall::S);
+			layout->GetCell(cellFrom.first, cellFrom.second).RemoveWalls(WallOrganization::Direction::N);
+			layout->GetCell(cellTo.first, cellTo.second).RemoveWalls(WallOrganization::Direction::S);
 		}
 
 		//From
 		// To  
 		else if (cellFrom.second - cellTo.second == -1)
 		{
-			layout->GetCell(cellFrom.first, cellFrom.second)->RemoveWalls(Cell::Wall::S);
-			layout->GetCell(cellTo.first, cellTo.second)->RemoveWalls(Cell::Wall::N);
+			layout->GetCell(cellFrom.first, cellFrom.second).RemoveWalls(WallOrganization::Direction::S);
+			layout->GetCell(cellTo.first, cellTo.second).RemoveWalls(WallOrganization::Direction::N);
 		}
 
 		// From To		& all other wrong cases
 		else
 		{
-			layout->GetCell(cellFrom.first, cellFrom.second)->RemoveWalls(Cell::Wall::E);
-			layout->GetCell(cellTo.first, cellTo.second)->RemoveWalls(Cell::Wall::W);
+			layout->GetCell(cellFrom.first, cellFrom.second).RemoveWalls(WallOrganization::Direction::E);
+			layout->GetCell(cellTo.first, cellTo.second).RemoveWalls(WallOrganization::Direction::W);
 		}
 	};
 
@@ -158,10 +164,8 @@ void MLG::DigTunnels(std::shared_ptr<MazeLayout> layout, std::vector<Coordinate>
 		if (isDiscovered(undigged))
 			continue;
 
-
 		auto surrounding = SurroundingCells(layout, undigged);
 		pushToQueue(surrounding);
-		
 
 		connectToRandomDiscovered(undigged);
 	}
@@ -171,10 +175,10 @@ void MLG::DigTunnels(std::shared_ptr<MazeLayout> layout, std::vector<Coordinate>
 
 std::vector<MLG::Coordinate> MazeLayoutGenerator::SurroundingCells(std::shared_ptr<MazeLayout> layout, Coordinate cell)
 {
-	Coordinate cells[]{ std::pair(cell.first - 1, cell.second),
-					std::pair(cell.first, cell.second - 1),
-					std::pair(cell.first, cell.second + 1),
-					std::pair(cell.first + 1, cell.second) };
+	Coordinate cells[]{ Coordinate(cell.first - 1, cell.second),
+						Coordinate(cell.first, cell.second - 1),
+						Coordinate(cell.first, cell.second + 1),
+						Coordinate(cell.first + 1, cell.second) };
 	
 	std::vector<Coordinate> result;
 

@@ -1,21 +1,20 @@
 #include "Cell.h"
+#include "World/Maze/Wall.h"
 #include <tuple>
 
 Cell::Cell():
-Sprite2D(ResourceManagers::GetInstance()->GetTexture("Tile1.tga"))
+Sprite2D(ResourceManagers::GetInstance()->GetTexture("Tile1.tga")),
+_worg(WallOrganization())
 {
 	SetSize(CELL_SIZE, CELL_SIZE);
-	AddWalls(Wall::ALLWALL);
 	BuildWalls();
-	BuildCorners();
 }
 
-
-void Cell::AddWalls(int wallBits)
+void Cell::RegisterToWorld(b2World* world)
 {
-	_wallDirection |= (wallBits & Wall::ALLWALL);
+	for (auto& w : _wallObj)
+		w->RegisterToWorld(world);
 }
-
 
 void Cell::BuildWalls()
 {
@@ -23,24 +22,11 @@ void Cell::BuildWalls()
 
 	for (auto& w : _wallObj)
 	{
-		w = std::make_shared<SolidObject>(wallTxtr);
-		w->SetSize(CORNER_SIZE, CORNER_SIZE);
+		w = std::make_shared<Wall>(wallTxtr);
+		w->SetSize(WALL_WIDTH, WALL_HEIGHT);
 	}
 }
 
-
-void Cell::BuildCorners()
-{
-	auto ThreeHalfCorner = 3.5 * CORNER_SIZE;
-
-	auto cornerTxtr = ResourceManagers::GetInstance()->GetTexture("Corner.tga");
-
-	for (auto& c : _cornerObj)
-	{
-		c = std::make_shared<SolidObject>(cornerTxtr);
-		c->SetSize(CORNER_SIZE, CORNER_SIZE);
-	}
-}
 
 
 Vector2 Cell::GetSize() const
@@ -55,56 +41,36 @@ void Cell::Draw()
 	Sprite2D::Draw();
 
 	DrawWalls();
-	DrawCorners();
 }
 
-int Cell::GetWalls()
+WallOrganization Cell::GetOrganization()
 {
-	return _wallDirection & Wall::ALLWALL;
-}
-
-
-void Cell::DrawCorners()
-{
-	using CORNER_BIT = int;
-	using CORNER_INDEX = int;
-	std::pair<CORNER_BIT, CORNER_INDEX> corner[]{
-									{WN, CORNER_WN},
-									{NE, CORNER_NE},
-									{ES, CORNER_ES},
-									{SW, CORNER_SW} };
-
-	for (auto& c : corner)
-		if (_wallDirection & c.first)
-			_cornerObj[c.second]->Draw();
+	return _worg;
 }
 
 
 void Cell::DrawWalls()
 {
-	using WALL_BIT = int;
+	using WALL_BIT = WallOrganization::Direction;
 	using WALL_INDEX = int;
 	std::pair<WALL_BIT, WALL_INDEX> wall[]{
-									{W, WEST},
-									{N, NORTH},
-									{E, EAST},
-									{S ,SOUTH} };
+									{WallOrganization::Direction::W, WEST},
+									{WallOrganization::Direction::N, NORTH},
+									{WallOrganization::Direction::E, EAST},
+									{WallOrganization::Direction::S ,SOUTH} };
 
+	//std::cout << "Draw wall: " << _worg.Value() << "\n";
 	for (auto& w : wall)
-		if (_wallDirection & w.first)
+	{
+		if (_worg.HasWalls(w.first))
 			_wallObj[w.second]->Draw();
+	}
 }
 
-
-
-void Cell::SetWalls(int wallBits)
+void Cell::SetOrganization(WallOrganization org)
 {
-	_wallDirection = wallBits & Wall::ALLWALL;
-}
-
-void Cell::RemoveWalls(int wallBits)
-{
-	_wallDirection &= ~wallBits;
+	// TODO: Disable/Enable walls
+	_worg = org;
 }
 
 
@@ -114,7 +80,6 @@ void Cell::Set2DPosition(Vector2 pos)
 	Sprite2D::Set2DPosition(pos);
 
 	SetWallPositions(pos);
-	SetCornerPositions(pos);
 }
 
 
@@ -143,30 +108,5 @@ void Cell::SetWallPositions(Vector2 pos)
 		_wallObj[direction]->SetSize(WALL_WIDTH, WALL_HEIGHT);
 		_wallObj[direction]->SetRotation(rot);
 		_wallObj[direction]->Set2DPosition(pos + offset);
-	}
-}
-
-
-void Cell::SetCornerPositions(Vector2 pos)
-{
-	auto ThreeHalfCorner = 3.5 * CORNER_SIZE;
-
-	using DIRECTION = int;
-	using OFFSET = Vector2;
-
-	std::tuple<DIRECTION, OFFSET> corner[]{
-		{ CORNER_WN, Vector2(-ThreeHalfCorner, -ThreeHalfCorner)},
-		{ CORNER_NE, Vector2(+ThreeHalfCorner, -ThreeHalfCorner)},
-		{ CORNER_ES, Vector2(+ThreeHalfCorner, +ThreeHalfCorner)},
-		{ CORNER_SW, Vector2(-ThreeHalfCorner, +ThreeHalfCorner)}
-	};
-
-	Vector2 cellPosition = Vector2(GetPosition().x, GetPosition().y);
-
-	for (auto& c : corner)
-	{
-		int direction = std::get<0>(c);
-		Vector2 offset = std::get<1>(c);
-		_cornerObj[direction]->Set2DPosition(pos + offset);
 	}
 }
