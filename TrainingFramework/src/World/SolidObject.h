@@ -1,18 +1,14 @@
 #pragma once
 
-#ifndef UNIT_HPP
-#define UNIT_HPP
+#ifndef SOLID_OBJECT_H
+#define SOLID_OBJECT_H
 
-#include "SpriteAnimation.h"
 #include "World/PhysicObject.h"
 
-// Unit is our hero, controlled by the player
-// Has all the functionalities of SpriteAnim
-// Added with input processings
-class Unit: public PhysicObject
+class SolidObject : public PhysicObject
 {
 public:
-	Unit();
+	SolidObject(std::shared_ptr<Texture> texture);
 
 	virtual void RegisterToWorld(b2World* world) override;
 
@@ -32,32 +28,12 @@ public:
 	virtual void SetSize(Vector2 size) override;
 	virtual Vector2 GetSize() const override;
 
-	virtual void Update(float delta) override;
 	virtual void Draw() override;
 
-	virtual bool HandleKeyPress(const InputEventKeyPress* ev) override;
-
-
-private:
-	std::shared_ptr<SpriteAnimation> GetCurrentAnim() const;
-
-private:
-
-	enum ANIM
-	{
-		RUN = 0,
-		IDLE = 1,
-		MAX_ANIM,
-	};
-
-
-	int _currentAnim;
-
-	std::vector<std::shared_ptr<SpriteAnimation>> _anims;
-
+protected:
+	std::shared_ptr<Sprite2D> _sprite;
 	b2Body* _body;
-
-	Vector2 _size;
 };
 
-#endif /* Unit_HPP */
+
+#endif  // SOLID_OBJECT_H

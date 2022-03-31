@@ -2,12 +2,20 @@
 
 Maze::Maze(int width, int height) : _size({ width, height })
 {
-	_cells = std::vector<Cell>(width * height);
-	Set2DPosition(Vector2(0, 0));
-	//std::cout << "Swapping:\n";
-	SwapLayout(MazeLayoutGenerator().Generate(width, height));
-	//std::cout << "Swapped:\n";
+	_cells.reserve(width * height);
+	for (int iii = 0; iii < width * height; ++iii)
+		_cells.push_back(Cell(ResourceManagers::GetInstance()->GetTexture("Tile.tga"),
+							ResourceManagers::GetInstance()->GetTexture("WallVertical.tga")));
+
+	SetPosition(Vector2(0, 0));
+	SetLayout(MazeLayoutGenerator::GetInstance()->Generate(this));
 }
+
+
+Maze::Maze(Coordinate size): Maze(size.first, size.second)
+{
+}
+
 
 void Maze::RegisterToWorld(b2World* world)
 {
@@ -15,60 +23,118 @@ void Maze::RegisterToWorld(b2World* world)
 		c.RegisterToWorld(world);
 }
 
-void Maze::SwapLayout(std::shared_ptr<MazeLayout> l)
+
+void Maze::SetEnabled(bool enable)
+{
+	for (auto& c : _cells)
+		c.SetEnabled(enable);
+}
+
+
+bool Maze::IsEnabled() const
+{
+	return GetCell({ 0, 0 }).IsEnabled();
+}
+
+void Maze::SetRotation(float angle)
+{
+	// TODO: uh.... :))))
+	std::cout << "Maze::SetRotation not implemented yet\n";
+}
+
+float Maze::GetRotation() const
+{
+	return GetCell({ 0, 0 }).GetRotation();
+}
+
+void Maze::SetPosition(Vector2 center)
+{
+	_center = center;
+	auto cellSize = GetCellSize();
+	for (int col = 0; col < _size.first; ++col)
+		for (int row = 0; row < _size.second; ++row)
+		{
+			Vector2 offset(cellSize.x * (col - 0.5 - float(_size.first) / 2), 
+							cellSize.y * (row - 0.5 - float(_size.second) / 2));
+
+			Vector2 cellPos = _center + offset;
+
+			GetCell({ col, row }).SetPosition(cellPos); 
+		}
+}
+
+Vector2 Maze::GetPosition() const
+{
+	return _center;
+}
+
+
+void Maze::SetSize(Vector2 size)
+{
+	auto layoutDims = GetLayout()->GetSize();
+	SetCellSize(Vector2(size.x / layoutDims.first, size.y / layoutDims.second));
+}
+
+
+Vector2 Maze::GetSize() const
+{
+	auto cellSize = GetCellSize();
+	auto layoutDims = GetLayout()->GetSize();
+	return Vector2(cellSize.x * layoutDims.first, cellSize.y * layoutDims.second);
+}
+
+void Maze::SetCellSize(Vector2 size)
+{
+	for (auto& c : _cells)
+		c.SetSize(size);
+	SetPosition(GetPosition());
+}
+
+Vector2 Maze::GetCellSize() const
+{
+	return GetCell({ 0, 0 }).GetSize();
+}
+
+void Maze::SetLayout(std::shared_ptr<MazeLayout> l)
 {
 	if (l->GetSize() != _size)
 	{
-		std::cerr << "Incompatible size: Maze " << _size.first << "x" << _size.second
+		std::cout << "Incompatible size: Maze " << _size.first << "x" << _size.second
 			<< " vs Layout " << l->GetSize().first << "x" << l->GetSize().second << "\n";
 		return;
 	}
 
-	/*
-	std::cout << "Before swapping: ";
-	for (int row = 0; row < _size.first; ++row)
-		for (int col = 0; col < _size.second; ++col)
-			std::cout<<GetCell(row, col).GetOrganization().Value()<<" ";
+	_currentLayout = l;
 
-
-	std::cout << "After swapping: ";
-	for (int row = 0; row < _size.first; ++row)
-		for (int col = 0; col < _size.second; ++col)
-			std::cout << GetCell(row, col).GetOrganization().Value() << " ";*/
 	for (int col = 0; col < _size.first; ++col)
 		for (int row = 0; row < _size.second; ++row)
-			GetCell(col, row).SetOrganization(l->GetCell(col, row));
+			GetCell({ col, row }).SetProfile(l->GetCell({ col, row }));
+}
+
+std::shared_ptr<MazeLayout> Maze::GetLayout() const
+{
+	return _currentLayout;
 }
 
 
 void Maze::Draw()
 {
-	for (int col = 0; col < _size.first; ++col)
-		for (int row = 0; row < _size.second; ++row)
-		{
-			GetCell(col, row).Draw();
-		}
-}
-
-
-void Maze::SetEnable(bool enable)
-{
 	for (auto& c : _cells)
-		c.SetEnable(enable);
+		c.Draw();
 }
 
-void Maze::Set2DPosition(Vector2 topLeftCornerPos)
+
+Cell& Maze::GetCell(Coordinate c)
 {
-	for (int col = 0; col < _size.first; ++col)
-		for (int row = 0; row < _size.second; ++row)
-		{
-			Vector2 offset = Vector2(Cell::CELL_SIZE * (col + 0.5), Cell::CELL_SIZE * (row + 0.5));
-			Vector2 cellPos = topLeftCornerPos + offset;
-			GetCell(col, row).Set2DPosition(cellPos);
-		}
+	return _cells.at(_size.first * c.second + c.first);
 }
 
-Cell& Maze::GetCell(int col, int row)
+const Cell& Maze::GetCell(Coordinate c) const
 {
-	return _cells[_size.first * row + col];
+	return _cells.at(_size.first * c.second + c.first);
+}
+
+MazeLayout::Coordinate Maze::GetDimensions() const
+{
+	return _size;
 }

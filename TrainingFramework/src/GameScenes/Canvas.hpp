@@ -6,7 +6,7 @@
 #include <list>
 #include <map>
 #include <memory>
-#include "BaseObject.h"
+#include "World/PhysicObject.h"
 
 // Stores objects and draw them on the screen
 // Canvas stores references to Objects
@@ -18,7 +18,7 @@ public:
 	// I'd love to turn shared_ptr into weak_ptr
 	// But technical difficulty: 
 	// weak_ptr breaks here because it does not have operator==
-	using CanvasLayer = std::list<std::shared_ptr<BaseObject>>;
+	using CanvasLayer = std::list<std::shared_ptr<PhysicObject>>;
 	using LayerID = int;
 
 	// Draw this Canvas on the screen
@@ -28,13 +28,13 @@ public:
 
 	// Insert a newObject into a Canvas layer
 	// Doesn't check for object duplication. Becareful!
-	void Insert(LayerID id, std::shared_ptr<BaseObject> newObject);
+	void Insert(LayerID id, std::shared_ptr<PhysicObject> newObject);
 
 	// Remove an Object from a Canvas layer
-	void Remove(LayerID id, std::shared_ptr<BaseObject> object);
+	void Remove(LayerID id, std::shared_ptr<PhysicObject> object);
 
 	// Remove an Object from Canvas
-	void Remove(std::shared_ptr<BaseObject> object);
+	void Remove(std::shared_ptr<PhysicObject> object);
 
 	// Clear everything on canvas
 	void Clear();

@@ -3,7 +3,7 @@
 #include "SceneIntro.h"
 #include "ScenePlay.h"
 
-#include "World/PhysicObject.hpp"
+#include "World/PhysicObject.h"
 #include "SpriteAnimation.h"
 #include "GameButton.h"
 #include "World/Maze/Maze.hpp"

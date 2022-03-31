@@ -3,7 +3,7 @@
 
 #include <utilities.h>
 #include <memory>
-class BaseObject;
+class PhysicObject;
 class Scene;
 
 // Simulation of Godot Engine InputEvent
@@ -14,7 +14,7 @@ class InputEvent
 {
 public:
 	virtual ~InputEvent() {};
-	virtual bool HandledBy(std::shared_ptr<BaseObject> obj) const = 0;
+	virtual bool HandledBy(std::shared_ptr<PhysicObject> obj) const = 0;
 
 };
 
@@ -26,7 +26,7 @@ public:
 		_key(key), _isPressed(isPressed)
 	{}
 
-	virtual bool HandledBy(std::shared_ptr<BaseObject> obj) const override;
+	virtual bool HandledBy(std::shared_ptr<PhysicObject> obj) const override;
 
 	bool IsPressed() const {return _isPressed;}
 	unsigned int Key() const {return _key;}
@@ -43,7 +43,7 @@ public:
 		_isPressed(IsPressed), _pos(position)
 	{}
 
-	virtual bool HandledBy(std::shared_ptr<BaseObject> obj) const override;
+	virtual bool HandledBy(std::shared_ptr<PhysicObject> obj) const override;
 
 	bool IsPressed() const {return _isPressed;}
 	Vector2 GetPosition() const {return _pos;}
@@ -61,7 +61,7 @@ public:
 		_pos(position)
 	{}
 
-	virtual bool HandledBy(std::shared_ptr<BaseObject> obj) const override;
+	virtual bool HandledBy(std::shared_ptr<PhysicObject> obj) const override;
 
 	Vector2 GetPosition() const {return _pos;}
 private:

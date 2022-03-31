@@ -12,13 +12,14 @@ public:
 
 	// Create a Maze of width x height
 	// Width, height > 0
-	MazeLayout(int width, int height);//, Vector2 initPos = Vector2(0, 0));
+	MazeLayout(int width, int height);
+	MazeLayout(Coordinate size);
 
 	//void Draw();
 
 	// Return the wall organization of this cell
 	// with O at the Top Left corner
-	WallOrganization& GetCell(int x, int y);
+	CellProfile& GetCell(Coordinate c);
 
 	// Return <width, height>
 	Coordinate GetSize() const;
@@ -31,7 +32,7 @@ private:
 	Vector2 _pos;
 
 	Coordinate _size;
-	std::vector<WallOrganization> _layout;
+	std::vector<CellProfile> _layout;
 };
 
 #endif /* MAZE_LAYOUT_HPP */

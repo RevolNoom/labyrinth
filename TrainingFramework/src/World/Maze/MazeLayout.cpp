@@ -5,17 +5,25 @@ MazeLayout::MazeLayout(int width, int height)
 	if (width < 1 || height < 1)
 	{
 		std::string msg = std::string("Invalid matrix dimension: ") + std::to_string(width) + "x" + std::to_string(height);
+		std::cout << msg << "\n";
 		throw std::exception(msg.c_str());
 	}
 	_size = { width, height };
-
-	_layout = std::vector<WallOrganization>(width*height, WallOrganization());
+	
+	_layout.resize(width * height);
 }
 
-WallOrganization& MazeLayout::GetCell(int x, int y)
+
+MazeLayout::MazeLayout(Coordinate size) : MazeLayout(size.first, size.second)
 {
-	return _layout[_size.first * y + x];
 }
+
+
+CellProfile& MazeLayout::GetCell(Coordinate c)
+{
+	return _layout[_size.first * c.second + c.first];
+}
+
 
 MazeLayout::Coordinate MazeLayout::GetSize() const
 {

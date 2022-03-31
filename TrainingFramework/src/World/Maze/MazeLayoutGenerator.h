@@ -10,12 +10,17 @@
 // I read a few opinions complaining about 
 // using too much Singleton could be harmful
 
-class MazeLayoutGenerator
+class Maze;
+
+class MazeLayoutGenerator: public CSingleton<MazeLayoutGenerator>
 {
 public:
-	MazeLayoutGenerator(){}
+	MazeLayoutGenerator()
+	{
+		std::srand(std::time(0));
+	}
 
-	std::shared_ptr<MazeLayout> Generate(int width, int height);
+	std::shared_ptr<MazeLayout> Generate(const Maze* maze);
 
 private:
 	using Coordinate = MazeLayout::Coordinate;
@@ -25,6 +30,7 @@ private:
 
 	void DigTunnels(std::shared_ptr<MazeLayout> layout, std::vector<Coordinate> entrances);
 
+	void ConnectTwoCells(std::shared_ptr<MazeLayout> layout, Coordinate from, Coordinate to);
 	// Returns the cells:
 	// +) In 4 adjacent positions: up left down right
 	// +) Not outside the maze

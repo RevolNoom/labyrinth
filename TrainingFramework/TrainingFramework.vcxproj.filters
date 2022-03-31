@@ -25,6 +25,9 @@
     <Filter Include="TrainingFramework\src\World\Player">
       <UniqueIdentifier>{be14ba30-ff92-41d2-9b9f-1eeac22c45d8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="TrainingFramework\src\World\Maze\Item">
+      <UniqueIdentifier>{8f9e8c48-f73e-485b-b4d5-58fd4af50296}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Application.cpp">
@@ -69,9 +72,6 @@
     <ClCompile Include="src\World\Player\attribute.cpp">
       <Filter>TrainingFramework\src\World</Filter>
     </ClCompile>
-    <ClCompile Include="src\World\TopdownWorld.cpp">
-      <Filter>TrainingFramework\src\World</Filter>
-    </ClCompile>
     <ClCompile Include="src\GameScenes\Canvas.cpp">
       <Filter>TrainingFramework\src\GameScenes</Filter>
     </ClCompile>
@@ -105,11 +105,17 @@
     <ClCompile Include="src\World\Maze\MazeLayoutGenerator.cpp">
       <Filter>TrainingFramework\src\World\Maze</Filter>
     </ClCompile>
-    <ClCompile Include="src\World\Maze\Wall.cpp">
-      <Filter>TrainingFramework\src\World\Maze</Filter>
-    </ClCompile>
     <ClCompile Include="src\GameScenes\ScenePlay.cpp">
       <Filter>TrainingFramework\src\GameScenes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\World\Maze\Item\TransPlatform.cpp">
+      <Filter>TrainingFramework\src\World\Maze\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="src\World\SolidObject.cpp">
+      <Filter>TrainingFramework\src\World</Filter>
+    </ClCompile>
+    <ClCompile Include="src\World\Maze\CellProfile.cpp">
+      <Filter>TrainingFramework\src\World\Maze</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -158,13 +164,10 @@
     <ClInclude Include="src\GameObject\SpriteAnimation.h">
       <Filter>TrainingFramework\src\GameObject</Filter>
     </ClInclude>
-    <ClInclude Include="src\World\TopdownWorld.hpp">
-      <Filter>TrainingFramework\src\World</Filter>
-    </ClInclude>
     <ClInclude Include="src\World\Player\attribute.hpp">
       <Filter>TrainingFramework\src\World</Filter>
     </ClInclude>
-    <ClInclude Include="src\World\PhysicObject.hpp">
+    <ClInclude Include="src\World\PhysicObject.h">
       <Filter>TrainingFramework\src\World</Filter>
     </ClInclude>
     <ClInclude Include="src\GameScenes\Canvas.hpp">
@@ -197,13 +200,22 @@
     <ClInclude Include="src\World\Maze\MazeLayout.hpp">
       <Filter>TrainingFramework\src\World\Maze</Filter>
     </ClInclude>
-    <ClInclude Include="src\World\Maze\Wall.h">
-      <Filter>TrainingFramework\src\World\Maze</Filter>
-    </ClInclude>
     <ClInclude Include="src\GameScenes\ScenePlay.h">
       <Filter>TrainingFramework\src\GameScenes</Filter>
     </ClInclude>
     <ClInclude Include="src\World\Maze\MazeLayoutGenerator.h">
+      <Filter>TrainingFramework\src\World\Maze</Filter>
+    </ClInclude>
+    <ClInclude Include="src\World\Maze\Item\TransPlatform.h">
+      <Filter>TrainingFramework\src\World\Maze\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="src\World\Maze\SensorListener.h">
+      <Filter>TrainingFramework\src\World\Maze</Filter>
+    </ClInclude>
+    <ClInclude Include="src\World\SolidObject.h">
+      <Filter>TrainingFramework\src\World</Filter>
+    </ClInclude>
+    <ClInclude Include="src\World\Maze\CellProfile.h">
       <Filter>TrainingFramework\src\World\Maze</Filter>
     </ClInclude>
   </ItemGroup>

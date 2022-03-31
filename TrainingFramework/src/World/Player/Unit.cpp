@@ -1,10 +1,7 @@
 #include "Unit.hpp"
-#include "box2d/b2_fixture.h"
 
-Unit::Unit():
-	Sprite2D()
+Unit::Unit(): _body(nullptr)
 {
-	Init();
 	auto model = ResourceManagers::GetInstance()->GetModel("Sprite2D.nfg");
 	auto shader = ResourceManagers::GetInstance()->GetShader("Animation");
 	auto texture = ResourceManagers::GetInstance()->GetTexture("Minotaur.tga");
@@ -16,15 +13,25 @@ Unit::Unit():
 		auto anim = std::make_shared<SpriteAnimation>(model, shader, texture, 4, 2, iii, 0.15);
 		_anims.push_back(anim);
 	}
-	SetSize(50, 50);
+	SetSize({ 30, 30 });
 }
 
-void Unit::SetSize(GLint width, GLint height)
+void Unit::SetSize(Vector2 size)
 {
-	Sprite2D::SetSize(width, height);
-
+	_size = size;
 	for (int iii = 0; iii < ANIM::MAX_ANIM; ++iii)
-		_anims[iii]->SetSize(width, height);
+		_anims[iii]->SetSize(size.x, size.y);
+	if (_body)
+	{
+		auto world = _body->GetWorld();
+		world->DestroyBody(_body);
+		RegisterToWorld(world);
+	}
+}
+
+Vector2 Unit::GetSize() const
+{
+	return _size;
 }
 
 void Unit::RegisterToWorld(b2World* world)
@@ -69,23 +76,52 @@ void Unit::Update(float delta)
 	GetCurrentAnim()->Set2DPosition(objPos.x, objPos.y);
 }
 
-void Unit::SetEnable(bool enable)
+
+void Unit::SetEnabled(bool enable)
 {
-	_body->SetEnabled(enable);
+	if (_body)
+		_body->SetEnabled(enable);
 }
 
-void Unit::Set2DPosition(Vector2 newPos)
+bool Unit::IsEnabled() const
 {
-	Sprite2D::Set2DPosition(newPos);
+	if (_body)
+		return _body->IsEnabled();
+	return false;
+}
+
+void Unit::SetRotation(float angle)
+{
+	_body->SetTransform(ToPhysicCoordinate(GetPosition()), angle);
 	for (auto& a : _anims)
-		a->Set2DPosition(newPos.x, newPos.y);
+		a->SetRotation({ 0, 0, angle });
+}
+
+float Unit::GetRotation() const
+{
+	return GetCurrentAnim()->GetRotation().z;
 }
 
 
-std::shared_ptr<SpriteAnimation> Unit::GetCurrentAnim()
+void Unit::SetPosition(Vector2 newPos)
+{
+	if (_body)
+		_body->SetTransform(ToPhysicCoordinate(newPos), GetRotation());
+	for (auto& a : _anims)
+		GetCurrentAnim()->SetPosition(Vector3(newPos.x, newPos.y, 0));
+}
+
+Vector2 Unit::GetPosition() const
+{
+	return GetCurrentAnim()->Get2DPosition();
+}
+
+
+std::shared_ptr<SpriteAnimation> Unit::GetCurrentAnim() const
 {
 	return _anims[_currentAnim];
 }
+
 
 bool Unit::HandleKeyPress(const InputEventKeyPress* ev)
 {

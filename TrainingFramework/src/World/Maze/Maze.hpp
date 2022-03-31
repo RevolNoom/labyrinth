@@ -1,7 +1,7 @@
 #ifndef MAZE_HPP
 #define MAZE_HPP
 
-#include "BaseObject.h"
+#include "World/PhysicObject.h"
 #include "World/Maze/MazeLayoutGenerator.h"
 #include <vector>
 #include <memory>
@@ -14,28 +14,51 @@
  * +) Randomly pick one cell for destination (Ariadne)
  * +) Randomly generates Items across the Maze
  */
-class Maze: public Sprite2D, public PhysicObject
+class Maze: public PhysicObject
 {
 public:
+	using Coordinate = MazeLayout::Coordinate;
+
+	// TODO
 	Maze(int width, int height);
+	Maze(Coordinate size);
 
-	virtual void RegisterToWorld(b2World* world);
+	virtual void RegisterToWorld(b2World* world) override;
 
-	void SwapLayout(std::shared_ptr<MazeLayout> l);
+	virtual void SetEnabled(bool enable) override;
+	virtual bool IsEnabled() const override;
 
-	void Init() override {}
+	virtual void SetRotation(float angle) override;
+	virtual float GetRotation() const override;
 
-	void Draw() override;
+	virtual void SetPosition(Vector2 center) override;
+	virtual Vector2 GetPosition() const override;
 
-	virtual void SetEnable(bool enable) override;
-	virtual void Set2DPosition(Vector2 newPos) override;
+	// An expensive operation
+	// Because box2d does not support scaling.
+	// We have to destroy and re-create physic bodies.
+	// Don't do this often!
+	virtual void SetSize(Vector2 size) override;
+	virtual Vector2 GetSize() const override;
 
-	// TODO: Put this back to private after debugging
-	Cell& GetCell(int row, int col);
+	virtual void SetCellSize(Vector2 size);
+	virtual Vector2 GetCellSize() const;
+
+	virtual void Draw() override;
+	void SetLayout(std::shared_ptr<MazeLayout> l);
+	std::shared_ptr<MazeLayout> GetLayout() const;
+
+	const Cell& GetCell(Coordinate c) const;
+	Coordinate GetDimensions() const;
+
 private:
+	Cell& GetCell(Coordinate c);
 
-	MazeLayout::Coordinate _size;
+	std::shared_ptr<MazeLayout> _currentLayout;
 	std::vector<Cell> _cells;
+	Coordinate _size;
+
+	Vector2 _center;
 };
 
 

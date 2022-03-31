@@ -2,7 +2,6 @@
 #include "Shader.h"
 #include "Application.h"
 #include "utilities.h" 
-#include "World/TopdownWorld.hpp"
 
 int Globals::screenWidth = 480;
 int Globals::screenHeight = 800;

@@ -27,7 +27,6 @@ public:
 	void		Update(GLfloat deltatime) override;
 
 	virtual void		Set2DPosition(GLint x, GLint y);
-	virtual void		Set2DPosition(Vector2 position);
 	virtual void		SetSize(GLint width, GLint height);
 
 	Vector2 GetSize();

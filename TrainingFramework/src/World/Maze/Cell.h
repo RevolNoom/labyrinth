@@ -1,94 +1,38 @@
 #pragma once
 
-#include "World/PhysicObject.hpp"
-#include "World/Maze/Wall.h"
+#include "World/SolidObject.h"
 #include "ResourceManagers.h"
+#include "World/Maze/CellProfile.h"
 #include <array>
-
-class WallOrganization
-{
-public:
-	// Enumerated in Clockwise direction
-	enum Direction
-	{
-		// BITS
-		W = 0x1,
-		N = 0x2,
-		E = 0x4,
-		S = 0x8,
-
-		NO_WALL = 0x0, 
-		ALLWALL = 0xF,
-	};
-
-	WallOrganization(): WallOrganization(ALLWALL)
-	{}
-
-	WallOrganization(int directions): _wallDirection(directions)
-	{}
-
-	// TODO: This is Debugging value
-	// Destroy after done
-	int Value() { return _wallDirection; }
-
-	// Return true if this org contains walls in all specified directions
-	bool HasWalls(Direction dirs)
-	{
-		return (_wallDirection & dirs) == dirs;
-	}
-
-	// Set the walls into this configuration
-	void SetWalls(Direction wallBits)
-	{
-		_wallDirection = wallBits;
-	}
-
-	// Add walls in specified positions, if they haven't been there already
-	void AddWalls(Direction wallBits)
-	{
-		_wallDirection |= wallBits;
-	}
-
-	// Remove the walls in specified positions, if they are still there
-	void RemoveWalls(Direction wallBits)
-	{
-		_wallDirection &= ~wallBits;
-	}
-
-private:
-	int _wallDirection;
-};
 
 // Contains information of
 // walls and corners wrapping it
-class Cell : public Sprite2D, public PhysicObject
+class Cell : public PhysicObject
 {
 public:
+	Cell(std::shared_ptr<Texture> floorTxtr, std::shared_ptr<Texture> verticalWallTxtr);
 
-	static constexpr int CORNER_SIZE = 10;
-	static constexpr int CELL_SIZE = 8 * CORNER_SIZE;
-	static constexpr int WALL_WIDTH = CORNER_SIZE;
-	static constexpr int WALL_HEIGHT = 8 * CORNER_SIZE;
+	virtual void RegisterToWorld(b2World* world) override;
 
+	virtual void SetEnabled(bool enable) override;
+	virtual bool IsEnabled() const override;
 
-	Cell();
+	virtual void SetPosition(Vector2 pos) override;
+	virtual Vector2 GetPosition() const override;
 
+	virtual void SetRotation(float angle) override;
+	virtual float GetRotation() const override;
 
-	void RegisterToWorld(b2World* world) override;
+	virtual void SetSize(Vector2 size) override;
+	virtual Vector2 GetSize() const override;
 
-	void Init() {}
+	void SetProfile(CellProfile org);
+	CellProfile GetProfile();
 
-	void Draw();
+	//bool PutIn(std::shared_ptr<PhysicObject> newItem);
+	//std::shared_ptr<PhysicObject> PutOut();
 
-	void SetOrganization(WallOrganization wo);
-	WallOrganization GetOrganization();
-
-	// The size in... uhhh... pixels (?) of this Cell
-	// TODO: I may remove it if I deem it useless
-	Vector2 GetSize() const;
-
-	virtual void SetEnable(bool enable) override;
-	virtual void Set2DPosition(Vector2 pos) override;
+	virtual void Draw() override;
 
 private:
 	enum
@@ -100,14 +44,20 @@ private:
 		SOUTH = 3,
 	};
 
-	// Create objects
-	void BuildWalls();
+	void BuildWalls(std::shared_ptr<Texture> verticalWallTxtr);
 	void DrawWalls();
 
 	void SetWallPositions(Vector2 pos);
+	void SetItemPosition(Vector2 pos);
 
+	Vector2 GetCornerSize();
+	Vector2 GetVerticalWallSize();
 
 private:
-	WallOrganization _worg;
-	std::array<std::shared_ptr<Wall>, 4> _wallObj;
+	//std::shared_ptr<Item> _item;
+	std::shared_ptr<Sprite2D> _floor;
+
+	bool _enabled;
+	CellProfile _worg;
+	std::array<std::shared_ptr<SolidObject>, 4> _wallObj;
 };

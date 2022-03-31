@@ -8,19 +8,19 @@ void Canvas::Draw()
 }
 
 
-void Canvas::Insert(LayerID id, std::shared_ptr<BaseObject> newObject)
+void Canvas::Insert(LayerID id, std::shared_ptr<PhysicObject> newObject)
 {
 	_canvasLayers[id].emplace_back(newObject);
 }
 
-void Canvas::Remove(LayerID id, std::shared_ptr<BaseObject> object)
+void Canvas::Remove(LayerID id, std::shared_ptr<PhysicObject> object)
 {
 	_canvasLayers[id].remove(object);
 }
 
 // Remove an Object from Canvas
 // (or many, if they are duplicated)
-void Canvas::Remove(std::shared_ptr<BaseObject> object)
+void Canvas::Remove(std::shared_ptr<PhysicObject> object)
 {
 	for (auto& i : _canvasLayers)
 		i.second.remove(object);
