@@ -7,37 +7,35 @@
 #include "box2d/b2_world_callbacks.h"
 
 
-class Trap :
-	public SolidObject
+class Trap
 {
 public:
-	Trap(std::shared_ptr<Texture> txtr): SolidObject(txtr)
-	{}
-
 	// Called in b2ContactListener
 	virtual void Trigger() = 0;
 };
 
 
 class TransPlatform :
+	public SolidObject,
 	public Trap
 {
 public:
-	TransPlatform(std::shared_ptr<Maze> targetMaze, float cooldownTime);
-	void TargetMaze(std::shared_ptr<Maze> targetMaze);
+	TransPlatform(Maze *targetMaze, float cooldownTime);
+	void TargetMaze(Maze *targetMaze);
 	void SetCooldownTimer(float cooldownTime);
 
 	virtual void RegisterToWorld(b2World* world) override;
 	virtual void SetEnabled(bool enable) override;
 
-	void Trigger();
+	virtual void Trigger() override;
 
 	virtual void Update(float delta) override;
+	virtual std::shared_ptr<PhysicObject> Clone() override;
 
 private:
-	std::weak_ptr<Maze> _targetMaze;
+	Maze *_targetMaze;
 
-	std::shared_ptr<MazeLayout> _cacheLayout;
+	MazeLayout<CellProfile> _cacheLayout;
 
 	// TODO: Refactor into Timer class?
 	float _maxTime;

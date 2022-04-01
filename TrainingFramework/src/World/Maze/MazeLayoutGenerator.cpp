@@ -7,31 +7,34 @@
 
 using MLG = MazeLayoutGenerator;
 
-
-std::shared_ptr<MazeLayout> MLG::Generate(const Maze * mz)
+MazeLayout<CellProfile> MLG::Generate(const Maze * mz)
 {
-	auto newLayout = std::make_shared<MazeLayout>(mz->GetDimensions());
+	MazeLayout<CellProfile> newLayout(mz->GetDimensions());
 	
 	auto entrances = PickEntrances(1, newLayout);
 
 	DigTunnels(newLayout, entrances);
 
-	/*
+	
 	std::cout << "Entrance: (" << entrances[0].first << ", " << entrances[0].second << ")\n";
-	std::cout << "Generated: ";
-	for (int iii = 0; iii < width; ++iii)
-		for (int jjj = 0; jjj < height; ++jjj)
-			std::cout << newLayout->GetCell({ iii, jjj }).Value() << " ";*/	
+	std::cout << "Generated:\n";
+
+	auto it = newLayout.GetIterator();
+	while (it.HasNext())
+	{
+		std::cout << it.Next().Value() << " ";
+	}
+	
 
 	return newLayout;
 }
 
-std::vector<MLG::Coordinate> MLG::PickEntrances(int numOfEntrances, std::shared_ptr<MazeLayout> layout)
+std::vector<Coordinate> MLG::PickEntrances(int numOfEntrances, MazeLayout<CellProfile> &layout)
 {
-	int width = layout->GetSize().first;
-	int height= layout->GetSize().second;
+	int width = layout.GetSize().first;
+	int height= layout.GetSize().second;
 
-	auto entrances = std::vector<Coordinate>(numOfEntrances, { -1, -1 });
+	auto entrances = std::vector<Coordinate>(numOfEntrances);
 
 	auto possibleEntrances = std::list<Coordinate>();
 
@@ -42,33 +45,34 @@ std::vector<MLG::Coordinate> MLG::PickEntrances(int numOfEntrances, std::shared_
 
 	for (int iii = 0; iii < numOfEntrances; ++iii)
 	{
-		auto it = std::next(possibleEntrances.begin(), std::rand() % possibleEntrances.size());// TODO: RANDOM HEREindex);
+		auto it = std::next(possibleEntrances.begin(), std::rand() % possibleEntrances.size());
 		entrances[iii] = *it;
 		possibleEntrances.erase(it);
 	}
 
 	for (auto& e : entrances)
 	{
+		auto &cell = layout.GetCell(e);
 		if (e.first == 0)
-			layout->GetCell(e).RemoveWalls(CellProfile::Bit::W);
+			cell.RemoveWalls(CellProfile::Bit::W);
 		else if (e.first == width-1)
-			layout->GetCell(e).RemoveWalls(CellProfile::Bit::E);
+			cell.RemoveWalls(CellProfile::Bit::E);
 		else if (e.second == 0)
-			layout->GetCell(e).RemoveWalls(CellProfile::Bit::N);
+			cell.RemoveWalls(CellProfile::Bit::N);
 		else
-			layout->GetCell(e).RemoveWalls(CellProfile::Bit::S);
+			cell.RemoveWalls(CellProfile::Bit::S);
 	}
 
 	return entrances;
 }
 
 
-void MLG::DigTunnels(std::shared_ptr<MazeLayout> layout, std::vector<Coordinate> entrances)
+void MLG::DigTunnels(MazeLayout<CellProfile> &layout, std::vector<Coordinate> entrances)
 {
 	std::queue<Coordinate> diggingCords;
 
-	std::vector<std::vector<bool>> discovered(layout->GetSize().second, 
-											std::vector<bool>(layout->GetSize().first, false));
+	std::vector<std::vector<bool>> discovered(layout.GetSize().second, 
+											std::vector<bool>(layout.GetSize().first, false));
 
 
 	
@@ -108,10 +112,10 @@ void MLG::DigTunnels(std::shared_ptr<MazeLayout> layout, std::vector<Coordinate>
 }
 
 
-void MazeLayoutGenerator::ConnectTwoCells(std::shared_ptr<MazeLayout> layout, Coordinate from, Coordinate to)
+void MazeLayoutGenerator::ConnectTwoCells(MazeLayout<CellProfile> &layout, Coordinate from, Coordinate to)
 {
-	auto &cellFrom = layout->GetCell(from);
-	auto &cellTo = layout->GetCell(to);
+	auto &cellFrom = layout.GetCell(from);
+	auto &cellTo = layout.GetCell(to);
 
 	using CONDITION = int;
 	using BREAK_WALL_FROM = CellProfile::Bit;
@@ -140,7 +144,7 @@ void MazeLayoutGenerator::ConnectTwoCells(std::shared_ptr<MazeLayout> layout, Co
 	}
 }
 
-std::vector<MLG::Coordinate> MazeLayoutGenerator::SurroundingCells(std::shared_ptr<MazeLayout> layout, Coordinate cell)
+std::vector<Coordinate> MazeLayoutGenerator::SurroundingCells(const MazeLayout<CellProfile> &layout, Coordinate cell)
 {
 	Coordinate cells[]{ Coordinate(cell.first - 1, cell.second),
 						Coordinate(cell.first, cell.second - 1),
@@ -151,8 +155,8 @@ std::vector<MLG::Coordinate> MazeLayoutGenerator::SurroundingCells(std::shared_p
 	result.reserve(4);
 
 	for (auto& c : cells)
-		if (c.first >= 0 && c.first < layout->GetSize().first &&
-			c.second >= 0 && c.second < layout->GetSize().second)
+		if (c.first >= 0 && c.first < layout.GetSize().first &&
+			c.second >= 0 && c.second < layout.GetSize().second)
 			result.push_back(c);
 	return result;
 }

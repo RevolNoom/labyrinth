@@ -43,6 +43,8 @@ public:
 	virtual void Update(float delta) {}
 	virtual void Draw() = 0;
 
+	virtual std::shared_ptr<PhysicObject> Clone() = 0;
+
 	virtual bool HandleKeyPress(const InputEventKeyPress* ev) { return false; }
 	virtual bool HandleMouseClick(const InputEventMouseClick* ev) { return false; }
 	virtual bool HandleMouseMotion(const InputEventMouseMotion* ev) { return false; }

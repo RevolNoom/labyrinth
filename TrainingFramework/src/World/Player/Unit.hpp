@@ -37,6 +37,8 @@ public:
 
 	virtual bool HandleKeyPress(const InputEventKeyPress* ev) override;
 
+	//TODO: Does not clone velocity, animation. 
+	virtual std::shared_ptr<PhysicObject> Clone() override;
 
 private:
 	std::shared_ptr<SpriteAnimation> GetCurrentAnim() const;

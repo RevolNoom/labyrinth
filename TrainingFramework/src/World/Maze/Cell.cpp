@@ -2,7 +2,9 @@
 #include <tuple>
 
 
-Cell::Cell(std::shared_ptr<Texture> floorTxtr, std::shared_ptr<Texture> verticalWallTxtr)
+Cell::Cell(std::shared_ptr<Texture> floorTxtr, std::shared_ptr<Texture> verticalWallTxtr): 
+	_wallTxtr(verticalWallTxtr), 
+	_floorTxtr(floorTxtr)
 {
 	_floor = std::make_shared<Sprite2D>(floorTxtr);
 	BuildWalls(verticalWallTxtr);
@@ -42,8 +44,6 @@ void Cell::SetPosition(Vector2 pos)
 {
 	_floor->Set2DPosition(pos.x, pos.y);
 	SetWallPositions(pos);
-
-	//SetItemPosition(pos);
 }
 
 Vector2 Cell::GetPosition() const
@@ -156,6 +156,19 @@ void Cell::SetWallPositions(Vector2 pos)
 	}
 }
 
+std::shared_ptr<PhysicObject> Cell::Clone()
+{
+	auto newClone = std::make_shared<Cell>(_floorTxtr, _wallTxtr);
+	newClone->SetRotation(GetRotation());
+	newClone->SetPosition(GetPosition());
+	newClone->SetEnabled(IsEnabled());
+	newClone->SetSize(GetSize());
+
+	newClone->SetProfile(GetProfile());
+
+	return newClone;
+}
+
 
 Vector2 Cell::GetCornerSize()
 {
@@ -169,16 +182,3 @@ Vector2 Cell::GetVerticalWallSize()
 	return Vector2(corner.x, 8 * corner.y);
 }
 
-
-/*
-bool Cell::PutIn(std::shared_ptr<BaseObject> newItem)
-{
-	if (_item != nullptr)
-		return false;
-	_item = newItem;
-
-	// Align item to the center
-	SetItemPosition(Vector2(GetPosition().x, GetPosition().y));
-	return true;
-}
-}*/

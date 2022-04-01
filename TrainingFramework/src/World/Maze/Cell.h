@@ -10,6 +10,10 @@
 class Cell : public PhysicObject
 {
 public:
+	// Very dangerous. 
+	// Don't forget to replace it with a properly constructed one
+	//Cell(){}
+
 	Cell(std::shared_ptr<Texture> floorTxtr, std::shared_ptr<Texture> verticalWallTxtr);
 
 	virtual void RegisterToWorld(b2World* world) override;
@@ -29,8 +33,7 @@ public:
 	void SetProfile(CellProfile org);
 	CellProfile GetProfile();
 
-	//bool PutIn(std::shared_ptr<PhysicObject> newItem);
-	//std::shared_ptr<PhysicObject> PutOut();
+	virtual std::shared_ptr<PhysicObject> Clone() override;
 
 	virtual void Draw() override;
 
@@ -48,16 +51,16 @@ private:
 	void DrawWalls();
 
 	void SetWallPositions(Vector2 pos);
-	void SetItemPosition(Vector2 pos);
+
 
 	Vector2 GetCornerSize();
 	Vector2 GetVerticalWallSize();
 
 private:
-	//std::shared_ptr<Item> _item;
 	std::shared_ptr<Sprite2D> _floor;
 
 	bool _enabled;
 	CellProfile _worg;
+	std::shared_ptr<Texture> _wallTxtr, _floorTxtr;
 	std::array<std::shared_ptr<SolidObject>, 4> _wallObj;
 };

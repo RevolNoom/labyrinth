@@ -1,15 +1,16 @@
 #include "TransPlatform.h"
 #include "World/Maze/MazeLayoutGenerator.h"
 
-TransPlatform::TransPlatform(std::shared_ptr<Maze> targetMaze, float cooldownTime) :
-	Trap(ResourceManagers::GetInstance()->GetTexture("TrapEnable.tga")),
+TransPlatform::TransPlatform(Maze *targetMaze, float cooldownTime) :
+	SolidObject(ResourceManagers::GetInstance()->GetTexture("TrapEnable.tga")),
 	_targetMaze(targetMaze),
-	_remainingTime(0)
+	_cacheLayout(MazeLayoutGenerator::GetInstance()->Generate(_targetMaze)),
+	_remainingTime(0),
+	_body(nullptr)
 {
 	SetEnabled(true);
 	SetCooldownTimer(cooldownTime);
-	auto mazeSize = _targetMaze.lock()->GetLayout()->GetSize();
-	_cacheLayout = MazeLayoutGenerator::GetInstance()->Generate(_targetMaze.lock().get());
+	auto mazeSize = _targetMaze->GetLayout().GetSize();
 }
 
 
@@ -51,7 +52,7 @@ void TransPlatform::SetEnabled(bool enable)
 		_body->SetEnabled(enable);
 }
 
-void TransPlatform::TargetMaze(std::shared_ptr<Maze> targetMaze)
+void TransPlatform::TargetMaze(Maze *targetMaze)
 {
 	_targetMaze = targetMaze;
 }
@@ -61,8 +62,8 @@ void TransPlatform::Trigger()
 	_remainingTime = _maxTime;
 	SetEnabled(false);
 
-	auto layout = _targetMaze.lock()->GetLayout();
-	_targetMaze.lock()->SetLayout(_cacheLayout);
+	auto &layout = _targetMaze->GetLayout();
+	_targetMaze->SetLayout(_cacheLayout);
 	_cacheLayout = layout;
 }
 
@@ -86,4 +87,15 @@ void TransPlatform::Update(float delta)
 			SetEnabled(true);
 		}
 	}
+}
+
+std::shared_ptr<PhysicObject> TransPlatform::Clone()
+{
+	auto newClone = std::make_shared<TransPlatform>(_targetMaze, _maxTime);
+	newClone->SetRotation(GetRotation());
+	newClone->SetPosition(GetPosition());
+	newClone->SetEnabled(IsEnabled());
+	newClone->SetSize(GetSize());
+
+	return newClone;
 }

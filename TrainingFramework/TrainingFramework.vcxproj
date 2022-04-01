@@ -374,9 +374,9 @@
     <ClCompile Include="src\TrainingFramework.cpp" />
     <ClCompile Include="src\World\Maze\Cell.cpp" />
     <ClCompile Include="src\World\Maze\CellProfile.cpp" />
+    <ClCompile Include="src\World\Maze\ItemGenerator.cpp" />
     <ClCompile Include="src\World\Maze\Item\TransPlatform.cpp" />
     <ClCompile Include="src\World\Maze\Maze.cpp" />
-    <ClCompile Include="src\World\Maze\MazeLayout.cpp" />
     <ClCompile Include="src\World\Maze\MazeLayoutGenerator.cpp" />
     <ClCompile Include="src\World\Player\attribute.cpp" />
     <ClCompile Include="src\World\Player\Unit.cpp" />
@@ -393,9 +393,10 @@
     <ClInclude Include="src\GameScenes\ScenePlay.h" />
     <ClInclude Include="src\World\Maze\Cell.h" />
     <ClInclude Include="src\World\Maze\CellProfile.h" />
+    <ClInclude Include="src\World\Maze\ItemGenerator.h" />
     <ClInclude Include="src\World\Maze\Item\TransPlatform.h" />
     <ClInclude Include="src\World\Maze\Maze.hpp" />
-    <ClInclude Include="src\World\Maze\MazeLayout.hpp" />
+    <ClInclude Include="src\World\Maze\MazeLayout.h" />
     <ClInclude Include="src\World\Maze\MazeLayoutGenerator.h" />
     <ClInclude Include="src\World\Maze\SensorListener.h" />
     <ClInclude Include="src\World\Player\attribute.hpp" />
@@ -417,6 +418,9 @@
     <ClInclude Include="src\GameObject\Texture.h" />
     <ClInclude Include="src\World\PhysicObject.h" />
     <ClInclude Include="src\World\SolidObject.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\World\Maze\MazeLayout.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

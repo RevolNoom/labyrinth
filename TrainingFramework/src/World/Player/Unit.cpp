@@ -25,7 +25,7 @@ void Unit::SetSize(Vector2 size)
 	{
 		auto world = _body->GetWorld();
 		world->DestroyBody(_body);
-		RegisterToWorld(world);
+		this->RegisterToWorld(world);
 	}
 }
 
@@ -164,4 +164,15 @@ bool Unit::HandleKeyPress(const InputEventKeyPress* ev)
 	//std::cout << "Unit _body Pos: " << _body->GetPosition().x << " " << _body->GetPosition().y << "\n";
 			
 	return false;
+}
+
+std::shared_ptr<PhysicObject> Unit::Clone()
+{
+	auto newClone = std::make_shared<Unit>();
+	newClone->SetRotation(GetRotation());
+	newClone->SetPosition(GetPosition());
+	newClone->SetEnabled(IsEnabled());
+	newClone->SetSize(GetSize());
+
+	return newClone;
 }

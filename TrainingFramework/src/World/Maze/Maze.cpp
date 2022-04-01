@@ -1,14 +1,25 @@
 #include "Maze.hpp"
+#include "World/Maze/ItemGenerator.h"
+#include "World/Maze/Item/TransPlatform.h"
 
-Maze::Maze(int width, int height) : _size({ width, height })
+Maze::Maze(int width, int height) : 
+	_size({ width, height }), 
+	_currentLayout(Coordinate(width, height)),
+	_itemLayout(Coordinate(width, height)),
+	_cells(Coordinate(width, height))
 {
-	_cells.reserve(width * height);
-	for (int iii = 0; iii < width * height; ++iii)
-		_cells.push_back(Cell(ResourceManagers::GetInstance()->GetTexture("Tile.tga"),
-							ResourceManagers::GetInstance()->GetTexture("WallVertical.tga")));
+	auto clone = Cell(ResourceManagers::GetInstance()->GetTexture("Tile.tga"),
+		ResourceManagers::GetInstance()->GetTexture("WallVertical.tga"));
+
+	for (int col = 0; col < _size.first; ++col)
+		for (int row = 0; row < _size.second; ++row)
+		{
+			_cells.GetCell({ col, row }) = std::dynamic_pointer_cast<Cell>(clone.Clone());
+		}
 
 	SetPosition(Vector2(0, 0));
 	SetLayout(MazeLayoutGenerator::GetInstance()->Generate(this));
+	GenerateItems();
 }
 
 
@@ -19,21 +30,31 @@ Maze::Maze(Coordinate size): Maze(size.first, size.second)
 
 void Maze::RegisterToWorld(b2World* world)
 {
-	for (auto& c : _cells)
-		c.RegisterToWorld(world);
+	for (int col = 0; col < _size.first; ++col)
+		for (int row = 0; row < _size.second; ++row)
+		{
+			_cells.GetCell({ col, row })->RegisterToWorld(world);
+
+			std::shared_ptr<PhysicObject> &item = _itemLayout.GetCell({ col, row });
+			if (item != nullptr)
+				item->RegisterToWorld(world);
+		}
 }
 
 
 void Maze::SetEnabled(bool enable)
 {
-	for (auto& c : _cells)
-		c.SetEnabled(enable);
+	for (int col = 0; col < _size.first; ++col)
+		for (int row = 0; row < _size.second; ++row)
+		{
+			_cells.GetCell({ col, row })->SetEnabled(enable);
+		}
 }
 
 
 bool Maze::IsEnabled() const
 {
-	return GetCell({ 0, 0 }).IsEnabled();
+	return _cells.GetCell({ 0, 0 })->IsEnabled();
 }
 
 void Maze::SetRotation(float angle)
@@ -44,7 +65,7 @@ void Maze::SetRotation(float angle)
 
 float Maze::GetRotation() const
 {
-	return GetCell({ 0, 0 }).GetRotation();
+	return _cells.GetCell({ 0, 0 })->GetRotation();
 }
 
 void Maze::SetPosition(Vector2 center)
@@ -59,7 +80,11 @@ void Maze::SetPosition(Vector2 center)
 
 			Vector2 cellPos = _center + offset;
 
-			GetCell({ col, row }).SetPosition(cellPos); 
+			_cells.GetCell({ col, row })->SetPosition(cellPos);
+			
+			auto &item = _itemLayout.GetCell({ col, row });
+			if (item != nullptr)
+				item->SetPosition(cellPos);
 		}
 }
 
@@ -71,7 +96,7 @@ Vector2 Maze::GetPosition() const
 
 void Maze::SetSize(Vector2 size)
 {
-	auto layoutDims = GetLayout()->GetSize();
+	auto layoutDims = GetLayout().GetSize();
 	SetCellSize(Vector2(size.x / layoutDims.first, size.y / layoutDims.second));
 }
 
@@ -79,28 +104,31 @@ void Maze::SetSize(Vector2 size)
 Vector2 Maze::GetSize() const
 {
 	auto cellSize = GetCellSize();
-	auto layoutDims = GetLayout()->GetSize();
+	auto layoutDims = GetLayout().GetSize();
 	return Vector2(cellSize.x * layoutDims.first, cellSize.y * layoutDims.second);
 }
 
 void Maze::SetCellSize(Vector2 size)
 {
-	for (auto& c : _cells)
-		c.SetSize(size);
+	for (int col = 0; col < _size.first; ++col)
+		for (int row = 0; row < _size.second; ++row)
+		{
+			_cells.GetCell({ col, row })->SetSize(size);
+		}
 	SetPosition(GetPosition());
 }
 
 Vector2 Maze::GetCellSize() const
 {
-	return GetCell({ 0, 0 }).GetSize();
+	return _cells.GetCell({ 0, 0 })->GetSize();
 }
 
-void Maze::SetLayout(std::shared_ptr<MazeLayout> l)
+void Maze::SetLayout(const MazeLayout<CellProfile> &l)
 {
-	if (l->GetSize() != _size)
+	if (l.GetSize() != _size)
 	{
 		std::cout << "Incompatible size: Maze " << _size.first << "x" << _size.second
-			<< " vs Layout " << l->GetSize().first << "x" << l->GetSize().second << "\n";
+			<< " vs Layout " << l.GetSize().first << "x" << l.GetSize().second << "\n";
 		return;
 	}
 
@@ -108,10 +136,10 @@ void Maze::SetLayout(std::shared_ptr<MazeLayout> l)
 
 	for (int col = 0; col < _size.first; ++col)
 		for (int row = 0; row < _size.second; ++row)
-			GetCell({ col, row }).SetProfile(l->GetCell({ col, row }));
+			_cells.GetCell({ col, row })->SetProfile(l.GetCell({ col, row }));
 }
 
-std::shared_ptr<MazeLayout> Maze::GetLayout() const
+const MazeLayout<CellProfile>& Maze::GetLayout() const
 {
 	return _currentLayout;
 }
@@ -119,22 +147,58 @@ std::shared_ptr<MazeLayout> Maze::GetLayout() const
 
 void Maze::Draw()
 {
-	for (auto& c : _cells)
-		c.Draw();
+	for (int iii = 0; iii < _size.first; ++iii)
+		for (int jjj = 0; jjj < _size.second; ++jjj)
+		{
+			auto &cell = _cells.GetCell({ iii, jjj });
+			cell->Draw();
+
+			auto &item = _itemLayout.GetCell({ iii, jjj });
+			if (item != nullptr)
+			{
+				item->Draw();
+			}
+		}
 }
 
 
-Cell& Maze::GetCell(Coordinate c)
+void Maze::GenerateItems()
 {
-	return _cells.at(_size.first * c.second + c.first);
+	ItemGenerator itg; 
+	
+	auto transplatform = std::make_shared<TransPlatform>(this, 3);
+	transplatform->SetSize(GetCellSize() / 2);
+	itg.AddMandatory(transplatform, 2);
+
+	_itemLayout = itg.Generate(this);
 }
 
-const Cell& Maze::GetCell(Coordinate c) const
-{
-	return _cells.at(_size.first * c.second + c.first);
-}
-
-MazeLayout::Coordinate Maze::GetDimensions() const
+Coordinate Maze::GetDimensions() const
 {
 	return _size;
+}
+
+void Maze::Update(float delta)
+{
+	for (int col = 0; col < _size.first; ++col)
+		for (int row = 0; row < _size.second; ++row)
+		{
+			auto& item = _itemLayout.GetCell({ col, row });
+			if (item != nullptr)
+				item->Update(delta);
+		}
+}
+
+std::shared_ptr<PhysicObject> Maze::Clone()
+{
+	auto newClone = std::make_shared<Maze>(GetDimensions());
+
+	newClone->SetRotation(GetRotation());
+	newClone->SetPosition(GetPosition());
+	newClone->SetEnabled(IsEnabled());
+	newClone->SetSize(GetSize());
+
+	newClone->SetLayout(GetLayout());
+
+	return newClone;
 }

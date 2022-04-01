@@ -10,6 +10,7 @@ class ScenePlay :
 {
 public:
     ScenePlay();
+    virtual ~ScenePlay();
 
     virtual void Update(float delta) override;
 
@@ -19,6 +20,6 @@ private:
     void SetUpGameWorld();
 
     b2World _gameWorld;
-    SensorListener _dontTouchThis_ItIsFor_gameWorld;
+    SensorListener *_trapSensor;
 };
 

@@ -96,9 +96,6 @@
     <ClCompile Include="src\World\Player\Unit.cpp">
       <Filter>TrainingFramework\src\World\Player</Filter>
     </ClCompile>
-    <ClCompile Include="src\World\Maze\MazeLayout.cpp">
-      <Filter>TrainingFramework\src\World\Maze</Filter>
-    </ClCompile>
     <ClCompile Include="src\World\Maze\Maze.cpp">
       <Filter>TrainingFramework\src\World\Maze</Filter>
     </ClCompile>
@@ -115,6 +112,9 @@
       <Filter>TrainingFramework\src\World</Filter>
     </ClCompile>
     <ClCompile Include="src\World\Maze\CellProfile.cpp">
+      <Filter>TrainingFramework\src\World\Maze</Filter>
+    </ClCompile>
+    <ClCompile Include="src\World\Maze\ItemGenerator.cpp">
       <Filter>TrainingFramework\src\World\Maze</Filter>
     </ClCompile>
   </ItemGroup>
@@ -197,7 +197,7 @@
     <ClInclude Include="src\World\Maze\Maze.hpp">
       <Filter>TrainingFramework\src\World\Maze</Filter>
     </ClInclude>
-    <ClInclude Include="src\World\Maze\MazeLayout.hpp">
+    <ClInclude Include="src\World\Maze\MazeLayout.h">
       <Filter>TrainingFramework\src\World\Maze</Filter>
     </ClInclude>
     <ClInclude Include="src\GameScenes\ScenePlay.h">
@@ -218,5 +218,13 @@
     <ClInclude Include="src\World\Maze\CellProfile.h">
       <Filter>TrainingFramework\src\World\Maze</Filter>
     </ClInclude>
+    <ClInclude Include="src\World\Maze\ItemGenerator.h">
+      <Filter>TrainingFramework\src\World\Maze</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\World\Maze\MazeLayout.hpp">
+      <Filter>TrainingFramework\src\World\Maze</Filter>
+    </None>
   </ItemGroup>
 </Project>

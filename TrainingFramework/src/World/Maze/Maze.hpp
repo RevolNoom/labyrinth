@@ -7,19 +7,9 @@
 #include <memory>
 
 
-/*
- * How a maze is generated:
- * +) Randomly generate a few layouts
- * +) Randomly pick a few parameter cells for entrances
- * +) Randomly pick one cell for destination (Ariadne)
- * +) Randomly generates Items across the Maze
- */
 class Maze: public PhysicObject
 {
 public:
-	using Coordinate = MazeLayout::Coordinate;
-
-	// TODO
 	Maze(int width, int height);
 	Maze(Coordinate size);
 
@@ -45,23 +35,31 @@ public:
 	virtual Vector2 GetCellSize() const;
 
 	virtual void Draw() override;
-	void SetLayout(std::shared_ptr<MazeLayout> l);
-	std::shared_ptr<MazeLayout> GetLayout() const;
+	void SetLayout(const MazeLayout<CellProfile> &l);
+	const MazeLayout<CellProfile> &GetLayout() const;
 
-	const Cell& GetCell(Coordinate c) const;
 	Coordinate GetDimensions() const;
 
-private:
-	Cell& GetCell(Coordinate c);
+	virtual void Update(float delta) override;
 
-	std::shared_ptr<MazeLayout> _currentLayout;
-	std::vector<Cell> _cells;
+	virtual std::shared_ptr<PhysicObject> Clone() override;
+
+private:
+	void GenerateItems();
+
+private:
+
+	//TODO: Refactor _cells into MazeLayout
+	MazeLayout<std::shared_ptr<Cell>> _cells;
+	MazeLayout<CellProfile> _currentLayout;
+	MazeLayout<std::shared_ptr<PhysicObject>> _itemLayout;
+
 	Coordinate _size;
 
 	Vector2 _center;
+
+	std::shared_ptr<Texture> _wallTxtr, _floorTxtr;
 };
-
-
 
 // class ItemGenerator;
 

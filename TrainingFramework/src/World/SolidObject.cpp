@@ -1,7 +1,7 @@
 #include "SolidObject.h"
 #include "ResourceManagers.h"
 
-SolidObject::SolidObject(std::shared_ptr<Texture> texture): _body(nullptr)
+SolidObject::SolidObject(std::shared_ptr<Texture> texture): _body(nullptr), _texture(texture)
 {
 	_sprite = std::make_shared<Sprite2D>(ResourceManagers::GetInstance()->GetModel("Sprite2D.nfg"),
 										ResourceManagers::GetInstance()->GetShader("TextureShader"),
@@ -12,6 +12,7 @@ void SolidObject::RegisterToWorld(b2World* world)
 {
 	// yeeted right out of the Documentation
 
+	std::cout << "Solid Object registering: " << this << "\n";
 	// Specify the initial position of the body
 	b2BodyDef groundBodyDef;
 	groundBodyDef.type = b2BodyType::b2_staticBody;// Solid Objects don't move
@@ -34,9 +35,6 @@ void SolidObject::RegisterToWorld(b2World* world)
 
 	// Attach the body to the shape
 	_body->CreateFixture(&groundBox, 0);
-
-	//std::cout << "SolidObject _body Size: " << phySize.x << " " << phySize.y << "\n";
-	//std::cout << "SolidObject _body Pos: " << _body->GetPosition().x << " " << _body->GetPosition().y << "\n";
 }
 
 void SolidObject::SetEnabled(bool enable)
@@ -90,7 +88,7 @@ void SolidObject::SetSize(Vector2 size)
 	{
 		auto world = _body->GetWorld();
 		world->DestroyBody(_body);
-		RegisterToWorld(world);
+		this->RegisterToWorld(world);
 	}
 }
 
@@ -98,6 +96,17 @@ void SolidObject::SetSize(Vector2 size)
 Vector2 SolidObject::GetSize() const
 {
 	return _sprite->GetSize();
+}
+
+std::shared_ptr<PhysicObject> SolidObject::Clone()
+{
+	auto newClone = std::make_shared<SolidObject>(_texture);
+	newClone->SetRotation(GetRotation());
+	newClone->SetPosition(GetPosition());
+	newClone->SetEnabled(IsEnabled());
+	newClone->SetSize(GetSize());
+
+	return newClone;
 }
 
 

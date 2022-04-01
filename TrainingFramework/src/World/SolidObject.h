@@ -28,10 +28,13 @@ public:
 	virtual void SetSize(Vector2 size) override;
 	virtual Vector2 GetSize() const override;
 
+	virtual std::shared_ptr<PhysicObject> Clone() override;
+
 	virtual void Draw() override;
 
 protected:
 	std::shared_ptr<Sprite2D> _sprite;
+	std::shared_ptr<Texture> _texture;
 	b2Body* _body;
 };
 

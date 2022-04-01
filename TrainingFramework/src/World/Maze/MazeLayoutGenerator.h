@@ -2,7 +2,7 @@
 #ifndef MAZE_LAYOUT_GEN_HPP
 #define MAZE_LAYOUT_GEN_HPP
 
-#include "World/Maze/MazeLayout.hpp"
+#include "World/Maze/MazeLayout.h"
 #include <vector>
 
 // Randomly generate some maze layouts
@@ -20,21 +20,19 @@ public:
 		std::srand(std::time(0));
 	}
 
-	std::shared_ptr<MazeLayout> Generate(const Maze* maze);
+	MazeLayout<CellProfile> Generate(const Maze* maze);
 
 private:
-	using Coordinate = MazeLayout::Coordinate;
-
 	// Pick Entrances and smash a way in
-	std::vector<Coordinate> PickEntrances(int numOfEntrances, std::shared_ptr<MazeLayout> layout);
+	std::vector<Coordinate> PickEntrances(int numOfEntrances, MazeLayout<CellProfile>& layout);
 
-	void DigTunnels(std::shared_ptr<MazeLayout> layout, std::vector<Coordinate> entrances);
+	void DigTunnels(MazeLayout<CellProfile> &layout, std::vector<Coordinate> entrances);
 
-	void ConnectTwoCells(std::shared_ptr<MazeLayout> layout, Coordinate from, Coordinate to);
+	void ConnectTwoCells(MazeLayout<CellProfile> &layout, Coordinate from, Coordinate to);
 	// Returns the cells:
 	// +) In 4 adjacent positions: up left down right
 	// +) Not outside the maze
-	std::vector<Coordinate> SurroundingCells(std::shared_ptr<MazeLayout> layout, Coordinate cell);
+	std::vector<Coordinate> SurroundingCells(const MazeLayout<CellProfile> &layout, Coordinate cell);
 };
 
 #endif /* MAZE_LAYOUT_GEN_HPP */

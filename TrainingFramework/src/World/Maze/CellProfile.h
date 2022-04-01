@@ -26,7 +26,7 @@ public:
 
 	// TODO: This is Debugging value
 	// Destroy after done
-	//int Value() { return _wallBit; }
+	int Value() { return _wallBit; }
 
 	bool HasWalls(Bit w) const;
 	void SetWalls(Bit w);
