@@ -14,6 +14,8 @@ public:
 
     virtual void Update(float delta) override;
 
+    // Called by LogicServer to flag that we win
+    virtual void WinGame();
 
 private:
     // Deal with b2 sensors

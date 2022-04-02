@@ -1,6 +1,8 @@
 #include "Maze.hpp"
 #include "World/Maze/ItemGenerator.h"
 #include "World/Maze/Item/TransPlatform.h"
+#include "World/Maze/Item/Prize.h"
+#include "World/Maze/Item/ExitStair.h"
 
 Maze::Maze(int width, int height) : 
 	_size({ width, height }), 
@@ -72,19 +74,23 @@ void Maze::SetPosition(Vector2 center)
 {
 	_center = center;
 	auto cellSize = GetCellSize();
+	//std::cout << "Center: "<<center.x << " " << center.y << "\n";
+	//std::cout << "Setting cell positions: \n";
 	for (int col = 0; col < _size.first; ++col)
 		for (int row = 0; row < _size.second; ++row)
 		{
-			Vector2 offset(cellSize.x * (col - 0.5 - float(_size.first) / 2), 
-							cellSize.y * (row - 0.5 - float(_size.second) / 2));
+			Vector2 offset(cellSize.x * (col + 0.5 - float(_size.first)/2), 
+							cellSize.y * (row + 0.5 - float(_size.second)/2));
 
 			Vector2 cellPos = _center + offset;
-
+			//std::cout << "Offset: "<< offset.x << " " << offset.y << "\n";
 			_cells.GetCell({ col, row })->SetPosition(cellPos);
 			
 			auto &item = _itemLayout.GetCell({ col, row });
 			if (item != nullptr)
+			{
 				item->SetPosition(cellPos);
+			}
 		}
 }
 
@@ -114,6 +120,10 @@ void Maze::SetCellSize(Vector2 size)
 		for (int row = 0; row < _size.second; ++row)
 		{
 			_cells.GetCell({ col, row })->SetSize(size);
+
+			auto& item = _itemLayout.GetCell({ col, row });
+			if (item != nullptr)
+				item->SetSize(size * 2 / 3);
 		}
 	SetPosition(GetPosition());
 }
@@ -168,7 +178,13 @@ void Maze::GenerateItems()
 	
 	auto transplatform = std::make_shared<TransPlatform>(this, 3);
 	transplatform->SetSize(GetCellSize() / 2);
-	itg.AddMandatory(transplatform, 2);
+	itg.AddMandatory(transplatform, int(std::log(GetDimensions().first * GetDimensions().second)));
+
+	auto prize = std::make_shared<Prize>();
+	itg.AddMandatory(prize, 1);
+
+	auto exitStair= std::make_shared<ExitStair>();
+	itg.AddMandatory(exitStair, 1);
 
 	_itemLayout = itg.Generate(this);
 }

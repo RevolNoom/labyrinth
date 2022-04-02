@@ -15,7 +15,7 @@ MazeLayout<CellProfile> MLG::Generate(const Maze * mz)
 
 	DigTunnels(newLayout, entrances);
 
-	
+	/*
 	std::cout << "Entrance: (" << entrances[0].first << ", " << entrances[0].second << ")\n";
 	std::cout << "Generated:\n";
 
@@ -23,7 +23,7 @@ MazeLayout<CellProfile> MLG::Generate(const Maze * mz)
 	while (it.HasNext())
 	{
 		std::cout << it.Next().Value() << " ";
-	}
+	}*/
 	
 
 	return newLayout;

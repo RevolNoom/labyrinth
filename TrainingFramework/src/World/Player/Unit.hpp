@@ -47,8 +47,9 @@ private:
 
 	enum ANIM
 	{
-		RUN = 0,
-		IDLE = 1,
+		RUN_LEFT = 0,
+		RUN_RIGHT = 1,
+		IDLE = 2,
 		MAX_ANIM,
 	};
 

@@ -54,7 +54,7 @@ protected:
 	static b2Vec2 ToPhysicCoordinate(Vector2 graphicalWorldCoord);
 	static b2Vec2 ToPhysicCoordinate(Vector3 graphicalWorldCoord);
 	static Vector2 ToGraphicCoordinate(b2Vec2 physicalWorldCoord);
-	static constexpr float GRAPHIC_TO_PHYSIC_SIZE_RATIO = 100;
+	static constexpr float GRAPHIC_TO_PHYSIC_SIZE_RATIO = 200;
 };
 
 

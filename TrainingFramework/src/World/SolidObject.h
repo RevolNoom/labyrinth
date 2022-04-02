@@ -26,6 +26,9 @@ public:
 	// We have to destroy and re-create physic body.
 	// Don't do this often!
 	virtual void SetSize(Vector2 size) override;
+
+	// Get HALF the size of this object on the screen
+	// (From center to a side)
 	virtual Vector2 GetSize() const override;
 
 	virtual std::shared_ptr<PhysicObject> Clone() override;

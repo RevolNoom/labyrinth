@@ -4,13 +4,13 @@ Unit::Unit(): _body(nullptr)
 {
 	auto model = ResourceManagers::GetInstance()->GetModel("Sprite2D.nfg");
 	auto shader = ResourceManagers::GetInstance()->GetShader("Animation");
-	auto texture = ResourceManagers::GetInstance()->GetTexture("Minotaur.tga");
+	auto texture = ResourceManagers::GetInstance()->GetTexture("Rogue.tga");
 
 	_currentAnim = IDLE;
 
 	for (int iii = 0; iii < ANIM::MAX_ANIM; ++iii)
 	{
-		auto anim = std::make_shared<SpriteAnimation>(model, shader, texture, 4, 2, iii, 0.15);
+		auto anim = std::make_shared<SpriteAnimation>(model, shader, texture, 6, 3, iii, 0.07);
 		_anims.push_back(anim);
 	}
 	SetSize({ 30, 30 });
@@ -155,8 +155,10 @@ bool Unit::HandleKeyPress(const InputEventKeyPress* ev)
 
 	_body->SetLinearVelocity(velo);
 
-	if (velo.LengthSquared() > 0.001)
-		_currentAnim = ANIM::RUN;
+	if (velo.x < 0)
+		_currentAnim = ANIM::RUN_LEFT;
+	else if (velo.LengthSquared() > 0.001)
+		_currentAnim = ANIM::RUN_RIGHT;
 	else
 		_currentAnim = ANIM::IDLE;
 

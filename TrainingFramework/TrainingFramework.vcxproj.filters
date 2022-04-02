@@ -117,6 +117,18 @@
     <ClCompile Include="src\World\Maze\ItemGenerator.cpp">
       <Filter>TrainingFramework\src\World\Maze</Filter>
     </ClCompile>
+    <ClCompile Include="src\World\Maze\Item\Prize.cpp">
+      <Filter>TrainingFramework\src\World\Maze\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="src\World\Maze\Item\Trap.cpp">
+      <Filter>TrainingFramework\src\World\Maze\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameScenes\ScenePlayLogicServer.cpp">
+      <Filter>TrainingFramework\src\GameScenes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\World\Maze\Item\ExitStair.cpp">
+      <Filter>TrainingFramework\src\World\Maze\Item</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Application.h">
@@ -220,6 +232,18 @@
     </ClInclude>
     <ClInclude Include="src\World\Maze\ItemGenerator.h">
       <Filter>TrainingFramework\src\World\Maze</Filter>
+    </ClInclude>
+    <ClInclude Include="src\World\Maze\Item\Prize.h">
+      <Filter>TrainingFramework\src\World\Maze\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="src\World\Maze\Item\Trap.h">
+      <Filter>TrainingFramework\src\World\Maze\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameScenes\ScenePlayLogicServer.h">
+      <Filter>TrainingFramework\src\GameScenes</Filter>
+    </ClInclude>
+    <ClInclude Include="src\World\Maze\Item\ExitStair.h">
+      <Filter>TrainingFramework\src\World\Maze\Item</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

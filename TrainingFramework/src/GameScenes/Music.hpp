@@ -8,23 +8,30 @@ class Music
 {
 public:
 	Music(){}
-	Music(std::string songName): _song(songName)
+	Music(std::string songName): _song(songName), _isPlaying(false)
 	{}
 
 	void Play()
 	{
-		if (_song != "")
+		if (_song != "" && !_isPlaying)
+		{
+			_isPlaying = true;
 			ResourceManagers::GetInstance()->PlaySound(_song);
+		}
 	}
 
-	// uhmmm....
-	// I don't know how to though...
 	void Stop()
 	{
+		if (_isPlaying)
+		{
+			_isPlaying = false;
+			ResourceManagers::GetInstance()->StopSound(_song);
+		}
 	}
 
 private:
 	std::string _song;
+	bool _isPlaying;
 };
 
 #endif /* MUSIC_HPP */

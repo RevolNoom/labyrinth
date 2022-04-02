@@ -12,10 +12,11 @@ void SolidObject::RegisterToWorld(b2World* world)
 {
 	// yeeted right out of the Documentation
 
-	std::cout << "Solid Object registering: " << this << "\n";
+	//std::cout << "Solid Object registering: " << this << "\n";
 	// Specify the initial position of the body
 	b2BodyDef groundBodyDef;
 	groundBodyDef.type = b2BodyType::b2_staticBody;// Solid Objects don't move
+	groundBodyDef.enabled = IsEnabled();
 
 
 	auto phyPos = ToPhysicCoordinate(GetPosition());
@@ -29,7 +30,7 @@ void SolidObject::RegisterToWorld(b2World* world)
 
 	// Create the collision shape for this body
 	b2PolygonShape groundBox;
-	auto phySize = ToPhysicCoordinate(GetSize() / 2);
+	auto phySize = ToPhysicCoordinate(GetSize()/2);
 	groundBox.SetAsBox(phySize.x, phySize.y);
 
 
@@ -48,7 +49,7 @@ bool SolidObject::IsEnabled() const
 {
 	if (_body)
 		return _body->IsEnabled();
-	return false;
+	return true;
 }
 
 

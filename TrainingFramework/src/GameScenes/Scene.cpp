@@ -22,9 +22,9 @@ void Scene::HandleEvent(std::shared_ptr<InputEvent> ev)
 
 void Scene::Enter() { _backgroundMusic.Play(); }
 
-void Scene::Pause() {}
+void Scene::Pause() { _backgroundMusic.Stop(); }
 
-void Scene::Resume() {}
+void Scene::Resume() { _backgroundMusic.Play(); }
 
 void Scene::Exit() { _backgroundMusic.Stop(); }
 

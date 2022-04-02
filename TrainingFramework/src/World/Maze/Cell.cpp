@@ -55,7 +55,7 @@ Vector2 Cell::GetPosition() const
 void Cell::SetRotation(float angle)
 {
 	// TODO: I guess I won't be needing this for a while :P
-	std::cout << "Cell::SetRotation not implemented yet\n";
+	// std::cout << "Cell::SetRotation not implemented yet\n";
 }
 
 float Cell::GetRotation() const
@@ -66,7 +66,7 @@ float Cell::GetRotation() const
 
 void Cell::SetSize(Vector2 size)
 {
-	_floor->SetSize(size.x/2, size.y/2);
+	_floor->SetSize(size.x, size.y);
 
 	for (auto& w : _wallObj)
 		w->SetSize(GetVerticalWallSize());
@@ -98,7 +98,6 @@ void Cell::Draw()
 {
 	_floor->Draw();
 	DrawWalls();
-	//_item->Draw();
 }
 
 
