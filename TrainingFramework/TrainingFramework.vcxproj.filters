@@ -28,6 +28,9 @@
     <Filter Include="TrainingFramework\src\World\Maze\Item">
       <UniqueIdentifier>{8f9e8c48-f73e-485b-b4d5-58fd4af50296}</UniqueIdentifier>
     </Filter>
+    <Filter Include="TrainingFramework\src\GameObject\CustomObjects">
+      <UniqueIdentifier>{56a17355-24ac-469b-8183-f2a616a02d82}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Application.cpp">
@@ -128,6 +131,9 @@
     </ClCompile>
     <ClCompile Include="src\World\Maze\Item\ExitStair.cpp">
       <Filter>TrainingFramework\src\World\Maze\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneResult.cpp">
+      <Filter>TrainingFramework\src\GameScenes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -244,6 +250,9 @@
     </ClInclude>
     <ClInclude Include="src\World\Maze\Item\ExitStair.h">
       <Filter>TrainingFramework\src\World\Maze\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameScenes\SceneResult.h">
+      <Filter>TrainingFramework\src\GameScenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

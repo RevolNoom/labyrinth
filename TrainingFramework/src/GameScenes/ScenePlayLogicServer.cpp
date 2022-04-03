@@ -3,30 +3,42 @@
 void ScenePlayLogicServer::SetUpPrize(Prize* prize)
 {
 	_prize = prize;
-	_prize->SetEnabled(true);
 }
+
 
 void ScenePlayLogicServer::PickUpPrize()
 {
 	_prize->SetEnabled(false);
-	_escape->SetEnabled(true);
+	_escape->EnableExit();
 }
-
 
 
 void ScenePlayLogicServer::SetUpExitStair(ExitStair* escape)
 {
 	_escape = escape;
-	_escape->SetEnabled(false);
 }
+
 
 void ScenePlayLogicServer::EscapeMaze()
 {
-	_escape->SetEnabled(false);
+	_escape->Escaped();
 	_scenePlay->WinGame();
 }
+
 
 void ScenePlayLogicServer::SetUpScenePlay(ScenePlay* sp)
 {
 	_scenePlay = sp;
+}
+
+
+void ScenePlayLogicServer::StartPlaying()
+{
+	_prize->SetEnabled(true);
+	_escape->SetEnabled(false);
+}
+
+ScenePlayLogicServer::Result ScenePlayLogicServer::GetGameResult()
+{
+	return _result;
 }

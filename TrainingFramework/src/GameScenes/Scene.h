@@ -20,6 +20,10 @@ public:
 	Canvas& GetCanvas();
 
 
+	// Use this for BaseObject-based objects
+	std::map<int, std::list<std::shared_ptr<BaseObject>>>& GetCanvas2() { return _canvas2; }
+
+
 // Rev's Modification:
 
 	// OVERRIDE ME
@@ -77,6 +81,9 @@ protected:
 	// Godot Engine's tree-based structure
 	// TODO: What if I want to delete a childObject?
 	Canvas _canvas;
+
+	// Ugh. So humiliating. After all that work to write Canvas
+	std::map<int, std::list<std::shared_ptr<BaseObject>>> _canvas2;
 
 	Music _backgroundMusic;
 };

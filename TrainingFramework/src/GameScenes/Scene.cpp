@@ -18,6 +18,11 @@ void Scene::HandleEvent(std::shared_ptr<InputEvent> ev)
 	for (auto &obj : _canvas.GetAll())
 		if (ev->HandledBy(obj))
 			break;
+
+	for (auto& layer : _canvas2)
+		for (auto& obj : layer.second)
+			if (ev->HandledBy(obj))
+				break;
 }
 
 void Scene::Enter() { _backgroundMusic.Play(); }
@@ -31,13 +36,21 @@ void Scene::Exit() { _backgroundMusic.Stop(); }
 
 void Scene::Update(float delta)
 {
-	for (auto obj : _canvas.GetAll())
-		obj->Update(delta);
+	for (auto &obj : _canvas.GetAll())
+		obj->Update(delta); 
+	
+	for (auto& layer : _canvas2)
+		for (auto& obj : layer.second)
+			obj->Update(delta);
 }
 
 void Scene::Draw()
 {
 	_canvas.Draw();
+	for (auto& layer : _canvas2)
+		for (auto& obj : layer.second)
+			obj->Draw();
+	
 }
 
 void Scene::SetBackgroundMusic(const Music& m) { _backgroundMusic = m; }

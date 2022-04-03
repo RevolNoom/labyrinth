@@ -25,10 +25,20 @@ public:
 
 	void SetUpScenePlay(ScenePlay* sp);
 
+	void StartPlaying();
+
+	enum class Result
+	{
+		WIN,
+		LOSE
+	};
+	Result GetGameResult();
+
 private:
 	Prize * _prize; 
 	ExitStair* _escape;
 	ScenePlay* _scenePlay;
+	Result _result;
 };
 
 #endif

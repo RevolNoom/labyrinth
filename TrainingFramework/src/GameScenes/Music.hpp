@@ -11,6 +11,12 @@ public:
 	Music(std::string songName): _song(songName), _isPlaying(false)
 	{}
 
+	~Music()
+	{
+		// Should I?
+		//Stop();
+	}
+
 	void Play()
 	{
 		if (_song != "" && !_isPlaying)
@@ -22,7 +28,7 @@ public:
 
 	void Stop()
 	{
-		if (_isPlaying)
+		if (_isPlaying && _song != "")
 		{
 			_isPlaying = false;
 			ResourceManagers::GetInstance()->StopSound(_song);

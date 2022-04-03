@@ -116,6 +116,8 @@ Vector2 Maze::GetSize() const
 
 void Maze::SetCellSize(Vector2 size)
 {
+	auto newItemSizeRatio = size.x / GetCellSize().x;
+
 	for (int col = 0; col < _size.first; ++col)
 		for (int row = 0; row < _size.second; ++row)
 		{
@@ -123,7 +125,7 @@ void Maze::SetCellSize(Vector2 size)
 
 			auto& item = _itemLayout.GetCell({ col, row });
 			if (item != nullptr)
-				item->SetSize(size * 2 / 3);
+				item->SetSize(item->GetSize() * newItemSizeRatio);
 		}
 	SetPosition(GetPosition());
 }
@@ -181,9 +183,11 @@ void Maze::GenerateItems()
 	itg.AddMandatory(transplatform, int(std::log(GetDimensions().first * GetDimensions().second)));
 
 	auto prize = std::make_shared<Prize>();
+	prize->SetSize(GetCellSize() / 4);
 	itg.AddMandatory(prize, 1);
 
 	auto exitStair= std::make_shared<ExitStair>();
+	exitStair->SetSize(GetCellSize() * 0.66);
 	itg.AddMandatory(exitStair, 1);
 
 	_itemLayout = itg.Generate(this);

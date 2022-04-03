@@ -43,6 +43,8 @@ public:
 private:
 	std::shared_ptr<SpriteAnimation> GetCurrentAnim() const;
 
+	void MoveSpriteToBody();
+
 private:
 
 	enum ANIM
@@ -60,7 +62,15 @@ private:
 
 	b2Body* _body;
 
+	b2Vec2 _force;
+
 	Vector2 _size;
+
+	// Because, obviously, I can't put my faith
+	// into SpriteAnimation Get2DPosition()
+	// Set2DPosition still work fine though. 
+	// Thank the stars!
+	Vector2 _position;
 };
 
 #endif /* Unit_HPP */

@@ -13,7 +13,9 @@ enum SCENE_ID
 	SCENE_INVALID = 0,
 	SCENE_INTRO,
 	SCENE_MENU,
-	SCENE_PLAY
+	SCENE_PLAY,
+	SCENE_CREDIT,
+	SCENE_RESULT
 };
 
 class SceneDirector : public CSingleton<SceneDirector>
@@ -44,7 +46,9 @@ private:
 	void SetupScenes();
 	void SetupSceneIntro();
 	void SetupSceneMenu();
+	void SetupSceneCredit();
 	void SetupScenePlay();
+	void SetupSceneResult();
 
 private:
 	std::map <SCENE__ID, std::shared_ptr<Scene>>	_scene;

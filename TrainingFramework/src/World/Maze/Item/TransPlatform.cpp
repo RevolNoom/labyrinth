@@ -35,12 +35,19 @@ void TransPlatform::TargetMaze(Maze *targetMaze)
 
 void TransPlatform::Trigger()
 {
-	_remainingTime = _maxTime;
-	SetEnabled(false);
 
-	auto &layout = _targetMaze->GetLayout();
-	_targetMaze->SetLayout(_cacheLayout);
-	_cacheLayout = layout;
+	// Box2D sometimes calls Trigger() many times in one frame (sucks!)
+	// So this "if" is here to safe guard that situation
+	if (_remainingTime <= 0)
+	{
+		_remainingTime = _maxTime;
+		SetEnabled(false);
+
+		auto layout = _targetMaze->GetLayout();
+		_targetMaze->SetLayout(_cacheLayout);
+		_cacheLayout = layout;
+	}
+
 }
 
 void TransPlatform::SetCooldownTimer(float cooldownTime)

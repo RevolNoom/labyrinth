@@ -16,12 +16,30 @@ public:
 
     // Called by LogicServer to flag that we win
     virtual void WinGame();
+    
+    virtual void Pause() override;
+
+    virtual void Resume() override;
+
+    virtual void Enter() override;
+
+    virtual void Exit() override;
 
 private:
+    virtual void HandleEvent(std::shared_ptr<InputEvent> ev) override;
     // Deal with b2 sensors
     void SetUpGameWorld();
 
-    b2World _gameWorld;
-    SensorListener *_trapSensor;
+    b2World *_gameWorld;
+    SensorListener _trapSensor;
+
+    enum class State
+    {
+        RUNNING = 0,
+        PAUSE,
+        STOP,
+        WON_WAIT_FOR_CLEANUP,
+    };
+    State _state;
 };
 

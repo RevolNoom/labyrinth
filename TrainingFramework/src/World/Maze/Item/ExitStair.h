@@ -13,7 +13,19 @@ public:
 
 	// Called in b2ContactListener
 	virtual void Trigger() override;
+
+	// Called after LogicServer found out that 
+	// the ring is picked up
+	void EnableExit();
+
+	// ...
+	void Escaped();
+
+
 	virtual std::shared_ptr<PhysicObject> Clone() override;
+
+private:
+	bool _enableExit;
 };
 
 #endif

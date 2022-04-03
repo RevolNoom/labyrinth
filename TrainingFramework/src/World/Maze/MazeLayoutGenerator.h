@@ -24,7 +24,7 @@ public:
 
 private:
 	// Pick Entrances and smash a way in
-	std::vector<Coordinate> PickEntrances(int numOfEntrances, MazeLayout<CellProfile>& layout);
+	std::vector<Coordinate> PickStartingPoint(int numOfEntrances, MazeLayout<CellProfile>& layout);
 
 	void DigTunnels(MazeLayout<CellProfile> &layout, std::vector<Coordinate> entrances);
 

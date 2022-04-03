@@ -35,6 +35,7 @@ public:
 	virtual Vector2 GetCellSize() const;
 
 	virtual void Draw() override;
+
 	void SetLayout(const MazeLayout<CellProfile> &l);
 	const MazeLayout<CellProfile> &GetLayout() const;
 
@@ -49,7 +50,6 @@ private:
 
 private:
 
-	//TODO: Refactor _cells into MazeLayout
 	MazeLayout<std::shared_ptr<Cell>> _cells;
 	MazeLayout<CellProfile> _currentLayout;
 	MazeLayout<std::shared_ptr<PhysicObject>> _itemLayout;

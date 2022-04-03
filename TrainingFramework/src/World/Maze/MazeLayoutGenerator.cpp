@@ -11,7 +11,7 @@ MazeLayout<CellProfile> MLG::Generate(const Maze * mz)
 {
 	MazeLayout<CellProfile> newLayout(mz->GetDimensions());
 	
-	auto entrances = PickEntrances(1, newLayout);
+	auto entrances = PickStartingPoint(1, newLayout);
 
 	DigTunnels(newLayout, entrances);
 
@@ -29,7 +29,7 @@ MazeLayout<CellProfile> MLG::Generate(const Maze * mz)
 	return newLayout;
 }
 
-std::vector<Coordinate> MLG::PickEntrances(int numOfEntrances, MazeLayout<CellProfile> &layout)
+std::vector<Coordinate> MLG::PickStartingPoint(int numOfEntrances, MazeLayout<CellProfile> &layout)
 {
 	int width = layout.GetSize().first;
 	int height= layout.GetSize().second;
@@ -40,8 +40,7 @@ std::vector<Coordinate> MLG::PickEntrances(int numOfEntrances, MazeLayout<CellPr
 
 	for (int col = 0; col < width; ++col)
 		for (int row = 0; row < height; ++row)
-			if (row == 0 || col == 0 || row == width - 1 || col == height - 1)
-				possibleEntrances.push_back({ col, row });
+			possibleEntrances.push_back({ col, row });
 
 	for (int iii = 0; iii < numOfEntrances; ++iii)
 	{
@@ -50,6 +49,9 @@ std::vector<Coordinate> MLG::PickEntrances(int numOfEntrances, MazeLayout<CellPr
 		possibleEntrances.erase(it);
 	}
 
+	/* Don't pop a way outside anymore
+	*  I made an ExitStair to win the game instead
+	* 
 	for (auto& e : entrances)
 	{
 		auto &cell = layout.GetCell(e);
@@ -61,7 +63,7 @@ std::vector<Coordinate> MLG::PickEntrances(int numOfEntrances, MazeLayout<CellPr
 			cell.RemoveWalls(CellProfile::Bit::N);
 		else
 			cell.RemoveWalls(CellProfile::Bit::S);
-	}
+	}*/
 
 	return entrances;
 }

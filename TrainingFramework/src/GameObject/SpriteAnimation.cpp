@@ -129,7 +129,11 @@ void SpriteAnimation::SetRotation(Vector3 rotation)
 
 Vector2 SpriteAnimation::Get2DPosition()
 {
-	return m_Vec2DPos;
+	// Rev's Mod:
+	// WHO WROTE THIS LINE???? >:( 
+	//return m_Vec2DPos;
+
+	return Vector2(m_position.x, m_position.y);
 }
 
 

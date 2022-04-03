@@ -10,6 +10,8 @@ void Trap::RegisterToWorld(b2World* world)
 	b2BodyDef body;
 	body.type = b2BodyType::b2_staticBody;
 	body.position = ToPhysicCoordinate(GetPosition());
+	// Let this body contains its parent
+	body.userData.pointer = reinterpret_cast<uintptr_t>(dynamic_cast<PhysicObject*>(this));
 
 	_body = world->CreateBody(&body);
 
@@ -23,8 +25,6 @@ void Trap::RegisterToWorld(b2World* world)
 	fdef.friction = 0;
 	fdef.shape = &shape;
 
-	// Let this fixture contains its parent
-	fdef.userData.pointer = reinterpret_cast<uintptr_t>(static_cast<Trap*>(this));
 
 	_body->CreateFixture(&fdef);
 
