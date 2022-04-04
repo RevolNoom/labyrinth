@@ -10,6 +10,7 @@ void ScenePlayLogicServer::PickUpPrize()
 {
 	_prize->SetEnabled(false);
 	_escape->EnableExit();
+	_escape->SetEnabled(true);
 }
 
 

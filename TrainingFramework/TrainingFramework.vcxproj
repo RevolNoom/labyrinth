@@ -353,6 +353,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Bat.cpp" />
     <ClCompile Include="SceneResult.cpp" />
     <ClCompile Include="src\Application.cpp" />
     <ClCompile Include="src\GameManager\ResourceManagers.cpp" />
@@ -387,8 +388,11 @@
     <ClCompile Include="src\World\Player\Unit.cpp" />
     <ClCompile Include="src\World\PhysicObject.cpp" />
     <ClCompile Include="src\World\SolidObject.cpp" />
+    <ClCompile Include="Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\GameObject\Timer.h" />
+    <ClInclude Include="src\GameScenes\Bat.h" />
     <ClInclude Include="src\GameScenes\Canvas.hpp" />
     <ClInclude Include="src\GameScenes\InputEvent.hpp" />
     <ClInclude Include="src\GameScenes\Music.hpp" />

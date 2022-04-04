@@ -1,6 +1,7 @@
 #pragma once
 #include "Scene.h"
 #include "SpriteAnimation.h"
+#include "GameObject/Timer.h"
 
 class SceneIntro : public Scene
 {
@@ -16,6 +17,6 @@ private:
 	// PhysicObject - SpriteAnimation adapter
 	std::shared_ptr<SpriteAnimation> _bat;
 	std::shared_ptr<Text> _rev;
-	float	m_time;
+	Timer _timer;
 };
 

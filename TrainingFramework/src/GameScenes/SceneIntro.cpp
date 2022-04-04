@@ -1,7 +1,7 @@
 #include "SceneIntro.h"
 #include "World/Maze/Cell.h"
 
-SceneIntro::SceneIntro() : m_time(0.0f)
+SceneIntro::SceneIntro() : _timer(1.5)
 {
 	Init();
 }
@@ -40,13 +40,9 @@ void SceneIntro::Init()
 void SceneIntro::Update(float deltaTime)
 {
 	_bat->Update(deltaTime);
-
-	m_time += deltaTime;
-	if (m_time > 1.5)
-	{
-		m_time = 0;
+	_timer.Update(deltaTime);
+	if (_timer.TimeOut())
 		SceneDirector::GetInstance()->PushScene(SCENE_ID::SCENE_MENU);
-	}
 }
 
 void SceneIntro::Draw()

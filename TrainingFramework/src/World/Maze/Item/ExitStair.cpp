@@ -17,7 +17,6 @@ void ExitStair::Draw()
 void ExitStair::Trigger()
 {
 	if (_enableExit)
-		//std::cout << "Singleton problem\n";
 		ScenePlayLogicServer::GetInstance()->EscapeMaze();
 }
 
