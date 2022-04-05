@@ -16,6 +16,19 @@ public:
 
 	virtual std::shared_ptr<PhysicObject> Clone() override;
 	virtual void Update(float delta) override;
+	virtual void Draw() override;
+
+	virtual Vector2 GetPosition() const override;
+	virtual void SetPosition(Vector2 newPos) override;
+
+	virtual float GetRotation() const override;
+	virtual void SetRotation(float angle) override;
+
+	virtual void SetSize(Vector2 size) override;
+	virtual Vector2 GetSize() const override;
+
+private:
+	void GoRampant();
 
 private: 
 	// The Bat won't go rampant and hit people 
@@ -23,5 +36,6 @@ private:
 	Timer _startupTimer;
 
 	std::shared_ptr<SpriteAnimation> _batAnim;
+	Vector2 _size;
 };
 

@@ -2,6 +2,7 @@
 #include "SpriteAnimation.h"
 #include "GameButton.h"
 #include "GameScenes/ScenePlayLogicServer.h"
+#include "World/Maze/Item/Bat.h"
 
 SceneResult::SceneResult(): Scene()
 {
@@ -10,10 +11,10 @@ SceneResult::SceneResult(): Scene()
 
 void SceneResult::Enter()
 {
-	auto background = std::make_shared<Sprite2D>(ResourceManagers::GetInstance()->GetTexture("TileBig.tga"));
-	background->Set2DPosition(Globals::screenWidth / 2, Globals::screenHeight / 2);
-	background->SetSize(Globals::screenWidth, Globals::screenHeight);
-	GetCanvas2()[1].push_back(background);
+	auto background = std::make_shared<SolidObject>(ResourceManagers::GetInstance()->GetTexture("TileBig.tga"));
+	background->SetPosition(Vector2(Globals::screenWidth / 2, Globals::screenHeight / 2));
+	background->SetSize(Vector2(Globals::screenWidth, Globals::screenHeight));
+	GetCanvas().Insert(1, background);
 
 
 
@@ -30,22 +31,13 @@ void SceneResult::Enter()
 
 
 	// Some bats to adorn the credit scene
-	auto _bat = std::make_shared<SpriteAnimation>(
-		ResourceManagers::GetInstance()->GetModel("Sprite2D.nfg"),
-		ResourceManagers::GetInstance()->GetShader("Animation"),
-		ResourceManagers::GetInstance()->GetTexture("bat.tga"), 2, 1, 0, 0.1);
-	_bat->Set2DPosition(Globals::screenWidth / 2 - 95, Globals::screenHeight / 5);
-	_bat->SetSize(60, 60);
-	GetCanvas2()[2].push_back(_bat);
+	auto bat = std::make_shared<Bat>();
+	bat->SetPosition(Vector2(Globals::screenWidth / 2 - 95, Globals::screenHeight / 5));
+	bat->SetSize(Vector2(60, 60));
+	GetCanvas().Insert(2, bat->Clone());
 
-
-	_bat = std::make_shared<SpriteAnimation>(
-		ResourceManagers::GetInstance()->GetModel("Sprite2D.nfg"),
-		ResourceManagers::GetInstance()->GetShader("Animation"),
-		ResourceManagers::GetInstance()->GetTexture("bat.tga"), 2, 1, 0, 0.1);
-	_bat->Set2DPosition(Globals::screenWidth / 2 + 85, Globals::screenHeight / 5);
-	_bat->SetSize(60, 60);
-	GetCanvas2()[2].push_back(_bat);
+	bat->SetPosition(Vector2(Globals::screenWidth / 2 + 85, Globals::screenHeight / 5));
+	GetCanvas().Insert(2, bat->Clone());
 
 
 	std::shared_ptr<Font> arialbd = ResourceManagers::GetInstance()->GetFont("arialbd.ttf");

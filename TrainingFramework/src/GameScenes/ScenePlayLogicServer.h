@@ -20,12 +20,21 @@ public:
 	// The Escape object will register to logic server through here 
 	// when it's constructed 
 	void SetUpExitStair(ExitStair* escape);
-	// Called by Escape::Trigger() when the player touch it
+
+	// TODO: Die() and EscapeMaze() seems identical
+	// Refactor them?
+
+	// Called by ExitStair::Trigger() when the player touch it
 	void EscapeMaze();
+
+	// Called by whatever dangerous carnivorous creatures/traps
+	// That touch the the player
+	void Die();
 
 	void SetUpScenePlay(ScenePlay* sp);
 
 	void StartPlaying();
+
 
 	enum class Result
 	{

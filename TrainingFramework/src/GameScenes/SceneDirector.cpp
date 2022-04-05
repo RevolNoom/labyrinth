@@ -205,6 +205,7 @@ void SceneDirector::SetupSceneCredit()
 	std::shared_ptr<Font> arialbd = ResourceManagers::GetInstance()->GetFont("arialbd.ttf");
 	std::string credits[]{ "Treasure Hunter made by Revol Noom.",
 							"Game assets from Pixel Dungeon by Watabou.",
+							"Box2D physic engine by Erin Catto",
 							"Font Origicide by Cpr.Sparhelt.",
 							"Game engine made by awesome Gameloft team." };
 

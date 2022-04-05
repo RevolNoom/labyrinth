@@ -353,8 +353,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Bat.cpp" />
-    <ClCompile Include="SceneResult.cpp" />
     <ClCompile Include="src\Application.cpp" />
     <ClCompile Include="src\GameManager\ResourceManagers.cpp" />
     <ClCompile Include="src\GameObject\Font.cpp" />
@@ -367,6 +365,7 @@
     <ClCompile Include="src\GameObject\SpriteAnimation.cpp" />
     <ClCompile Include="src\GameObject\Text.cpp" />
     <ClCompile Include="src\GameObject\Texture.cpp" />
+    <ClCompile Include="src\GameObject\Timer.cpp" />
     <ClCompile Include="src\GameScenes\Canvas.cpp" />
     <ClCompile Include="src\GameScenes\InputEvent.cpp" />
     <ClCompile Include="src\GameScenes\Scene.cpp" />
@@ -374,10 +373,12 @@
     <ClCompile Include="src\GameScenes\SceneIntro.cpp" />
     <ClCompile Include="src\GameScenes\ScenePlay.cpp" />
     <ClCompile Include="src\GameScenes\ScenePlayLogicServer.cpp" />
+    <ClCompile Include="src\GameScenes\SceneResult.cpp" />
     <ClCompile Include="src\TrainingFramework.cpp" />
     <ClCompile Include="src\World\Maze\Cell.cpp" />
     <ClCompile Include="src\World\Maze\CellProfile.cpp" />
     <ClCompile Include="src\World\Maze\ItemGenerator.cpp" />
+    <ClCompile Include="src\World\Maze\Item\Bat.cpp" />
     <ClCompile Include="src\World\Maze\Item\ExitStair.cpp" />
     <ClCompile Include="src\World\Maze\Item\Prize.cpp" />
     <ClCompile Include="src\World\Maze\Item\TransPlatform.cpp" />
@@ -388,11 +389,9 @@
     <ClCompile Include="src\World\Player\Unit.cpp" />
     <ClCompile Include="src\World\PhysicObject.cpp" />
     <ClCompile Include="src\World\SolidObject.cpp" />
-    <ClCompile Include="Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GameObject\Timer.h" />
-    <ClInclude Include="src\GameScenes\Bat.h" />
     <ClInclude Include="src\GameScenes\Canvas.hpp" />
     <ClInclude Include="src\GameScenes\InputEvent.hpp" />
     <ClInclude Include="src\GameScenes\Music.hpp" />
@@ -405,6 +404,7 @@
     <ClInclude Include="src\World\Maze\Cell.h" />
     <ClInclude Include="src\World\Maze\CellProfile.h" />
     <ClInclude Include="src\World\Maze\ItemGenerator.h" />
+    <ClInclude Include="src\World\Maze\Item\Bat.h" />
     <ClInclude Include="src\World\Maze\Item\ExitStair.h" />
     <ClInclude Include="src\World\Maze\Item\Prize.h" />
     <ClInclude Include="src\World\Maze\Item\TransPlatform.h" />

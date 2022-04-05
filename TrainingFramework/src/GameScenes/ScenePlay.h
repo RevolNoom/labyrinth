@@ -14,8 +14,9 @@ public:
 
     virtual void Update(float delta) override;
 
-    // Called by LogicServer to flag that we win
-    virtual void WinGame();
+    // Called by LogicServer to flag that
+    // the game has had a result
+    virtual void DonePlaying();
     
     virtual void Pause() override;
 
@@ -38,7 +39,7 @@ private:
         RUNNING = 0,
         PAUSE,
         STOP,
-        WON_WAIT_FOR_CLEANUP,
+        WAIT_FOR_CLEANUP,
     };
     State _state;
 };

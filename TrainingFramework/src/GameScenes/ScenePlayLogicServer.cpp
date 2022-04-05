@@ -23,9 +23,16 @@ void ScenePlayLogicServer::SetUpExitStair(ExitStair* escape)
 void ScenePlayLogicServer::EscapeMaze()
 {
 	_escape->Escaped();
-	_scenePlay->WinGame();
+	_scenePlay->DonePlaying();
+	_result = Result::WIN;
 }
 
+
+void ScenePlayLogicServer::Die()
+{
+	_scenePlay->DonePlaying();
+	_result = Result::LOSE;
+}
 
 void ScenePlayLogicServer::SetUpScenePlay(ScenePlay* sp)
 {

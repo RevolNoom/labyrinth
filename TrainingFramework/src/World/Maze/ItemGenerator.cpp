@@ -1,7 +1,7 @@
 #include "ItemGenerator.h"
 #include <algorithm>
 
-ItemGenerator::ItemGenerator(): _mandatory(0), _random(0)
+ItemGenerator::ItemGenerator(): _mandatory(0), _random(0), _totalWeight(0)
 {
 }
 
@@ -61,20 +61,21 @@ void ItemGenerator::FillMandatory(MazeLayout<std::shared_ptr<PhysicObject>>& lay
 
 void ItemGenerator::FillRandomly(MazeLayout<std::shared_ptr<PhysicObject>>& layout)
 {
-	Coordinate currentPos{ _mandatory % layout.GetSize().first, _mandatory / layout.GetSize().second};
+	Coordinate currentPos{layout.GetSize().first - 1, layout.GetSize().second - 1};
 
 	for (int iii = 0; 
 		iii < _random && 
-		iii < layout.GetCellAmount() - _mandatory; 
+		iii < layout.GetCellAmount() &&
+		layout.GetCell(currentPos) == nullptr;
 		++iii)
 	{
 		layout.GetCell(currentPos) = RollARandomItem();
 
-		++currentPos.first;
-		if (currentPos.first >= layout.GetSize().first)
+		--currentPos.first;
+		if (currentPos.first < 0)
 		{
-			++currentPos.second;
-			currentPos.first = 0;
+			--currentPos.second;
+			currentPos.first = layout.GetSize().first - 1;
 		}
 	}
 }

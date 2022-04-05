@@ -13,9 +13,6 @@ public:
 	virtual void Draw() override;
 
 private:
-	// A bit awkward because I forget to do a 
-	// PhysicObject - SpriteAnimation adapter
-	std::shared_ptr<SpriteAnimation> _bat;
 	std::shared_ptr<Text> _rev;
 	Timer _timer;
 };

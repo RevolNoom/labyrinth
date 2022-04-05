@@ -28,9 +28,6 @@
     <Filter Include="TrainingFramework\src\World\Maze\Item">
       <UniqueIdentifier>{8f9e8c48-f73e-485b-b4d5-58fd4af50296}</UniqueIdentifier>
     </Filter>
-    <Filter Include="TrainingFramework\src\GameObject\CustomObjects">
-      <UniqueIdentifier>{56a17355-24ac-469b-8183-f2a616a02d82}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Application.cpp">
@@ -132,14 +129,14 @@
     <ClCompile Include="src\World\Maze\Item\ExitStair.cpp">
       <Filter>TrainingFramework\src\World\Maze\Item</Filter>
     </ClCompile>
-    <ClCompile Include="SceneResult.cpp">
-      <Filter>TrainingFramework\src\GameScenes</Filter>
-    </ClCompile>
-    <ClCompile Include="Bat.cpp">
+    <ClCompile Include="src\World\Maze\Item\Bat.cpp">
       <Filter>TrainingFramework\src\World\Maze\Item</Filter>
     </ClCompile>
-    <ClCompile Include="Timer.cpp">
+    <ClCompile Include="src\GameScenes\SceneResult.cpp">
       <Filter>TrainingFramework\src\GameScenes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameObject\Timer.cpp">
+      <Filter>TrainingFramework\src\GameObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -260,11 +257,11 @@
     <ClInclude Include="src\GameScenes\SceneResult.h">
       <Filter>TrainingFramework\src\GameScenes</Filter>
     </ClInclude>
-    <ClInclude Include="src\GameScenes\Bat.h">
+    <ClInclude Include="src\World\Maze\Item\Bat.h">
       <Filter>TrainingFramework\src\World\Maze\Item</Filter>
     </ClInclude>
     <ClInclude Include="src\GameObject\Timer.h">
-      <Filter>TrainingFramework\src\GameScenes</Filter>
+      <Filter>TrainingFramework\src\GameObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

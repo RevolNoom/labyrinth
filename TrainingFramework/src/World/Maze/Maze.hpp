@@ -46,6 +46,8 @@ public:
 	virtual std::shared_ptr<PhysicObject> Clone() override;
 
 private:
+	// Maybe I should expose Maze's Item Generator
+	// To be modified openly?
 	void GenerateItems();
 
 private:

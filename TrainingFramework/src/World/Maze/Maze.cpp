@@ -3,6 +3,7 @@
 #include "World/Maze/Item/TransPlatform.h"
 #include "World/Maze/Item/Prize.h"
 #include "World/Maze/Item/ExitStair.h"
+#include "World/Maze/Item/Bat.h"
 
 Maze::Maze(int width, int height) : 
 	_size({ width, height }), 
@@ -165,7 +166,12 @@ void Maze::Draw()
 			auto &cell = _cells.GetCell({ iii, jjj });
 			cell->Draw();
 
-			auto &item = _itemLayout.GetCell({ iii, jjj });
+		}
+
+	for (int iii = 0; iii < _size.first; ++iii)
+		for (int jjj = 0; jjj < _size.second; ++jjj)
+		{
+			auto& item = _itemLayout.GetCell({ iii, jjj });
 			if (item != nullptr)
 			{
 				item->Draw();
@@ -178,6 +184,8 @@ void Maze::GenerateItems()
 {
 	ItemGenerator itg; 
 	
+	// MANDATORY
+
 	auto transplatform = std::make_shared<TransPlatform>(this, 3);
 	transplatform->SetSize(GetCellSize() / 2);
 	itg.AddMandatory(transplatform, int(std::log(GetDimensions().first * GetDimensions().second)));
@@ -189,6 +197,17 @@ void Maze::GenerateItems()
 	auto exitStair= std::make_shared<ExitStair>();
 	exitStair->SetSize(GetCellSize() * 0.66);
 	itg.AddMandatory(exitStair, 1);
+
+	auto bat = std::make_shared<Bat>();
+	bat->SetSize(GetCellSize() / 2);
+	itg.AddMandatory(bat, 1);
+
+	
+	// RANDOM
+	itg.AddRandom(bat, 10);
+	itg.AddRandom(transplatform, 5);
+	itg.SetRandomItemAmount(5);
+
 
 	_itemLayout = itg.Generate(this);
 }

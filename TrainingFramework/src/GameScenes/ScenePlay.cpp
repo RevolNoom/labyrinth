@@ -17,7 +17,7 @@ ScenePlay::~ScenePlay()
 
 void ScenePlay::Update(float delta)
 {
-	if (_state == State::WON_WAIT_FOR_CLEANUP)
+	if (_state == State::WAIT_FOR_CLEANUP)
 	{
 		ScenePlay::Exit();
 		SceneDirector::GetInstance()->PushScene(SCENE_ID::SCENE_RESULT);
@@ -31,11 +31,11 @@ void ScenePlay::Update(float delta)
 	}
 }
 
-void ScenePlay::WinGame()
+void ScenePlay::DonePlaying()
 {
 	// Cut off the stack, so that I don't delete the world
 	// while b2Contacts are still in use on stack
-	_state = State::WON_WAIT_FOR_CLEANUP;
+	_state = State::WAIT_FOR_CLEANUP;
 }
 
 
@@ -60,7 +60,7 @@ void ScenePlay::Enter()
 
 	auto unit = std::make_shared<Unit>();
 	unit->SetPosition(maze->GetCellSize()/2);
-	unit->SetSize(maze->GetCellSize()/2);
+	unit->SetSize(maze->GetCellSize()/3);
 	unit->RegisterToWorld(_gameWorld);
 	GetCanvas().Insert(7, unit);
 

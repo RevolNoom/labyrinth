@@ -1,5 +1,6 @@
 #include "SceneIntro.h"
 #include "World/Maze/Cell.h"
+#include "World/Maze/Item/Bat.h"
 
 SceneIntro::SceneIntro() : _timer(1.5)
 {
@@ -19,15 +20,10 @@ void SceneIntro::Init()
 	background->SetSize(Vector2(Globals::screenWidth, Globals::screenHeight));
 	_canvas.Insert(1, background);
 	
-
-	_bat = std::make_shared<SpriteAnimation>(
-		ResourceManagers::GetInstance()->GetModel("Sprite2D.nfg"),
-		ResourceManagers::GetInstance()->GetShader("Animation"),
-		ResourceManagers::GetInstance()->GetTexture("bat.tga"), 2, 1, 0, 0.1);
-	_bat->Set2DPosition(Globals::screenWidth / 2, Globals::screenHeight / 2);
-	_bat->SetSize(60, 60);
-	_canvas2[1].push_back(_bat);
-
+	auto bat = std::make_shared<Bat>();
+	bat->SetPosition(Vector2(Globals::screenWidth / 2, Globals::screenHeight / 2));
+	bat->SetSize(Vector2(60, 60));
+	GetCanvas().Insert(1, bat);
 
 	_rev = std::make_shared<Text>(
 		ResourceManagers::GetInstance()->GetShader("TextShader"),
@@ -35,11 +31,13 @@ void SceneIntro::Init()
 		"rev", TextColor::RED, 2); 
 	_rev->Set2DPosition(Globals::screenWidth / 2 - 40, Globals::screenHeight / 2 + 60);
 	_canvas2[2].push_back(_rev);
+
+	_timer.Start();
 }
 
 void SceneIntro::Update(float deltaTime)
 {
-	_bat->Update(deltaTime);
+	Scene::Update(deltaTime);
 	_timer.Update(deltaTime);
 	if (_timer.TimeOut())
 		SceneDirector::GetInstance()->PushScene(SCENE_ID::SCENE_MENU);
@@ -48,6 +46,5 @@ void SceneIntro::Update(float deltaTime)
 void SceneIntro::Draw()
 {
 	Scene::Draw();
-	_bat->Draw();
 	_rev->Draw();
 }

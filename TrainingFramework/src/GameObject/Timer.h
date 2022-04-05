@@ -28,6 +28,12 @@ public:
 	bool IsPausing();
 	bool TimeOut();
 
+	// Would be even better if I can 
+	// inject an user-defined function into the Timer
+	// But doing so requires changing the framework Update()
+	// from the top
+	// void OnTimerTimeout();
+
 private:
 	float _timeLeft;
 	float _timeMax;

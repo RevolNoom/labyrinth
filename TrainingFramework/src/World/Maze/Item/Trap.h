@@ -3,6 +3,8 @@
 
 #include "World/SolidObject.h"
 
+// TODO: No, Trap should be a separate interface
+// But I've almost finished my project to go back fixing it at this point
 class Trap :
 	public SolidObject
 {
