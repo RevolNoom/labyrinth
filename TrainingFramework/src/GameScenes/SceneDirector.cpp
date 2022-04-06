@@ -199,6 +199,7 @@ void SceneDirector::SetupSceneResult()
 	_scene[SCENE_ID::SCENE_RESULT] = std::make_shared<SceneResult>();
 }
 
+
 void SceneDirector::SetupSceneSetting()
 {
 	auto setting = std::make_shared<Scene>();

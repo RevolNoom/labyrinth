@@ -29,7 +29,7 @@ bool GameButton::IsToggledOn()
 
 void GameButton::SetTexture(std::shared_ptr<Texture> texture, bool isHovered, bool toggleState)
 {
-	_texture[toggleState][isHovered] = texture;
+	_texture[isHovered][toggleState] = texture;
 }
 
 void GameButton::SetOnClick(std::function<void(void)> pBtClick)
@@ -78,7 +78,7 @@ bool GameButton::HandleMouseMotion(const InputEventMouseMotion* ev)
 void GameButton::UpdateTexture(const InputEventMouse* ev)
 {
 	auto hovered = MouseIsHoveringOnButton(ev);
-	SetTexture(_texture[hovered][_isToggledOn], hovered, _isToggledOn);
+	Sprite2D::SetTexture(_texture[hovered][_isToggledOn]);
 }
 
 

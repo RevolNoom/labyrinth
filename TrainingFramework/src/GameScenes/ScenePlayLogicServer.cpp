@@ -1,4 +1,6 @@
 #include "ScenePlayLogicServer.h"
+#include "World/Player/Unit.hpp"
+
 
 void ScenePlayLogicServer::SetUpPrize(Prize* prize)
 {
@@ -39,6 +41,16 @@ void ScenePlayLogicServer::SetUpScenePlay(ScenePlay* sp)
 	_scenePlay = sp;
 }
 
+void ScenePlayLogicServer::SetupPlayer(Unit* player)
+{
+	_player = player;
+}
+
+
+Unit* ScenePlayLogicServer::GetPlayer()
+{
+	return _player;
+}
 
 void ScenePlayLogicServer::StartPlaying()
 {

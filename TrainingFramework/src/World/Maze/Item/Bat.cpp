@@ -6,7 +6,7 @@ Bat::Bat():
 	Trap(nullptr), 
 	_startupTimer(2)
 {
-	_batAnim = std::make_shared<SpriteAnimation>(
+	_anim = std::make_shared<SpriteAnimation>(
 					ResourceManagers::GetInstance()->GetModel("Sprite2d.nfg"),
 					ResourceManagers::GetInstance()->GetShader("Animation"),
 					ResourceManagers::GetInstance()->GetTexture("bat.tga"),
@@ -66,7 +66,7 @@ std::shared_ptr<PhysicObject> Bat::Clone()
 
 void Bat::Update(float delta)
 {
-	_batAnim->Update(delta);
+	_anim->Update(delta);
 
 	if (_startupTimer.TimeOut() )
 	{
@@ -91,37 +91,44 @@ void Bat::Update(float delta)
 		}
 		_body->SetLinearVelocity(velo);
 
-		auto batNewPos = ToGraphicCoordinate(_body->GetPosition());
-		_batAnim->Set2DPosition(batNewPos.x, batNewPos.y);
+		MoveSpriteToBody();
 		//std::cout << "Bat at " << GetPosition().x << ", " << GetPosition().y << "\n";
 	}
 }
 
+
+void Bat::MoveSpriteToBody()
+{
+	auto newPos = ToGraphicCoordinate(_body->GetPosition());
+	_anim->Set2DPosition(newPos.x, newPos.y);
+}
+
+
 void Bat::Draw()
 {
-	_batAnim->Draw();
+	_anim->Draw();
 }
 
 Vector2 Bat::GetPosition() const
 {
-	return _batAnim->Get2DPosition();
+	return _anim->Get2DPosition();
 }
 
 void Bat::SetPosition(Vector2 newPos)
 {
-	_batAnim->Set2DPosition(newPos.x, newPos.y);
+	_anim->Set2DPosition(newPos.x, newPos.y);
 	if (_body)
 		_body->SetTransform(ToPhysicCoordinate(newPos), GetRotation());
 }
 
 float Bat::GetRotation() const
 {
-	return _batAnim->GetRotation().z;
+	return _anim->GetRotation().z;
 }
 
 void Bat::SetRotation(float angle)
 {
-	_batAnim->SetRotation(Vector3(0, 0, angle));
+	_anim->SetRotation(Vector3(0, 0, angle));
 	if (_body)
 		_body->SetTransform(_body->GetPosition(), angle);
 }
@@ -129,7 +136,7 @@ void Bat::SetRotation(float angle)
 void Bat::SetSize(Vector2 size)
 {
 	_size = size;
-	_batAnim->SetSize(size.x, size.y);
+	_anim->SetSize(size.x, size.y);
 	if (_body)
 	{
 		auto world = _body->GetWorld();

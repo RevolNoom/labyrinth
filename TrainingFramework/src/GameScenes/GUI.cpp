@@ -45,9 +45,7 @@ GUI::GUI()
 	_buttons._music->SetSize(50, 50);
 	_buttons._music->SetOnClick([&]() {
 		if (_buttons._music->IsToggledOn())
-		{
 			ServiceLocator::GetInstance()->SetBackgroundMusicPlayer(AudioPlayerMuted::GetInstance());
-		}
 		else
 			ServiceLocator::GetInstance()->SetBackgroundMusicPlayer(AudioPlayer::GetInstance());
 		});
@@ -71,14 +69,13 @@ GUI::GUI()
 	_buttons._sfx->SetSize(50, 50);
 	_buttons._sfx->SetOnClick([&]() {
 		if (_buttons._sfx->IsToggledOn())
-		{
 			ServiceLocator::GetInstance()->SetSoundEffectAudioPlayer(AudioPlayerMuted::GetInstance());
-		}
 		else
 			ServiceLocator::GetInstance()->SetSoundEffectAudioPlayer(AudioPlayer::GetInstance());
 		});
 
-	// MISC
+
+	// MISCS
 
 	_miscs._bat = std::make_shared<Bat>();
 	_miscs._bat->SetSize(Vector2(60, 60));
@@ -91,10 +88,12 @@ GUI::Backgrounds GUI::GetBackground()
     return _backgrounds;
 }
 
+
 GUI::Buttons GUI::GetButton()
 {
 	return _buttons;
 }
+
 
 GUI::Miscs GUI::GetMisc()
 {

@@ -144,11 +144,14 @@
     <ClCompile Include="src\GameManager\ServiceLocator.cpp">
       <Filter>TrainingFramework\src\GameManager</Filter>
     </ClCompile>
-    <ClCompile Include="Keyboard.cpp">
-      <Filter>TrainingFramework\src\GameManager</Filter>
-    </ClCompile>
     <ClCompile Include="src\GameScenes\GUI.cpp">
       <Filter>TrainingFramework\src\GameScenes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\World\Maze\Item\Wraith.cpp">
+      <Filter>TrainingFramework\src\World\Maze\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameManager\Keyboard.cpp">
+      <Filter>TrainingFramework\src\GameManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -286,6 +289,9 @@
     </ClInclude>
     <ClInclude Include="src\GameScenes\GUI.h">
       <Filter>TrainingFramework\src\GameScenes</Filter>
+    </ClInclude>
+    <ClInclude Include="src\World\Maze\Item\Wraith.h">
+      <Filter>TrainingFramework\src\World\Maze\Item</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

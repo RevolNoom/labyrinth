@@ -1,9 +1,11 @@
 #include "Maze.hpp"
+#include "GameScenes/GUI.h"
 #include "World/Maze/ItemGenerator.h"
 #include "World/Maze/Item/TransPlatform.h"
 #include "World/Maze/Item/Prize.h"
 #include "World/Maze/Item/ExitStair.h"
 #include "World/Maze/Item/Bat.h"
+#include "World/Maze/Item/Wraith.h"
 
 Maze::Maze(int width, int height) : 
 	_size({ width, height }), 
@@ -188,25 +190,28 @@ void Maze::GenerateItems()
 
 	auto transplatform = std::make_shared<TransPlatform>(this, 3);
 	transplatform->SetSize(GetCellSize() / 2);
-	itg.AddMandatory(transplatform, int(std::log(GetDimensions().first * GetDimensions().second)));
+	itg.AddMandatory(transplatform, GetDimensions().first * GetDimensions().second / 6);
 
 	auto prize = std::make_shared<Prize>();
 	prize->SetSize(GetCellSize() / 4);
 	itg.AddMandatory(prize, 1);
 
-	auto exitStair= std::make_shared<ExitStair>();
+	auto exitStair = std::make_shared<ExitStair>();
 	exitStair->SetSize(GetCellSize() * 0.66);
 	itg.AddMandatory(exitStair, 1);
 
-	auto bat = std::make_shared<Bat>();
-	bat->SetSize(GetCellSize() / 2);
-	itg.AddMandatory(bat, int(std::log(GetDimensions().first * GetDimensions().second)));
+	auto ghost = std::make_shared<Wraith>();
+	ghost->SetSize(GetCellSize() * 0.5);
+	itg.AddMandatory(ghost, 1);
 
+	auto bat = GUI::GetInstance()->GetMisc()._bat->Clone();
+	bat->SetSize(GetCellSize() / 2);
+	itg.AddMandatory(bat, GetDimensions().first * GetDimensions().second/16);
 	
 	// RANDOM
 	itg.AddRandom(bat, 5);
 	itg.AddRandom(transplatform, 5);
-	itg.SetRandomItemAmount(6);
+	itg.SetRandomItemAmount(2);
 
 
 	_itemLayout = itg.Generate(this);

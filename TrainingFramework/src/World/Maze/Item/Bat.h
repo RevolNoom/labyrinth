@@ -3,6 +3,8 @@
 #include "GameObject/Timer.h"
 #include "SpriteAnimation.h"
 
+// I cannot create an independent Wanderer class
+// Because I can't clone SpriteAnimation.
 class Bat :
     public Trap
 {
@@ -27,15 +29,18 @@ public:
 	virtual void SetSize(Vector2 size) override;
 	virtual Vector2 GetSize() const override;
 
+	void MoveSpriteToBody();
 private:
 	void GoRampant();
 
-private: 
+
+
+protected:
+	std::shared_ptr<SpriteAnimation> _anim;
 	// The Bat won't go rampant and hit people 
 	// while it's still in startup phase
 	Timer _startupTimer;
-
-	std::shared_ptr<SpriteAnimation> _batAnim;
+private:
 	Vector2 _size;
 };
 

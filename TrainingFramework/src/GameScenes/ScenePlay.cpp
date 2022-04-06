@@ -62,6 +62,9 @@ void ScenePlay::Enter()
 	unit->RegisterToWorld(_gameWorld);
 	GetCanvas().Insert(7, unit);
 
+	ScenePlayLogicServer::GetInstance()->SetupPlayer(unit.get());
+
+
 	ScenePlayLogicServer::GetInstance()->StartPlaying();
 }
 

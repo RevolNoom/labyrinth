@@ -5,20 +5,9 @@
 
 SceneIntro::SceneIntro() : _timer(1.5)
 {
-	Init();
-}
-
-
-SceneIntro::~SceneIntro()
-{
-}
-
-
-void SceneIntro::Init()
-{
 	_canvas.Insert(1, GUI::GetInstance()->GetBackground()._black);
-	
-	auto bat = std::make_shared<Bat>();
+
+	auto bat = GUI::GetInstance()->GetMisc()._bat->Clone();
 	bat->SetPosition(Vector2(Globals::screenWidth / 2, Globals::screenHeight / 2));
 	bat->SetSize(Vector2(60, 60));
 	GetCanvas().Insert(1, bat);
@@ -26,12 +15,18 @@ void SceneIntro::Init()
 	_rev = std::make_shared<Text>(
 		ResourceManagers::GetInstance()->GetShader("TextShader"),
 		ResourceManagers::GetInstance()->GetFont("Origicide.ttf"),
-		"rev", TextColor::RED, 2); 
+		"rev", TextColor::RED, 2);
 	_rev->Set2DPosition(Globals::screenWidth / 2 - 40, Globals::screenHeight / 2 + 60);
 	_canvas2[2].push_back(_rev);
 
 	_timer.Start();
 }
+
+
+SceneIntro::~SceneIntro()
+{
+}
+
 
 void SceneIntro::Update(float deltaTime)
 {
