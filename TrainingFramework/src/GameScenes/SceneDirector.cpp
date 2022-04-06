@@ -3,12 +3,13 @@
 #include "SceneIntro.h"
 #include "ScenePlay.h"
 #include "SceneResult.h"
+#include "ServiceLocator.h"
 
 #include "World/PhysicObject.h"
 #include "SpriteAnimation.h"
-#include "GameButton.h"
 #include "World/Maze/Maze.hpp"
 #include "World/Player/Unit.hpp"
+#include "GUI.h"
 
 SceneDirector::SceneDirector() : m_running(true), m_fullscreen(false)
 {
@@ -75,11 +76,12 @@ void SceneDirector::HandleEvent(std::shared_ptr<InputEvent> ev)
 
 void SceneDirector::SetupScenes()
 {
-	SetupSceneCredit();
 	SetupSceneIntro();
-	SetupSceneMenu(); 
+	SetupSceneMenu();
+	SetupSceneCredit();
 	SetupScenePlay();
 	SetupSceneResult();
+	SetupSceneSetting();
 }
 
 
@@ -97,16 +99,11 @@ void SceneDirector::SetupSceneMenu()
 	_scene[SCENE_ID::SCENE_MENU] = menu;
 
 
-	auto texture = ResourceManagers::GetInstance()->GetTexture("TileBig.tga");
-
-	auto background = std::make_shared<Sprite2D>(texture);
-	background->Set2DPosition(Globals::screenWidth / 2, Globals::screenHeight / 2);
-	background->SetSize(Globals::screenWidth, Globals::screenHeight);
-	menu->GetCanvas2()[1].push_back(background);
+	menu->GetCanvas().Insert(1, GUI::GetInstance()->GetBackground()._tile);
 
 
 	auto button = std::make_shared<GameButton>(ResourceManagers::GetInstance()->GetTexture("DoorClose.tga"));
-	button->SetHoveringTexture(ResourceManagers::GetInstance()->GetTexture("DoorOpen.tga"));
+	button->SetTexture(ResourceManagers::GetInstance()->GetTexture("DoorOpen.tga"), GameButton::Hover::H_ON);
 	button->Set2DPosition(Globals::screenWidth / 2, Globals::screenHeight / 2);
 	button->SetSize(200, 200);
 	button->SetOnClick([]() {
@@ -115,21 +112,14 @@ void SceneDirector::SetupSceneMenu()
 	menu->GetCanvas2()[3].push_back(button);
 
 
-	// exit button
-	texture = ResourceManagers::GetInstance()->GetTexture("btn_close.tga");
-	button = std::make_shared<GameButton>(texture);
-	button->Set2DPosition(Globals::screenWidth - 50, 50);
-	button->SetSize(50, 50);
-	button->SetOnClick([]() {
-		SceneDirector::GetInstance()->PopScene();
-		});
-	menu->GetCanvas2()[3].push_back(button);
+	menu->GetCanvas2()[3].push_back(GUI::GetInstance()->GetButton()._exit);
+	menu->GetCanvas2()[3].push_back(GUI::GetInstance()->GetButton()._setting);
 
 
 	// Credit button
-	texture = ResourceManagers::GetInstance()->GetTexture("Sign.tga");
+	auto texture = ResourceManagers::GetInstance()->GetTexture("Sign.tga");
 	auto creditbutton = std::make_shared<GameButton>(texture);
-	creditbutton->SetHoveringTexture(ResourceManagers::GetInstance()->GetTexture("SignGlow.tga"));
+	creditbutton->SetTexture(ResourceManagers::GetInstance()->GetTexture("SignGlow.tga"), GameButton::Hover::H_ON);
 	creditbutton->Set2DPosition(Globals::screenWidth/2 - 130, Globals::screenHeight / 2 + 50);
 	creditbutton->SetSize(50, 70);
 	creditbutton->SetOnClick([]() {
@@ -156,20 +146,9 @@ void SceneDirector::SetupSceneCredit()
 	_scene[SCENE_ID::SCENE_CREDIT] = credit;
 
 
-	auto texture = ResourceManagers::GetInstance()->GetTexture("TileBig.tga");
-	auto background = std::make_shared<Sprite2D>(texture);
-	background->Set2DPosition(Globals::screenWidth / 2, Globals::screenHeight / 2);
-	background->SetSize(Globals::screenWidth, Globals::screenHeight);
-	credit->GetCanvas2()[1].push_back(background);
+	credit->GetCanvas().Insert(1, GUI::GetInstance()->GetBackground()._tile);
+	credit->GetCanvas2()[3].push_back(GUI::GetInstance()->GetButton()._return);
 
-	// return button
-	auto button = std::make_shared<GameButton>(ResourceManagers::GetInstance()->GetTexture("btn_close.tga"));
-	button->Set2DPosition(Globals::screenWidth - 50, 50);
-	button->SetSize(50, 50);
-	button->SetOnClick([]() {
-		SceneDirector::GetInstance()->PopScene();
-		});
-	credit->GetCanvas2()[3].push_back(button);
 
 	// Credit text
 	auto shader = ResourceManagers::GetInstance()->GetShader("TextShader");
@@ -179,26 +158,15 @@ void SceneDirector::SetupSceneCredit()
 	textCredit->Set2DPosition(Vector2(Globals::screenWidth / 2 - 50, Globals::screenHeight / 5));
 	credit->GetCanvas2()[3].push_back(textCredit);
 
-	// Some bats to adorn the credit scene
-	auto _bat = std::make_shared<SpriteAnimation>(
-		ResourceManagers::GetInstance()->GetModel("Sprite2D.nfg"),
-		ResourceManagers::GetInstance()->GetShader("Animation"),
-		ResourceManagers::GetInstance()->GetTexture("bat.tga"), 2, 1, 0, 0.1);
-	_bat->Set2DPosition(Globals::screenWidth / 2 - 85, Globals::screenHeight / 5);
-	_bat->SetSize(60, 60);
-	credit->GetCanvas2()[2].push_back(_bat);
 
+	// Some bats to adorn the banner
+	auto bat = GUI::GetInstance()->GetMisc()._bat->Clone();
+	bat->SetPosition(Vector2(Globals::screenWidth / 2 - 85, Globals::screenHeight / 5));
+	credit->GetCanvas().Insert(2, bat);
 
-	_bat = std::make_shared<SpriteAnimation>(
-		ResourceManagers::GetInstance()->GetModel("Sprite2D.nfg"),
-		ResourceManagers::GetInstance()->GetShader("Animation"),
-		ResourceManagers::GetInstance()->GetTexture("bat.tga"), 2, 1, 0, 0.1);
-	_bat->Set2DPosition(Globals::screenWidth / 2 + 75, Globals::screenHeight / 5);
-	_bat->SetSize(60, 60);
-	credit->GetCanvas2()[2].push_back(_bat);
-
-
-
+	bat = bat->Clone();
+	bat->SetPosition(Vector2(Globals::screenWidth / 2 + 75, Globals::screenHeight / 5));
+	credit->GetCanvas().Insert(2, bat);
 
 	// CREDIT CONTENT
 
@@ -229,4 +197,39 @@ void SceneDirector::SetupScenePlay()
 void SceneDirector::SetupSceneResult()
 {
 	_scene[SCENE_ID::SCENE_RESULT] = std::make_shared<SceneResult>();
+}
+
+void SceneDirector::SetupSceneSetting()
+{
+	auto setting = std::make_shared<Scene>();
+	_scene[SCENE_ID::SCENE_SETTING] = setting;
+
+
+	setting->GetCanvas().Insert(1, GUI::GetInstance()->GetBackground()._tile);
+
+
+	// BANNER
+	auto shader = ResourceManagers::GetInstance()->GetShader("TextShader");
+	std::shared_ptr<Font> origicide = ResourceManagers::GetInstance()->GetFont("Origicide.ttf");
+
+
+	auto textCredit = std::make_shared<Text>(shader, origicide, "Settings", TextColor::RED, 1);
+	textCredit->Set2DPosition(Vector2(Globals::screenWidth / 2 - 50, Globals::screenHeight / 5));
+	setting->GetCanvas2()[3].push_back(textCredit);
+
+
+	// Some bats to adorn the banner
+	auto bat = GUI::GetInstance()->GetMisc()._bat->Clone();
+	bat->SetPosition(Vector2(Globals::screenWidth / 2 - 85, Globals::screenHeight / 5));
+	setting->GetCanvas().Insert(2, bat);
+
+
+	bat = bat->Clone();
+	bat->SetPosition(Vector2(Globals::screenWidth / 2 + 75, Globals::screenHeight / 5));
+	setting->GetCanvas().Insert(2, bat);
+
+
+	setting->GetCanvas2()[3].push_back(GUI::GetInstance()->GetButton()._return);
+	setting->GetCanvas2()[3].push_back(GUI::GetInstance()->GetButton()._music);
+	setting->GetCanvas2()[3].push_back(GUI::GetInstance()->GetButton()._sfx);
 }

@@ -43,17 +43,17 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-Angle|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-AMD|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-ATI|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
     <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
@@ -64,19 +64,19 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-Nvidia|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
     <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-AMD|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
     <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-Angle|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
     <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
@@ -120,46 +120,51 @@
     <OutDir>$(SolutionDir)\BIN-Nvidia\</OutDir>
     <IntDir>$(Configuration)\</IntDir>
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(ProjectDir)src/GameScenes;$(SolutionDir)Box2D/include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)/Box2D/include;$(ProjectDir)/src;$(ProjectDir)/src/GameScenes</IncludePath>
     <AllProjectIncludesArePublic>true</AllProjectIncludesArePublic>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-Nvidia|Win32'">
     <OutDir>$(SolutionDir)\BIN-Nvidia\</OutDir>
     <IntDir>$(Configuration)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>C:\Users\Administrator\source\repos\labyrinth\Box2D\box2d\include;C:\Users\Administrator\source\repos\labyrinth\TrainingFramework\src;C:\Users\Administrator\source\repos\labyrinth\TrainingFramework\src\GameScenes;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)/Box2D/include;$(ProjectDir)/src;$(ProjectDir)/src/GameScenes</IncludePath>
     <AllProjectIncludesArePublic>true</AllProjectIncludesArePublic>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-AMD|Win32'">
     <OutDir>$(SolutionDir)\BIN-AMD\</OutDir>
     <IntDir>$(Configuration)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
+    <IncludePath>$(SolutionDir)/Box2D/include;$(ProjectDir)/src;$(ProjectDir)/src/GameScenes</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-Angle|Win32'">
     <OutDir>$(SolutionDir)\BIN-Angle\</OutDir>
     <IntDir>$(Configuration)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
+    <IncludePath>$(SolutionDir)/Box2D/include;$(ProjectDir)/src;$(ProjectDir)/src/GameScenes</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-ATI|Win32'">
     <OutDir>$(SolutionDir)\BIN-ATI\</OutDir>
     <IntDir>$(Configuration)\</IntDir>
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>$(SolutionDir)/Box2D/include;$(ProjectDir)/src;$(ProjectDir)/src/GameScenes</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-ATI|Win32'">
     <OutDir>$(SolutionDir)\BIN-ATI\</OutDir>
     <IntDir>$(Configuration)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
+    <IncludePath>$(SolutionDir)/Box2D/include;$(ProjectDir)/src;$(ProjectDir)/src/GameScenes</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-AMD|Win32'">
     <OutDir>$(SolutionDir)\BIN-AMD\</OutDir>
     <IntDir>$(Configuration)\</IntDir>
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\Users\Administrator\source\repos\MiniGameStarter\Include\Soloud;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)/Box2D/include;$(ProjectDir)/src;$(ProjectDir)/src/GameScenes</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-Angle|Win32'">
     <OutDir>$(SolutionDir)\BIN-Angle\</OutDir>
     <IntDir>$(Configuration)\</IntDir>
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>$(SolutionDir)/Box2D/include;$(ProjectDir)/src;$(ProjectDir)/src/GameScenes</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug-Nvidia|Win32'">
     <ClCompile>
@@ -353,8 +358,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Keyboard.cpp" />
     <ClCompile Include="src\Application.cpp" />
+    <ClCompile Include="src\GameManager\AudioPlayer.cpp" />
     <ClCompile Include="src\GameManager\ResourceManagers.cpp" />
+    <ClCompile Include="src\GameManager\ServiceLocator.cpp" />
     <ClCompile Include="src\GameObject\Font.cpp" />
     <ClCompile Include="src\GameObject\GameButton.cpp" />
     <ClCompile Include="src\GameObject\Sprite2D.cpp" />
@@ -367,6 +375,7 @@
     <ClCompile Include="src\GameObject\Texture.cpp" />
     <ClCompile Include="src\GameObject\Timer.cpp" />
     <ClCompile Include="src\GameScenes\Canvas.cpp" />
+    <ClCompile Include="src\GameScenes\GUI.cpp" />
     <ClCompile Include="src\GameScenes\InputEvent.cpp" />
     <ClCompile Include="src\GameScenes\Scene.cpp" />
     <ClCompile Include="src\GameScenes\SceneDirector.cpp" />
@@ -391,8 +400,12 @@
     <ClCompile Include="src\World\SolidObject.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\GameManager\AudioPlayer.h" />
+    <ClInclude Include="src\GameManager\Keyboard.h" />
+    <ClInclude Include="src\GameManager\ServiceLocator.h" />
     <ClInclude Include="src\GameObject\Timer.h" />
     <ClInclude Include="src\GameScenes\Canvas.hpp" />
+    <ClInclude Include="src\GameScenes\GUI.h" />
     <ClInclude Include="src\GameScenes\InputEvent.hpp" />
     <ClInclude Include="src\GameScenes\Music.hpp" />
     <ClInclude Include="src\GameScenes\Scene.h" />

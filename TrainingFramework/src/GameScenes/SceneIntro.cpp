@@ -1,6 +1,7 @@
 #include "SceneIntro.h"
 #include "World/Maze/Cell.h"
 #include "World/Maze/Item/Bat.h"
+#include "GUI.h"
 
 SceneIntro::SceneIntro() : _timer(1.5)
 {
@@ -15,10 +16,7 @@ SceneIntro::~SceneIntro()
 
 void SceneIntro::Init()
 {
-	auto background = std::make_shared<SolidObject>(ResourceManagers::GetInstance()->GetTexture("BlackBackground.tga"));
-	background->SetPosition(Vector2(Globals::screenWidth/2, Globals::screenHeight/2));
-	background->SetSize(Vector2(Globals::screenWidth, Globals::screenHeight));
-	_canvas.Insert(1, background);
+	_canvas.Insert(1, GUI::GetInstance()->GetBackground()._black);
 	
 	auto bat = std::make_shared<Bat>();
 	bat->SetPosition(Vector2(Globals::screenWidth / 2, Globals::screenHeight / 2));

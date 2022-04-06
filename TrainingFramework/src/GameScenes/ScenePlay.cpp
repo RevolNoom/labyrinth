@@ -3,9 +3,10 @@
 #include "World/Player/Unit.hpp"
 #include "World/Maze/Maze.hpp"
 #include "GameScenes/ScenePlayLogicServer.h"
+#include "GUI.h"
 
 // Screen: 480 x 800
-ScenePlay::ScenePlay() : Scene(), _gameWorld(nullptr), _trapSensor()
+ScenePlay::ScenePlay() : Scene(), _gameWorld(nullptr), _trapSensor(), _state(State::PAUSE)
 {
 }
 
@@ -45,10 +46,7 @@ void ScenePlay::Enter()
 	Scene::Enter();
 	SetUpGameWorld();
 
-	auto background = std::make_shared<SolidObject>(ResourceManagers::GetInstance()->GetTexture("BlackBackground.tga"));
-	background->SetPosition(Vector2(Globals::screenWidth / 2, Globals::screenHeight / 2));
-	background->SetSize(Vector2(Globals::screenWidth, Globals::screenHeight));
-	GetCanvas().Insert(1, background);
+	GetCanvas().Insert(1, GUI::GetInstance()->GetBackground()._black);
 
 	//auto maze = std::make_shared<Maze>(12, 20);
 	auto maze = std::make_shared<Maze>(6, 10);

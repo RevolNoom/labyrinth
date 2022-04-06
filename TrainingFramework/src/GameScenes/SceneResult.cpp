@@ -3,37 +3,26 @@
 #include "GameButton.h"
 #include "GameScenes/ScenePlayLogicServer.h"
 #include "World/Maze/Item/Bat.h"
+#include "GUI.h"
 
 SceneResult::SceneResult(): Scene()
 {
-
-}
-
-void SceneResult::Enter()
-{
-	auto background = std::make_shared<SolidObject>(ResourceManagers::GetInstance()->GetTexture("TileBig.tga"));
-	background->SetPosition(Vector2(Globals::screenWidth / 2, Globals::screenHeight / 2));
-	background->SetSize(Vector2(Globals::screenWidth, Globals::screenHeight));
-	GetCanvas().Insert(1, background);
+	GetCanvas().Insert(1, GUI::GetInstance()->GetBackground()._tile);
 
 
 
 	auto shader = ResourceManagers::GetInstance()->GetShader("TextShader");
 	std::shared_ptr<Font> origicide = ResourceManagers::GetInstance()->GetFont("Origicide.ttf");
 
-	std::string result =
-		ScenePlayLogicServer::GetInstance()->GetGameResult() == ScenePlayLogicServer::Result::WIN ?
-		"You Win" : "You Lose";
 
-	auto textResult = std::make_shared<Text>(shader, origicide, result, TextColor::RED, 1);
-	textResult->Set2DPosition(Vector2(Globals::screenWidth / 2 - 50, Globals::screenHeight / 5));
-	GetCanvas2()[3].push_back(textResult);
+	_textResult = std::make_shared<Text>(shader, origicide, "", TextColor::RED, 1);
+	_textResult->Set2DPosition(Vector2(Globals::screenWidth / 2 - 50, Globals::screenHeight / 5));
+	GetCanvas2()[3].push_back(_textResult);
 
 
 	// Some bats to adorn the credit scene
-	auto bat = std::make_shared<Bat>();
+	auto bat = GUI::GetInstance()->GetMisc()._bat;
 	bat->SetPosition(Vector2(Globals::screenWidth / 2 - 95, Globals::screenHeight / 5));
-	bat->SetSize(Vector2(60, 60));
 	GetCanvas().Insert(2, bat->Clone());
 
 	bat->SetPosition(Vector2(Globals::screenWidth / 2 + 85, Globals::screenHeight / 5));
@@ -48,7 +37,7 @@ void SceneResult::Enter()
 
 
 	auto retryDoor = std::make_shared<GameButton>(ResourceManagers::GetInstance()->GetTexture("DoorClose.tga"));
-	retryDoor->SetHoveringTexture(ResourceManagers::GetInstance()->GetTexture("DoorOpen.tga"));
+	retryDoor->SetTexture(ResourceManagers::GetInstance()->GetTexture("DoorOpen.tga"), GameButton::Hover::H_ON);
 	retryDoor->Set2DPosition(Globals::screenWidth / 2, Globals::screenHeight / 2);
 	retryDoor->SetSize(200, 200);
 	retryDoor->SetOnClick([]() {
@@ -57,13 +46,21 @@ void SceneResult::Enter()
 	GetCanvas2()[3].push_back(retryDoor);
 
 
+	GetCanvas2()[3].push_back(GUI::GetInstance()->GetButton()._exit);
+}
 
-	// exit button
-	auto button = std::make_shared<GameButton>(ResourceManagers::GetInstance()->GetTexture("btn_close.tga"));
-	button->Set2DPosition(Globals::screenWidth - 50, 50);
-	button->SetSize(50, 50);
-	button->SetOnClick([]() {
-		exit(0);
-		});
-	GetCanvas2()[3].push_back(button);
+void SceneResult::Enter()
+{
+	Scene::Enter();
+
+	std::string result =
+		ScenePlayLogicServer::GetInstance()->GetGameResult() == ScenePlayLogicServer::Result::WIN ?
+		"You Win" : "You Lose";
+
+	_textResult->SetText(result);
+}
+
+void SceneResult::Exit()
+{
+	Scene::Exit();
 }

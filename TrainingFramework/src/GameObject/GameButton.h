@@ -5,16 +5,35 @@
 class GameButton : public Sprite2D
 {
 public:
-	GameButton() : Sprite2D(), m_pBtClick(nullptr), m_isHolding(false) {}
-	GameButton(std::shared_ptr<Model> model, std::shared_ptr<Shader> shader, std::shared_ptr<Texture> texture);
+	enum Hover
+	{
+		H_OFF,
+		H_ON,
+		MAX_HOVER
+	};
+
+	enum Toggle
+	{
+		T_OFF,
+		T_ON,
+		MAX_TOGGLE
+	};
+
+	GameButton();
 	GameButton(std::shared_ptr<Texture> texture);
-	~GameButton();
-	virtual bool HandleMouseClick(const InputEventMouseClick* ev) override;
-	virtual bool HandleMouseMotion(const InputEventMouseMotion* ev) override;
+
+	void	EnableToggle(bool enable);
+	bool	IsToggledOn();
+
+	void	SetTexture(std::shared_ptr<Texture> texture, bool isHovered = Hover::H_OFF, bool toggleState = Toggle::T_ON);
+
+	void	SetOnClick(std::function<void(void)>pBtClick);
 	bool	IsHolding();
 
-	void	SetHoveringTexture(std::shared_ptr<Texture> texture);
-	void	SetOnClick(std::function<void(void)>pBtClick);
+	virtual bool HandleMouseClick(const InputEventMouseClick* ev) override;
+	virtual bool HandleMouseMotion(const InputEventMouseMotion* ev) override;
+
+	void UpdateTexture(const InputEventMouse* ev);
 
 protected:
 	bool	MouseIsHoveringOnButton(const InputEventMouse* ev);
@@ -23,12 +42,10 @@ private:
 
 	std::function<void(void)>m_pBtClick;
 
-	enum State
-	{
-		NOT_HOVERED,
-		HOVERED,
-	};
-	std::shared_ptr<Texture> _texture[2];
-
 	bool	m_isHolding;
+	
+	// Rev's Mod
+	std::shared_ptr<Texture> _texture[MAX_TOGGLE][MAX_HOVER];
+	bool	_isToggledOn;
+	bool	_allowToggle;
 };

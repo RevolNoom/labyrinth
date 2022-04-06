@@ -138,6 +138,18 @@
     <ClCompile Include="src\GameObject\Timer.cpp">
       <Filter>TrainingFramework\src\GameObject</Filter>
     </ClCompile>
+    <ClCompile Include="src\GameManager\AudioPlayer.cpp">
+      <Filter>TrainingFramework\src\GameManager</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameManager\ServiceLocator.cpp">
+      <Filter>TrainingFramework\src\GameManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Keyboard.cpp">
+      <Filter>TrainingFramework\src\GameManager</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameScenes\GUI.cpp">
+      <Filter>TrainingFramework\src\GameScenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Application.h">
@@ -262,6 +274,18 @@
     </ClInclude>
     <ClInclude Include="src\GameObject\Timer.h">
       <Filter>TrainingFramework\src\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameManager\ServiceLocator.h">
+      <Filter>TrainingFramework\src\GameManager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameManager\AudioPlayer.h">
+      <Filter>TrainingFramework\src\GameManager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameManager\Keyboard.h">
+      <Filter>TrainingFramework\src\GameManager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameScenes\GUI.h">
+      <Filter>TrainingFramework\src\GameScenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

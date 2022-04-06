@@ -1,25 +1,35 @@
 #include "GameButton.h"
 
-GameButton::GameButton(std::shared_ptr<Model> model, std::shared_ptr<Shader> shader, std::shared_ptr<Texture> texture)
-	: Sprite2D(-1, model, shader, texture), m_pBtClick(nullptr), m_isHolding(false)
-{
-	_texture[HOVERED] = texture;
-	_texture[NOT_HOVERED] = texture;
-}
-
-GameButton::GameButton(std::shared_ptr<Texture> texture): Sprite2D(texture)
-{
-	_texture[HOVERED] = texture;
-	_texture[NOT_HOVERED] = texture;
-}
-
-GameButton::~GameButton()
+GameButton::GameButton():
+	GameButton(nullptr) 
 {
 }
 
-void GameButton::SetHoveringTexture(std::shared_ptr<Texture> texture)
+GameButton::GameButton(std::shared_ptr<Texture> texture) :
+	Sprite2D(texture),
+	_allowToggle(false),
+	_isToggledOn(true)
 {
-	_texture[HOVERED] = texture;
+	Init();
+	_texture[T_ON][Hover::H_ON] =
+	_texture[T_ON][Hover::H_OFF] = 
+	_texture[T_OFF][Hover::H_ON] = 
+	_texture[T_OFF][Hover::H_OFF] = texture;
+}
+
+void GameButton::EnableToggle(bool enable)
+{
+	_allowToggle = enable;
+}
+
+bool GameButton::IsToggledOn()
+{
+	return _isToggledOn;
+}
+
+void GameButton::SetTexture(std::shared_ptr<Texture> texture, bool isHovered, bool toggleState)
+{
+	_texture[toggleState][isHovered] = texture;
 }
 
 void GameButton::SetOnClick(std::function<void(void)> pBtClick)
@@ -41,8 +51,13 @@ bool GameButton::HandleMouseClick(const InputEventMouseClick* ev)
 		{
 			m_pBtClick();
 			isHandled = true;
+			m_isHolding = false;
+			if (_allowToggle)
+			{
+				_isToggledOn = !_isToggledOn;
+				UpdateTexture(ev);
+			}
 		}
-		m_isHolding = false;
 	}
 	return isHandled;
 }
@@ -56,13 +71,14 @@ bool GameButton::MouseIsHoveringOnButton(const InputEventMouse* ev)
 
 bool GameButton::HandleMouseMotion(const InputEventMouseMotion* ev)
 {
-	if (MouseIsHoveringOnButton(ev))
-	{
-		SetTexture(_texture[HOVERED]);
-	}
-	else
-		SetTexture(_texture[NOT_HOVERED]);
+	UpdateTexture(ev);
 	return false;
+}
+
+void GameButton::UpdateTexture(const InputEventMouse* ev)
+{
+	auto hovered = MouseIsHoveringOnButton(ev);
+	SetTexture(_texture[hovered][_isToggledOn], hovered, _isToggledOn);
 }
 
 

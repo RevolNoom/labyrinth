@@ -35,12 +35,13 @@ public:
 	virtual void Update(float delta) override;
 	virtual void Draw() override;
 
-	virtual bool HandleKeyPress(const InputEventKeyPress* ev) override;
 
 	//TODO: Does not clone velocity, animation. 
 	virtual std::shared_ptr<PhysicObject> Clone() override;
 
 private:
+	void ProcessInput();
+
 	std::shared_ptr<SpriteAnimation> GetCurrentAnim() const;
 
 	void MoveSpriteToBody();

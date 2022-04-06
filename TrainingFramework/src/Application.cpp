@@ -1,6 +1,7 @@
 #include "Application.h"
 #include "GameScenes/SceneDirector.h"
 #include "GameScenes/Scene.h"
+#include "Keyboard.h"
 
 Application::Application()
 {
@@ -36,7 +37,9 @@ void Application::Render()
 
 void Application::HandleKeyEvent(unsigned char key, bool bIsPressed)
 {
-	HandleEvent(std::make_shared<InputEventKeyPress>(key, bIsPressed));
+	auto ev = std::make_shared<InputEventKeyPress>(key, bIsPressed);
+	Keyboard::GetInstance()->HandleKeyPress(ev.get());
+	HandleEvent(ev);
 }
 
 void Application::HandleTouchEvent(GLint x, GLint y, bool bIsPressed)

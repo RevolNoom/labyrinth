@@ -1,7 +1,7 @@
 #pragma once
 #include <memory>
 
-template <class T>
+template <typename T>
 class CSingleton
 {
 public:

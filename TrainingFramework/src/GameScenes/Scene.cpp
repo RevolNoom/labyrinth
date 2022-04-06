@@ -1,4 +1,5 @@
 #include "Scene.h"
+#include "GameManager/ServiceLocator.h"
 
 Scene::Scene()
 {
@@ -25,13 +26,13 @@ void Scene::HandleEvent(std::shared_ptr<InputEvent> ev)
 				break;
 }
 
-void Scene::Enter() { _backgroundMusic.Play(); }
+void Scene::Enter() { ServiceLocator::GetInstance()->GetBackgroundMusicPlayer()->Play(_backgroundMusic); }
 
-void Scene::Pause() { _backgroundMusic.Stop(); }
+void Scene::Pause() { ServiceLocator::GetInstance()->GetBackgroundMusicPlayer()->Stop(_backgroundMusic); }
 
-void Scene::Resume() { _backgroundMusic.Play(); }
+void Scene::Resume() { ServiceLocator::GetInstance()->GetBackgroundMusicPlayer()->Play(_backgroundMusic); }
 
-void Scene::Exit() { _backgroundMusic.Stop(); }
+void Scene::Exit() { ServiceLocator::GetInstance()->GetBackgroundMusicPlayer()->Stop(_backgroundMusic); }
 
 
 void Scene::Update(float delta)

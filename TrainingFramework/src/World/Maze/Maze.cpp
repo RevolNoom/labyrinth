@@ -200,13 +200,13 @@ void Maze::GenerateItems()
 
 	auto bat = std::make_shared<Bat>();
 	bat->SetSize(GetCellSize() / 2);
-	itg.AddMandatory(bat, 1);
+	itg.AddMandatory(bat, int(std::log(GetDimensions().first * GetDimensions().second)));
 
 	
 	// RANDOM
-	itg.AddRandom(bat, 10);
+	itg.AddRandom(bat, 5);
 	itg.AddRandom(transplatform, 5);
-	itg.SetRandomItemAmount(5);
+	itg.SetRandomItemAmount(6);
 
 
 	_itemLayout = itg.Generate(this);

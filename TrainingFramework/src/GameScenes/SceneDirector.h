@@ -15,8 +15,13 @@ enum SCENE_ID
 	SCENE_MENU,
 	SCENE_PLAY,
 	SCENE_CREDIT,
-	SCENE_RESULT
+	SCENE_RESULT,
+	SCENE_SETTING
 };
+
+// TODO: Too many code copy pasted in .cpp
+// Consider creating a GUI class to hold shared elements
+// like banners, exit button, ...
 
 class SceneDirector : public CSingleton<SceneDirector>
 {
@@ -49,6 +54,7 @@ private:
 	void SetupSceneCredit();
 	void SetupScenePlay();
 	void SetupSceneResult();
+	void SetupSceneSetting();
 
 private:
 	std::map <SCENE__ID, std::shared_ptr<Scene>>	_scene;

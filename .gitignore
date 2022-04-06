@@ -5,10 +5,14 @@
 **/*.pdb
 **/*.db
 **/*.recipe
+**/*.suo
 **/*.ilk
+**/*.ipch
+**/*.opendb
 **/*.cd
-**/.*
 **/*.exe
+**/*.db-*
+**/*.sqlite
 **/*.lib
 **/*.pdb
 **/*.iobj
