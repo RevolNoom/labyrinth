@@ -5,6 +5,7 @@
 
 SceneIntro::SceneIntro() : _timer(1.5)
 {
+	SetBackgroundMusic(Music("snd_levelup.mp3"));
 	_canvas.Insert(1, GUI::GetInstance()->GetBackground()._black);
 
 	auto bat = GUI::GetInstance()->GetMisc()._bat->Clone();

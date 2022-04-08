@@ -1,8 +1,12 @@
 #include "Wraith.h"
 #include "GameScenes/ScenePlayLogicServer.h"
+#include "ServiceLocator.h"
 
 Wraith::Wraith(): Bat()
 {
+	_squeak = Music("snd_death.mp3");
+	_squeakTimer = 6 + (std::rand() % 6000) / 1000.0;
+
 	_anim = std::make_shared<SpriteAnimation>(
 					ResourceManagers::GetInstance()->GetModel("Sprite2d.nfg"),
 					ResourceManagers::GetInstance()->GetShader("Animation"),
@@ -36,7 +40,15 @@ void Wraith::Update(float delta)
 			SetEnabled(true);
 		ChasePlayer();
 
-		MoveSpriteToBody();
+		MoveSpriteToBody(); 
+		
+		_squeakTimer.Update(delta);
+		if (_squeakTimer.TimeOut())
+		{
+			_squeakTimer.Reset();
+			_squeakTimer.Start();
+			ServiceLocator::GetInstance()->GetSoundEffectAudioPlayer()->Play(_squeak);
+		}
 	}
 }
 

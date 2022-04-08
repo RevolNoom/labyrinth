@@ -1,10 +1,13 @@
 #include "Bat.h"
 #include <algorithm>
 #include "GameScenes/ScenePlayLogicServer.h"
+#include "ServiceLocator.h"
 
-Bat::Bat(): 
-	Trap(nullptr), 
-	_startupTimer(2)
+Bat::Bat() :
+	Trap(nullptr),
+	_startupTimer(2),
+	_squeakTimer(5 + (std::rand() % 5000) / 1000.0),
+	_squeak(Music("snd_bat.wav"))
 {
 	_anim = std::make_shared<SpriteAnimation>(
 					ResourceManagers::GetInstance()->GetModel("Sprite2d.nfg"),
@@ -38,9 +41,9 @@ void Bat::RegisterToWorld(b2World* world)
 	fdef.friction = 0;
 	fdef.shape = &shape;
 
-
 	_body->CreateFixture(&fdef);
 
+	_squeakTimer.Start();
 }
 
 
@@ -92,6 +95,14 @@ void Bat::Update(float delta)
 		_body->SetLinearVelocity(velo);
 
 		MoveSpriteToBody();
+
+		_squeakTimer.Update(delta);
+		if (_squeakTimer.TimeOut())
+		{
+			_squeakTimer.Reset();
+			_squeakTimer.Start();
+			ServiceLocator::GetInstance()->GetSoundEffectAudioPlayer()->Play(_squeak);
+		}
 		//std::cout << "Bat at " << GetPosition().x << ", " << GetPosition().y << "\n";
 	}
 }

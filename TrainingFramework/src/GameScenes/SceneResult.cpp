@@ -51,13 +51,21 @@ SceneResult::SceneResult(): Scene()
 
 void SceneResult::Enter()
 {
-	Scene::Enter();
-
-	std::string result =
-		ScenePlayLogicServer::GetInstance()->GetGameResult() == ScenePlayLogicServer::Result::WIN ?
-		"You Win" : "You Lose";
+	std::string result;
+	if (ScenePlayLogicServer::GetInstance()->GetGameResult() == ScenePlayLogicServer::Result::WIN)
+	{
+		result = "You Win";
+		SetBackgroundMusic(Music("surface.mp3"));
+	}
+	else
+	{
+		result = "You Lose";
+		SetBackgroundMusic(Music("snd_challenge.mp"));
+	}
 
 	_textResult->SetText(result);
+
+	Scene::Enter();
 }
 
 void SceneResult::Exit()

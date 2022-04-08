@@ -3,6 +3,7 @@
 
 #include "Singleton.h"
 #include "GameManager/AudioPlayer.h"
+#include "GameScenes/Music.hpp"
 
 // Service Locator Pattern
 // 

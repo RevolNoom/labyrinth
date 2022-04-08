@@ -1,6 +1,6 @@
 #include "TransPlatform.h"
 #include "World/Maze/MazeLayoutGenerator.h"
-
+#include "ServiceLocator.h"
 
 
 TransPlatform::TransPlatform(Maze *targetMaze, float cooldownTime) :
@@ -35,7 +35,7 @@ void TransPlatform::TargetMaze(Maze *targetMaze)
 
 void TransPlatform::Trigger()
 {
-
+	ServiceLocator::GetInstance()->GetSoundEffectAudioPlayer()->Play(Music("snd_unlock.mp3"));
 	// Box2D sometimes calls Trigger() many times in one frame (sucks!)
 	// So this "if" is here to safe guard that situation
 	if (_remainingTime <= 0)

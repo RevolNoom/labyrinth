@@ -2,6 +2,7 @@
 #include "World/Maze/Item/Trap.h"
 #include "GameObject/Timer.h"
 #include "SpriteAnimation.h"
+#include "GameScenes/Music.hpp"
 
 // I cannot create an independent Wanderer class
 // Because I can't clone SpriteAnimation.
@@ -40,6 +41,11 @@ protected:
 	// The Bat won't go rampant and hit people 
 	// while it's still in startup phase
 	Timer _startupTimer;
+
+	// When the timer goes off, they squeak
+	Timer _squeakTimer;
+	Music _squeak;
+
 private:
 	Vector2 _size;
 };

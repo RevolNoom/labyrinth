@@ -98,7 +98,7 @@ void SceneDirector::SetupSceneMenu()
 	auto menu = std::make_shared<Scene>();
 	_scene[SCENE_ID::SCENE_MENU] = menu;
 
-
+	menu->SetBackgroundMusic(Music("theme.mp3"));
 	menu->GetCanvas().Insert(1, GUI::GetInstance()->GetBackground()._tile);
 
 
@@ -144,6 +144,9 @@ void SceneDirector::SetupSceneCredit()
 {
 	auto credit = std::make_shared<Scene>();
 	_scene[SCENE_ID::SCENE_CREDIT] = credit;
+	
+	
+	credit->SetBackgroundMusic(Music("theme.mp3"));
 
 
 	credit->GetCanvas().Insert(1, GUI::GetInstance()->GetBackground()._tile);
@@ -175,6 +178,7 @@ void SceneDirector::SetupSceneCredit()
 							"Game assets from Pixel Dungeon by Watabou.",
 							"Box2D physic engine by Erin Catto",
 							"Font Origicide by Cpr.Sparhelt.",
+							"\"Bats In Cave Sound\" by Mike Koenig."
 							"Game engine made by awesome Gameloft team." };
 
 	for (int iii = 0; iii < sizeof(credits)/sizeof(credits[0]); ++iii)

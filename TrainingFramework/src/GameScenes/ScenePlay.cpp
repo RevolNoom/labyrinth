@@ -8,6 +8,7 @@
 // Screen: 480 x 800
 ScenePlay::ScenePlay() : Scene(), _gameWorld(nullptr), _trapSensor(), _state(State::PAUSE)
 {
+	SetBackgroundMusic(Music("game.mp3"));
 }
 
 ScenePlay::~ScenePlay()
