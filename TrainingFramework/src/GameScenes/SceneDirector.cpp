@@ -114,18 +114,7 @@ void SceneDirector::SetupSceneMenu()
 
 	menu->GetCanvas2()[3].push_back(GUI::GetInstance()->GetButton()._exit);
 	menu->GetCanvas2()[3].push_back(GUI::GetInstance()->GetButton()._setting);
-
-
-	// Credit button
-	auto texture = ResourceManagers::GetInstance()->GetTexture("Sign.tga");
-	auto creditbutton = std::make_shared<GameButton>(texture);
-	creditbutton->SetTexture(ResourceManagers::GetInstance()->GetTexture("SignGlow.tga"), GameButton::Hover::H_ON);
-	creditbutton->Set2DPosition(Globals::screenWidth/2 - 130, Globals::screenHeight / 2 + 50);
-	creditbutton->SetSize(50, 70);
-	creditbutton->SetOnClick([]() {
-		SceneDirector::GetInstance()->PushScene(SCENE_ID::SCENE_CREDIT);
-		});
-	menu->GetCanvas2()[4].push_back(creditbutton);
+	menu->GetCanvas2()[4].push_back(GUI::GetInstance()->GetButton()._credit);
 	
 
 	// game title
@@ -178,7 +167,7 @@ void SceneDirector::SetupSceneCredit()
 							"Game assets from Pixel Dungeon by Watabou.",
 							"Box2D physic engine by Erin Catto",
 							"Font Origicide by Cpr.Sparhelt.",
-							"\"Bats In Cave Sound\" by Mike Koenig."
+							"\"Bats In Cave Sound\" by Mike Koenig.",
 							"Game engine made by awesome Gameloft team." };
 
 	for (int iii = 0; iii < sizeof(credits)/sizeof(credits[0]); ++iii)

@@ -26,6 +26,13 @@ GUI::GUI()
 		SceneDirector::GetInstance()->PushScene(SCENE_ID::SCENE_SETTING);
 		});
 
+	_buttons._credit = std::make_shared<GameButton>(ResourceManagers::GetInstance()->GetTexture("Sign.tga"));
+	_buttons._credit->SetTexture(ResourceManagers::GetInstance()->GetTexture("SignGlow.tga"), GameButton::Hover::H_ON);
+	_buttons._credit->Set2DPosition(Globals::screenWidth / 2 - 130, Globals::screenHeight / 2 + 50);
+	_buttons._credit->SetSize(50, 70);
+	_buttons._credit->SetOnClick([]() {
+		SceneDirector::GetInstance()->PushScene(SCENE_ID::SCENE_CREDIT);
+		});
 
 	_buttons._return = std::make_shared<GameButton>(ResourceManagers::GetInstance()->GetTexture("btn_close.tga"));
 	_buttons._return->Set2DPosition(Globals::screenWidth - 50, 50);

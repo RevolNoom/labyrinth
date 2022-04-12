@@ -20,6 +20,7 @@ public:
     {
         std::shared_ptr<GameButton> 
             _setting,
+            _credit,
             _return,
             _music,
             _exit,

@@ -120,51 +120,51 @@
     <OutDir>$(SolutionDir)\BIN-Nvidia\</OutDir>
     <IntDir>$(Configuration)\</IntDir>
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(SolutionDir)/Box2D/include;$(ProjectDir)/src;$(ProjectDir)/src/GameScenes</IncludePath>
+    <IncludePath>$(SolutionDir)/Box2D/include;$(ProjectDir)/src;$(ProjectDir)/src/GameScenes;$(SolutionDir)/Box2D/include</IncludePath>
     <AllProjectIncludesArePublic>true</AllProjectIncludesArePublic>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-Nvidia|Win32'">
     <OutDir>$(SolutionDir)\BIN-Nvidia\</OutDir>
     <IntDir>$(Configuration)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(SolutionDir)/Box2D/box2d/include;$(ProjectDir)/src;$(ProjectDir)/src/GameScenes;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)/Box2D/box2d/include;$(ProjectDir)/src;$(ProjectDir)/src/GameScenes;$(IncludePath);$(SolutionDir)/Box2D/include</IncludePath>
     <AllProjectIncludesArePublic>true</AllProjectIncludesArePublic>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-AMD|Win32'">
     <OutDir>$(SolutionDir)\BIN-AMD\</OutDir>
     <IntDir>$(Configuration)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(SolutionDir)/Box2D/include;$(ProjectDir)/src;$(ProjectDir)/src/GameScenes</IncludePath>
+    <IncludePath>$(SolutionDir)/Box2D/include;$(ProjectDir)/src;$(ProjectDir)/src/GameScenes;$(SolutionDir)/Box2D/include</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-Angle|Win32'">
     <OutDir>$(SolutionDir)\BIN-Angle\</OutDir>
     <IntDir>$(Configuration)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(SolutionDir)/Box2D/include;$(ProjectDir)/src;$(ProjectDir)/src/GameScenes</IncludePath>
+    <IncludePath>$(SolutionDir)/Box2D/include;$(ProjectDir)/src;$(ProjectDir)/src/GameScenes;$(SolutionDir)/Box2D/include</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-ATI|Win32'">
     <OutDir>$(SolutionDir)\BIN-ATI\</OutDir>
     <IntDir>$(Configuration)\</IntDir>
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(SolutionDir)/Box2D/include;$(ProjectDir)/src;$(ProjectDir)/src/GameScenes</IncludePath>
+    <IncludePath>$(SolutionDir)/Box2D/include;$(ProjectDir)/src;$(ProjectDir)/src/GameScenes;$(SolutionDir)/Box2D/include</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-ATI|Win32'">
     <OutDir>$(SolutionDir)\BIN-ATI\</OutDir>
     <IntDir>$(Configuration)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(SolutionDir)/Box2D/include;$(ProjectDir)/src;$(ProjectDir)/src/GameScenes</IncludePath>
+    <IncludePath>$(SolutionDir)/Box2D/include;$(ProjectDir)/src;$(ProjectDir)/src/GameScenes;$(SolutionDir)/Box2D/include</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-AMD|Win32'">
     <OutDir>$(SolutionDir)\BIN-AMD\</OutDir>
     <IntDir>$(Configuration)\</IntDir>
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(SolutionDir)/Box2D/include;$(ProjectDir)/src;$(ProjectDir)/src/GameScenes</IncludePath>
+    <IncludePath>$(SolutionDir)/Box2D/include;$(ProjectDir)/src;$(ProjectDir)/src/GameScenes;$(SolutionDir)/Box2D/include</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-Angle|Win32'">
     <OutDir>$(SolutionDir)\BIN-Angle\</OutDir>
     <IntDir>$(Configuration)\</IntDir>
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(SolutionDir)/Box2D/include;$(ProjectDir)/src;$(ProjectDir)/src/GameScenes</IncludePath>
+    <IncludePath>$(SolutionDir)/Box2D/include;$(ProjectDir)/src;$(ProjectDir)/src/GameScenes;$(SolutionDir)/Box2D/include</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug-Nvidia|Win32'">
     <ClCompile>

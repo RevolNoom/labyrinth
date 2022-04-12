@@ -47,6 +47,7 @@ SceneResult::SceneResult(): Scene()
 
 
 	GetCanvas2()[3].push_back(GUI::GetInstance()->GetButton()._exit);
+	GetCanvas2()[4].push_back(GUI::GetInstance()->GetButton()._credit);
 }
 
 void SceneResult::Enter()
