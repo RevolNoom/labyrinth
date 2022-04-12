@@ -1,8 +1,8 @@
 #include "ServiceLocator.h"
 
 ServiceLocator::ServiceLocator(): 
-	_backgroundMusic(AudioPlayer::GetInstance()),
-	_soundEffect(AudioPlayer::GetInstance())
+	_backgroundMusic(AudioPlayerOn::GetInstance()),
+	_soundEffect(AudioPlayerOn::GetInstance())
 {
 }
 
@@ -10,13 +10,14 @@ void ServiceLocator::SetBackgroundMusicPlayer(std::shared_ptr<AudioPlayer> bgm)
 {
 	_backgroundMusic = bgm;
 }
+
 std::shared_ptr<AudioPlayer> ServiceLocator::GetBackgroundMusicPlayer()
 { 
 	return _backgroundMusic;
 }
 
 void ServiceLocator::SetSoundEffectAudioPlayer(std::shared_ptr<AudioPlayer> se)
-{ 
+{
 	_soundEffect = se; 
 }
 

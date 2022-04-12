@@ -6,8 +6,8 @@
 Bat::Bat() :
 	Trap(nullptr),
 	_startupTimer(2),
-	_squeakTimer(5 + (std::rand() % 5000) / 1000.0),
-	_squeak(Music("snd_bat.wav"))
+	_squeakTimer(5 + (std::rand() % 5000) / 1000.0)
+	//_squeak(Music("snd_bat.wav"))
 {
 	_anim = std::make_shared<SpriteAnimation>(
 					ResourceManagers::GetInstance()->GetModel("Sprite2d.nfg"),

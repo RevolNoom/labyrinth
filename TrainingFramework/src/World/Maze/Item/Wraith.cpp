@@ -4,7 +4,7 @@
 
 Wraith::Wraith(): Bat()
 {
-	_squeak = Music("snd_death.mp3");
+	//_squeak = Music("snd_death.mp3");
 	_squeakTimer = 6 + (std::rand() % 6000) / 1000.0;
 
 	_anim = std::make_shared<SpriteAnimation>(

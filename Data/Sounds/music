@@ -6,4 +6,4 @@ snd_unlock.mp3: trap (done)
 snd_bat.wav: bat. Bats In Cave Sounds by Mike Koenig (done)
 snd_death.mp3: ghost (done)
 snd_levelup.mp3: logo scene (done)
-
+snd_gold.mp3: ring pickup

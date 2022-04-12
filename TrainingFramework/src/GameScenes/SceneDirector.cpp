@@ -123,9 +123,6 @@ void SceneDirector::SetupSceneMenu()
 	auto textGameName = std::make_shared<Text>(shader, font, "Treasure hunter", TextColor::RED, 2);
 	textGameName->Set2DPosition(Vector2(30, 200));
 	menu->GetCanvas2()[3].push_back(textGameName);
-
-	// Some cheery music
-	menu->SetBackgroundMusic(Music("Alarm01.wav"));
 }
 
 
@@ -198,6 +195,7 @@ void SceneDirector::SetupSceneSetting()
 	auto setting = std::make_shared<Scene>();
 	_scene[SCENE_ID::SCENE_SETTING] = setting;
 
+	setting->SetBackgroundMusic(Music("theme.mp3"));
 
 	setting->GetCanvas().Insert(1, GUI::GetInstance()->GetBackground()._tile);
 

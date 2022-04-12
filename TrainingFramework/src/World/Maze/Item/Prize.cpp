@@ -1,5 +1,7 @@
 #include "World/Maze/Item/Prize.h"
 #include "GameScenes/ScenePlayLogicServer.h"
+#include "ServiceLocator.h"
+
 Prize::Prize() :
     Trap(ResourceManagers::GetInstance()->GetTexture("ring.tga"))
 {
@@ -16,7 +18,11 @@ void Prize::Draw()
 void Prize::Trigger()
 {
     if (IsEnabled())
+    {
+        ServiceLocator::GetInstance()->GetSoundEffectAudioPlayer()->Play(Music("snd_gold.mp3"));
         ScenePlayLogicServer::GetInstance()->PickUpPrize();
+
+    }
 }
 
 

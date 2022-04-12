@@ -35,11 +35,11 @@ void TransPlatform::TargetMaze(Maze *targetMaze)
 
 void TransPlatform::Trigger()
 {
-	ServiceLocator::GetInstance()->GetSoundEffectAudioPlayer()->Play(Music("snd_unlock.mp3"));
 	// Box2D sometimes calls Trigger() many times in one frame (sucks!)
 	// So this "if" is here to safe guard that situation
 	if (_remainingTime <= 0)
 	{
+		ServiceLocator::GetInstance()->GetSoundEffectAudioPlayer()->Play(Music("snd_unlock.mp3"));
 		_remainingTime = _maxTime;
 		SetEnabled(false);
 

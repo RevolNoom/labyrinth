@@ -48,6 +48,7 @@ SceneResult::SceneResult(): Scene()
 
 	GetCanvas2()[3].push_back(GUI::GetInstance()->GetButton()._exit);
 	GetCanvas2()[4].push_back(GUI::GetInstance()->GetButton()._credit);
+	GetCanvas2()[4].push_back(GUI::GetInstance()->GetButton()._setting);
 }
 
 void SceneResult::Enter()
@@ -61,7 +62,7 @@ void SceneResult::Enter()
 	else
 	{
 		result = "You Lose";
-		SetBackgroundMusic(Music("snd_challenge.mp"));
+		SetBackgroundMusic(Music("snd_challenge.mp3"));
 	}
 
 	_textResult->SetText(result);

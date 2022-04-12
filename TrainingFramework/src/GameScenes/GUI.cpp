@@ -1,6 +1,7 @@
 #include "GUI.h"
 #include "World/Maze/Item/Bat.h"
 #include "ServiceLocator.h"
+#include "Scene.h"
 #include "SceneDirector.h"
 
 GUI::GUI()
@@ -51,11 +52,22 @@ GUI::GUI()
 	_buttons._music->Set2DPosition(Globals::screenWidth / 3, Globals::screenWidth / 2);
 	_buttons._music->SetSize(50, 50);
 	_buttons._music->SetOnClick([&]() {
+
+		auto playingMusic = SceneDirector::GetInstance()->CurrentScene()->GetBackgroundMusic();
+
 		if (_buttons._music->IsToggledOn())
+		{
+			ServiceLocator::GetInstance()->GetBackgroundMusicPlayer()->Stop(playingMusic);
 			ServiceLocator::GetInstance()->SetBackgroundMusicPlayer(AudioPlayerMuted::GetInstance());
+		}
 		else
-			ServiceLocator::GetInstance()->SetBackgroundMusicPlayer(AudioPlayer::GetInstance());
-		});
+		{
+			ServiceLocator::GetInstance()->SetBackgroundMusicPlayer(AudioPlayerOn::GetInstance());
+			ServiceLocator::GetInstance()->GetBackgroundMusicPlayer()->Play(playingMusic);
+		}
+		//std::cout << "BGM changed: " << ServiceLocator::GetInstance()->GetBackgroundMusicPlayer()->Name();
+	}
+	);
 
 
 	_buttons._exit = std::make_shared<GameButton>(ResourceManagers::GetInstance()->GetTexture("btn_close.tga"));
@@ -78,7 +90,7 @@ GUI::GUI()
 		if (_buttons._sfx->IsToggledOn())
 			ServiceLocator::GetInstance()->SetSoundEffectAudioPlayer(AudioPlayerMuted::GetInstance());
 		else
-			ServiceLocator::GetInstance()->SetSoundEffectAudioPlayer(AudioPlayer::GetInstance());
+			ServiceLocator::GetInstance()->SetSoundEffectAudioPlayer(AudioPlayerOn::GetInstance());
 		});
 
 

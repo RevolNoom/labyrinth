@@ -2,13 +2,13 @@
 #include "GameScenes/Music.hpp"
 #include "ResourceManagers.h"
 
-void AudioPlayer::Play(Music song)
+void AudioPlayerOn::Play(Music song)
 {
 	if (song.GetSongName() != "")
 		ResourceManagers::GetInstance()->PlaySound(song.GetSongName());
 }
 
-void AudioPlayer::Stop(Music song)
+void AudioPlayerOn::Stop(Music song)
 {
 	if (song.GetSongName() != "")
 		ResourceManagers::GetInstance()->StopSound(song.GetSongName());
@@ -16,8 +16,10 @@ void AudioPlayer::Stop(Music song)
 
 void AudioPlayerMuted::Play(Music song)
 {
+	//std::cout << "Play muted\n";
 }
 
 void AudioPlayerMuted::Stop(Music song)
 {
+	//std::cout << "Stop muted\n";
 }

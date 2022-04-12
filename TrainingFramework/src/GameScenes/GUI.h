@@ -3,6 +3,11 @@
 #include "World/PhysicObject.h"
 #include "GameButton.h"
 
+// Shares UI components between scenes
+// Kills a bit of code. 
+// The good point is I can reuse them across scenes
+// Downside is that moving one thing cascades to another.
+// I don't move them, anyway
 class GUI :
     public CSingleton<GUI>
 {
