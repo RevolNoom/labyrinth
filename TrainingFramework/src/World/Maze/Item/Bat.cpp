@@ -1,12 +1,11 @@
 #include "Bat.h"
-#include <algorithm>
 #include "GameScenes/ScenePlayLogicServer.h"
 #include "ServiceLocator.h"
 
 Bat::Bat() :
 	Trap(nullptr),
-	_startupTimer(2),
-	_squeakTimer(5 + (std::rand() % 5000) / 1000.0)
+	_startupTimer(2)
+	//_squeakTimer(5 + (std::rand() % 5000) / 1000.0)
 	//_squeak(Music("snd_bat.wav"))
 {
 	_anim = std::make_shared<SpriteAnimation>(
@@ -43,7 +42,7 @@ void Bat::RegisterToWorld(b2World* world)
 
 	_body->CreateFixture(&fdef);
 
-	_squeakTimer.Start();
+	//_squeakTimer.Start();
 }
 
 
@@ -62,6 +61,7 @@ std::shared_ptr<PhysicObject> Bat::Clone()
 	newClone->SetPosition(GetPosition());
 	newClone->SetEnabled(IsEnabled());
 	newClone->SetSize(GetSize());
+	newClone->SetVelocity(GetVelocity());
 
 	return newClone;
 }
@@ -81,7 +81,7 @@ void Bat::Update(float delta)
 
 	if (_body)
 	{
-		auto velo = _body->GetLinearVelocity();
+		auto velo = GetVelocity();
 		if ((GetPosition().x < 0 && velo.x < 0) ||
 			(GetPosition().x > Globals::screenWidth && velo.x > 0))
 		{
@@ -92,17 +92,17 @@ void Bat::Update(float delta)
 		{
 			velo.y = -velo.y;
 		}
-		_body->SetLinearVelocity(velo);
+		SetVelocity(velo);
 
 		MoveSpriteToBody();
 
-		_squeakTimer.Update(delta);
-		if (_squeakTimer.TimeOut())
-		{
-			_squeakTimer.Reset();
-			_squeakTimer.Start();
-			ServiceLocator::GetInstance()->GetSoundEffectAudioPlayer()->Play(_squeak);
-		}
+		//_squeakTimer.Update(delta);
+		//if (_squeakTimer.TimeOut())
+		//{
+		//	_squeakTimer.Reset();
+		//	_squeakTimer.Start();
+		//	ServiceLocator::GetInstance()->GetSoundEffectAudioPlayer()->Play(_squeak);
+		//}
 		//std::cout << "Bat at " << GetPosition().x << ", " << GetPosition().y << "\n";
 	}
 }
@@ -112,6 +112,18 @@ void Bat::MoveSpriteToBody()
 {
 	auto newPos = ToGraphicCoordinate(_body->GetPosition());
 	_anim->Set2DPosition(newPos.x, newPos.y);
+}
+
+Vector2 Bat::GetVelocity()
+{
+	return _velo;
+}
+
+void Bat::SetVelocity(Vector2 velo)
+{
+	_velo = velo;
+	if (_body)
+		_body->SetLinearVelocity(ToPhysicCoordinate(_velo));
 }
 
 
@@ -167,8 +179,6 @@ void Bat::GoRampant()
 	auto direction = Vector2((-500 + std::rand() % 1000),
 							(-500 + std::rand() % 1000)).Normalize();
 
-	// WHERE TF ARE STD::MIN MAX? <ALGORITHM> DOES NOT HAVE THEM
-	auto speed = min(Globals::screenWidth, Globals::screenHeight) / 5 +
-				std::rand() % max(Globals::screenWidth, Globals::screenHeight) / 7;
-	_body->SetLinearVelocity(ToPhysicCoordinate(direction * speed));
+	auto velo = direction * GetVelocity().Length();
+	SetVelocity(velo);
 }

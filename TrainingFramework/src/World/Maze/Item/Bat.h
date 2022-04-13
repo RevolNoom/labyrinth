@@ -31,6 +31,10 @@ public:
 	virtual Vector2 GetSize() const override;
 
 	void MoveSpriteToBody();
+
+	Vector2 GetVelocity();
+	void SetVelocity(Vector2 velo);
+
 private:
 	void GoRampant();
 
@@ -42,9 +46,13 @@ protected:
 	// while it's still in startup phase
 	Timer _startupTimer;
 
+	Vector2 _velo;
+
 	// When the timer goes off, they squeak
-	Timer _squeakTimer;
-	Music _squeak;
+	//Timer _squeakTimer;
+	//Music _squeak;
+
+
 
 private:
 	Vector2 _size;

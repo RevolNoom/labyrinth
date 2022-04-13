@@ -68,6 +68,17 @@ void Unit::Draw()
 	GetCurrentAnim()->Draw();
 }
 
+Vector2 Unit::GetVelocity()
+{
+	return _velo;
+}
+
+void Unit::SetVelocity(Vector2 velo)
+{
+	_velo = velo;
+	_body->SetLinearVelocity(ToPhysicCoordinate(velo));
+}
+
 
 void Unit::Update(float delta)
 {
@@ -141,27 +152,25 @@ void Unit::MoveSpriteToBody()
 
 void Unit::ProcessInput()
 {
-	// TODO: Let outsider sets this unit's velocity?
-	b2Vec2 maxVelo(ToPhysicCoordinate(Vector2(130, 130)));
-	b2Vec2 velo = b2Vec2_zero;
+	Vector2 velo;
 
 	if (Keyboard::GetInstance()->IsPressing(KEY_MOVE_LEFT))
-		velo.x = -maxVelo.x;
+		velo.x = -GetMaxVelocity().x;
 
 	if (Keyboard::GetInstance()->IsPressing(KEY_MOVE_RIGHT))
-		velo.x = +maxVelo.x;
+		velo.x = +GetMaxVelocity().x;
 
 	if (Keyboard::GetInstance()->IsPressing(KEY_MOVE_BACKWARD))
-		velo.y = +maxVelo.y;
+		velo.y = +GetMaxVelocity().y;
 
 	if (Keyboard::GetInstance()->IsPressing(KEY_MOVE_FORWARD))
-		velo.y = -maxVelo.y;
+		velo.y = -GetMaxVelocity().y;
 
-	_body->SetLinearVelocity(velo);
+	SetVelocity(velo);
 
 	if (velo.x < 0)
 		_currentAnim = ANIM::RUN_LEFT;
-	else if (velo != b2Vec2_zero)
+	else if (velo.Length() > 0)
 		_currentAnim = ANIM::RUN_RIGHT;
 	else
 		_currentAnim = ANIM::IDLE;
@@ -176,4 +185,14 @@ std::shared_ptr<PhysicObject> Unit::Clone()
 	newClone->SetSize(GetSize());
 
 	return newClone;
+}
+
+Vector2 Unit::GetMaxVelocity()
+{
+	return _maxVelo;
+}
+
+void Unit::SetMaxVelocity(Vector2 velo)
+{
+	_maxVelo = velo;
 }

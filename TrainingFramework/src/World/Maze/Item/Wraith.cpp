@@ -5,7 +5,7 @@
 Wraith::Wraith(): Bat()
 {
 	//_squeak = Music("snd_death.mp3");
-	_squeakTimer = 6 + (std::rand() % 6000) / 1000.0;
+	//_squeakTimer = 6 + (std::rand() % 6000) / 1000.0;
 
 	_anim = std::make_shared<SpriteAnimation>(
 					ResourceManagers::GetInstance()->GetModel("Sprite2d.nfg"),
@@ -25,6 +25,7 @@ std::shared_ptr<PhysicObject> Wraith::Clone()
 	newClone->SetPosition(GetPosition());
 	newClone->SetEnabled(IsEnabled());
 	newClone->SetSize(GetSize());
+	newClone->SetVelocity(GetVelocity());
 
 	return newClone;
 }
@@ -42,13 +43,13 @@ void Wraith::Update(float delta)
 
 		MoveSpriteToBody(); 
 		
-		_squeakTimer.Update(delta);
-		if (_squeakTimer.TimeOut())
-		{
-			_squeakTimer.Reset();
-			_squeakTimer.Start();
-			ServiceLocator::GetInstance()->GetSoundEffectAudioPlayer()->Play(_squeak);
-		}
+		//_squeakTimer.Update(delta);
+		//if (_squeakTimer.TimeOut())
+		//{
+		//	_squeakTimer.Reset();
+		//	_squeakTimer.Start();
+		//	ServiceLocator::GetInstance()->GetSoundEffectAudioPlayer()->Play(_squeak);
+		//}
 	}
 }
 
@@ -56,6 +57,5 @@ void Wraith::Update(float delta)
 void Wraith::ChasePlayer()
 {
 	auto direction = ScenePlayLogicServer::GetInstance()->GetPlayer()->GetPosition() - GetPosition();
-	auto maxSpeed = 40;
-	_body->SetLinearVelocity(ToPhysicCoordinate(direction.Normalize() * maxSpeed));
+	SetVelocity(direction.Normalize() * GetVelocity().Length());
 }

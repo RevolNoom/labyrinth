@@ -50,9 +50,9 @@ void ScenePlay::Enter()
 	GetCanvas().Insert(1, GUI::GetInstance()->GetBackground()._black);
 
 	//auto maze = std::make_shared<Maze>(12, 20);
-	auto maze = std::make_shared<Maze>(6, 10);
+	auto maze = std::make_shared<Maze>(10, 6);
 	maze->SetPosition(Vector2(Globals::screenWidth / 2, Globals::screenHeight / 2));
-	maze->SetCellSize(Vector2(80, 80));
+	maze->SetCellSize(Vector2(Globals::screenHeight / 6, Globals::screenHeight / 6));
 	maze->RegisterToWorld(_gameWorld);
 	GetCanvas().Insert(5, maze);
 
@@ -60,9 +60,9 @@ void ScenePlay::Enter()
 	auto unit = std::make_shared<Unit>();
 	unit->SetPosition(maze->GetCellSize()/2);
 	unit->SetSize(maze->GetCellSize()/3);
+	unit->SetMaxVelocity(maze->GetCellSize() * 3 / 2);
 	unit->RegisterToWorld(_gameWorld);
 	GetCanvas().Insert(7, unit);
-
 	ScenePlayLogicServer::GetInstance()->SetupPlayer(unit.get());
 
 

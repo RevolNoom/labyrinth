@@ -6,6 +6,7 @@
 #include "World/Maze/Item/ExitStair.h"
 #include "World/Maze/Item/Bat.h"
 #include "World/Maze/Item/Wraith.h"
+#include "World/Player/Unit.hpp"
 
 Maze::Maze(int width, int height) : 
 	_size({ width, height }), 
@@ -202,10 +203,18 @@ void Maze::GenerateItems()
 
 	auto ghost = std::make_shared<Wraith>();
 	ghost->SetSize(GetCellSize() * 0.5);
+	ghost->SetVelocity(GetCellSize() / 3);
 	itg.AddMandatory(ghost, 1);
 
-	auto bat = GUI::GetInstance()->GetMisc()._bat->Clone();
+	/*
+	auto unit = std::make_shared<Unit>();
+	unit->SetSize(GetCellSize() * 0.5);
+	unit->SetMaxVelocity(GetCellSize());
+	itg.AddMandatory(unit, 1);
+	*/
+	auto bat = std::dynamic_pointer_cast<Bat>(GUI::GetInstance()->GetMisc()._bat->Clone());
 	bat->SetSize(GetCellSize() / 2);
+	bat->SetVelocity(GetCellSize() * 1.5);
 	itg.AddMandatory(bat, GetDimensions().first * GetDimensions().second/16);
 	
 	// RANDOM

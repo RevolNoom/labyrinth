@@ -49,7 +49,7 @@ GUI::GUI()
 	_buttons._music->SetTexture(ResourceManagers::GetInstance()->GetTexture("btn_music_off.tga"), GameButton::Hover::H_ON, GameButton::Toggle::T_OFF);
 	_buttons._music->SetTexture(ResourceManagers::GetInstance()->GetTexture("btn_music_off.tga"), GameButton::Hover::H_OFF, GameButton::Toggle::T_OFF);
 	_buttons._music->EnableToggle(true);
-	_buttons._music->Set2DPosition(Globals::screenWidth / 3, Globals::screenWidth / 2);
+	_buttons._music->Set2DPosition(Globals::screenWidth / 3, Globals::screenHeight / 2);
 	_buttons._music->SetSize(50, 50);
 	_buttons._music->SetOnClick([&]() {
 
@@ -84,7 +84,7 @@ GUI::GUI()
 	_buttons._sfx->SetTexture(ResourceManagers::GetInstance()->GetTexture("btn_sfx_off.tga"), GameButton::Hover::H_ON, GameButton::Toggle::T_OFF);
 	_buttons._sfx->SetTexture(ResourceManagers::GetInstance()->GetTexture("btn_sfx_off.tga"), GameButton::Hover::H_OFF, GameButton::Toggle::T_OFF);
 	_buttons._sfx->EnableToggle(true);
-	_buttons._sfx->Set2DPosition(Globals::screenWidth * 2 / 3, Globals::screenWidth / 2);
+	_buttons._sfx->Set2DPosition(Globals::screenWidth * 2 / 3, Globals::screenHeight / 2);
 	_buttons._sfx->SetSize(50, 50);
 	_buttons._sfx->SetOnClick([&]() {
 		if (_buttons._sfx->IsToggledOn())

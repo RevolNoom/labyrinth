@@ -39,12 +39,18 @@ public:
 	//TODO: Does not clone velocity, animation. 
 	virtual std::shared_ptr<PhysicObject> Clone() override;
 
+	Vector2 GetMaxVelocity();
+	void SetMaxVelocity(Vector2 velo);
 private:
 	void ProcessInput();
 
 	std::shared_ptr<SpriteAnimation> GetCurrentAnim() const;
 
 	void MoveSpriteToBody();
+
+	// TODO: Refactoring functions with Bat needed?
+	Vector2 GetVelocity();
+	void SetVelocity(Vector2 velo);
 
 private:
 
@@ -66,6 +72,9 @@ private:
 	b2Vec2 _force;
 
 	Vector2 _size;
+
+	Vector2 _maxVelo;
+	Vector2 _velo;
 
 	// Because, obviously, I can't put my faith
 	// into SpriteAnimation Get2DPosition()

@@ -5,6 +5,7 @@
 #include <map>
 #include "InputEvent.hpp"
 
+#define GAMENAME "Treasure Hunter"
 class Scene;
 
 using SCENE__ID = int;
@@ -19,9 +20,6 @@ enum SCENE_ID
 	SCENE_SETTING
 };
 
-// TODO: Too many code copy pasted in .cpp
-// Consider creating a GUI class to hold shared elements
-// like banners, exit button, ...
 
 class SceneDirector : public CSingleton<SceneDirector>
 {
@@ -45,6 +43,7 @@ public:
 	{
 		return _sceneStack.back();
 	}
+	
 
 
 private:

@@ -120,8 +120,8 @@ void SceneDirector::SetupSceneMenu()
 	// game title
 	auto shader = ResourceManagers::GetInstance()->GetShader("TextShader");
 	std::shared_ptr<Font> font = ResourceManagers::GetInstance()->GetFont("Origicide.ttf");
-	auto textGameName = std::make_shared<Text>(shader, font, "Treasure hunter", TextColor::RED, 2);
-	textGameName->Set2DPosition(Vector2(30, 200));
+	auto textGameName = std::make_shared<Text>(shader, font, GAMENAME, TextColor::RED, 2);
+	textGameName->Set2DPosition(Globals::screenWidth / 2 - 220, Globals::screenHeight / 4);
 	menu->GetCanvas2()[3].push_back(textGameName);
 }
 
@@ -160,7 +160,7 @@ void SceneDirector::SetupSceneCredit()
 	// CREDIT CONTENT
 
 	std::shared_ptr<Font> arialbd = ResourceManagers::GetInstance()->GetFont("arialbd.ttf");
-	std::string credits[]{ "Treasure Hunter made by Revol Noom.",
+	std::string credits[]{ std::string(GAMENAME) + std::string(" made by Revol Noom."),
 							"Game assets from Pixel Dungeon by Watabou.",
 							"Box2D physic engine by Erin Catto",
 							"Font Origicide by Cpr.Sparhelt.",
@@ -170,7 +170,7 @@ void SceneDirector::SetupSceneCredit()
 	for (int iii = 0; iii < sizeof(credits)/sizeof(credits[0]); ++iii)
 	{
 		auto whiteCreditTxt = std::make_shared<Text>(shader, arialbd, credits[iii], TextColor::WHITE, 0.7, TextAlign::CENTER);
-		whiteCreditTxt->Set2DPosition(Vector2(Globals::screenWidth / 10, Globals::screenHeight / 3 + iii*30));
+		whiteCreditTxt->Set2DPosition(Vector2(Globals::screenWidth / 2 - 175, Globals::screenHeight / 3 + iii*30));
 		credit->GetCanvas2()[3].push_back(whiteCreditTxt);
 	}
 
