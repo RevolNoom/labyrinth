@@ -164,7 +164,7 @@ void SceneDirector::SetupSceneCredit()
 							"Game assets from Pixel Dungeon by Watabou.",
 							"Box2D physic engine by Erin Catto",
 							"Font Origicide by Cpr.Sparhelt.",
-							"\"Bats In Cave Sound\" by Mike Koenig.",
+							//"\"Bats In Cave Sound\" by Mike Koenig.",
 							"Game engine made by awesome Gameloft team." };
 
 	for (int iii = 0; iii < sizeof(credits)/sizeof(credits[0]); ++iii)
@@ -222,6 +222,10 @@ void SceneDirector::SetupSceneSetting()
 
 
 	setting->GetCanvas2()[3].push_back(GUI::GetInstance()->GetButton()._return);
+
 	setting->GetCanvas2()[3].push_back(GUI::GetInstance()->GetButton()._music);
+	setting->GetCanvas2()[3].push_back(GUI::GetInstance()->GetMisc()._music);
+
 	setting->GetCanvas2()[3].push_back(GUI::GetInstance()->GetButton()._sfx);
+	setting->GetCanvas2()[3].push_back(GUI::GetInstance()->GetMisc()._sfx);
 }

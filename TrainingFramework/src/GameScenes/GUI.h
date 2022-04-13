@@ -36,6 +36,8 @@ public:
     {
         std::shared_ptr<PhysicObject>
             _bat;
+        std::shared_ptr<Text>
+            _music, _sfx;
     };
 
     Backgrounds GetBackground();

@@ -20,7 +20,7 @@ GUI::GUI()
 	// BUTTONS
 
 	
-	_buttons._setting = std::make_shared<GameButton>(ResourceManagers::GetInstance()->GetTexture("btn_settings.tga"));
+	_buttons._setting = std::make_shared<GameButton>(ResourceManagers::GetInstance()->GetTexture("button_setting.tga"));
 	_buttons._setting->Set2DPosition(Globals::screenWidth - 125, 50);
 	_buttons._setting->SetSize(50, 50);
 	_buttons._setting->SetOnClick([]() {
@@ -35,19 +35,19 @@ GUI::GUI()
 		SceneDirector::GetInstance()->PushScene(SCENE_ID::SCENE_CREDIT);
 		});
 
-	_buttons._return = std::make_shared<GameButton>(ResourceManagers::GetInstance()->GetTexture("btn_close.tga"));
-	_buttons._return->Set2DPosition(Globals::screenWidth - 50, 50);
+	_buttons._return = std::make_shared<GameButton>(ResourceManagers::GetInstance()->GetTexture("button_exit.tga"));
+	_buttons._return->Set2DPosition(Globals::screenWidth - 50, 50); 
 	_buttons._return->SetSize(50, 50);
 	_buttons._return->SetOnClick([]() {
 		SceneDirector::GetInstance()->PopScene();
 		});
 
 
-	_buttons._music = std::make_shared<GameButton>(ResourceManagers::GetInstance()->GetTexture("btn_music.tga"));
-	_buttons._music->SetTexture(ResourceManagers::GetInstance()->GetTexture("btn_music.tga"), GameButton::Hover::H_ON, GameButton::Toggle::T_ON);
-	_buttons._music->SetTexture(ResourceManagers::GetInstance()->GetTexture("btn_music.tga"), GameButton::Hover::H_OFF, GameButton::Toggle::T_ON);
-	_buttons._music->SetTexture(ResourceManagers::GetInstance()->GetTexture("btn_music_off.tga"), GameButton::Hover::H_ON, GameButton::Toggle::T_OFF);
-	_buttons._music->SetTexture(ResourceManagers::GetInstance()->GetTexture("btn_music_off.tga"), GameButton::Hover::H_OFF, GameButton::Toggle::T_OFF);
+	_buttons._music = std::make_shared<GameButton>(ResourceManagers::GetInstance()->GetTexture("button_on.tga"));
+	_buttons._music->SetTexture(ResourceManagers::GetInstance()->GetTexture("button_on.tga"), GameButton::Hover::H_ON, GameButton::Toggle::T_ON);
+	_buttons._music->SetTexture(ResourceManagers::GetInstance()->GetTexture("button_on.tga"), GameButton::Hover::H_OFF, GameButton::Toggle::T_ON);
+	_buttons._music->SetTexture(ResourceManagers::GetInstance()->GetTexture("button_off.tga"), GameButton::Hover::H_ON, GameButton::Toggle::T_OFF);
+	_buttons._music->SetTexture(ResourceManagers::GetInstance()->GetTexture("button_off.tga"), GameButton::Hover::H_OFF, GameButton::Toggle::T_OFF);
 	_buttons._music->EnableToggle(true);
 	_buttons._music->Set2DPosition(Globals::screenWidth / 3, Globals::screenHeight / 2);
 	_buttons._music->SetSize(50, 50);
@@ -70,19 +70,19 @@ GUI::GUI()
 	);
 
 
-	_buttons._exit = std::make_shared<GameButton>(ResourceManagers::GetInstance()->GetTexture("btn_close.tga"));
-	_buttons._exit->Set2DPosition(Globals::screenWidth - 50, 50);
+	_buttons._exit = std::make_shared<GameButton>(ResourceManagers::GetInstance()->GetTexture("button_exit.tga"));
+	_buttons._exit->Set2DPosition(_buttons._return->GetPosition().x, _buttons._return->GetPosition().y);
 	_buttons._exit->SetSize(50, 50);
 	_buttons._exit->SetOnClick([]() {
 		exit(0);
 		});
 
 
-	_buttons._sfx = std::make_shared<GameButton>(ResourceManagers::GetInstance()->GetTexture("btn_sfx.tga"));
-	_buttons._sfx->SetTexture(ResourceManagers::GetInstance()->GetTexture("btn_sfx.tga"), GameButton::Hover::H_ON, GameButton::Toggle::T_ON);
-	_buttons._sfx->SetTexture(ResourceManagers::GetInstance()->GetTexture("btn_sfx.tga"), GameButton::Hover::H_OFF, GameButton::Toggle::T_ON);
-	_buttons._sfx->SetTexture(ResourceManagers::GetInstance()->GetTexture("btn_sfx_off.tga"), GameButton::Hover::H_ON, GameButton::Toggle::T_OFF);
-	_buttons._sfx->SetTexture(ResourceManagers::GetInstance()->GetTexture("btn_sfx_off.tga"), GameButton::Hover::H_OFF, GameButton::Toggle::T_OFF);
+	_buttons._sfx = std::make_shared<GameButton>(ResourceManagers::GetInstance()->GetTexture("button_on.tga"));
+	_buttons._sfx->SetTexture(ResourceManagers::GetInstance()->GetTexture("button_on.tga"), GameButton::Hover::H_ON, GameButton::Toggle::T_ON);
+	_buttons._sfx->SetTexture(ResourceManagers::GetInstance()->GetTexture("button_on.tga"), GameButton::Hover::H_OFF, GameButton::Toggle::T_ON);
+	_buttons._sfx->SetTexture(ResourceManagers::GetInstance()->GetTexture("button_off.tga"), GameButton::Hover::H_ON, GameButton::Toggle::T_OFF);
+	_buttons._sfx->SetTexture(ResourceManagers::GetInstance()->GetTexture("button_off.tga"), GameButton::Hover::H_OFF, GameButton::Toggle::T_OFF);
 	_buttons._sfx->EnableToggle(true);
 	_buttons._sfx->Set2DPosition(Globals::screenWidth * 2 / 3, Globals::screenHeight / 2);
 	_buttons._sfx->SetSize(50, 50);
@@ -99,7 +99,16 @@ GUI::GUI()
 	_miscs._bat = std::make_shared<Bat>();
 	_miscs._bat->SetSize(Vector2(60, 60));
 
+	auto shader = ResourceManagers::GetInstance()->GetShader("TextShader");
+	std::shared_ptr<Font> arial = ResourceManagers::GetInstance()->GetFont("arialbd.ttf");
 
+	_buttons._setting->Set2DPosition(Globals::screenWidth - 125, 50);
+
+	_miscs._sfx = std::make_shared<Text>(shader, arial, "Music", TextColor::WHITE, 1);
+	_miscs._sfx->Set2DPosition(Globals::screenWidth / 3 - 35, Globals::screenHeight / 2 - 40);
+
+	_miscs._music = std::make_shared<Text>(shader, arial, "SFX", TextColor::WHITE, 1);
+	_miscs._music->Set2DPosition(Globals::screenWidth * 2 / 3 - 25, Globals::screenHeight / 2 - 40);
 }
 
 GUI::Backgrounds GUI::GetBackground()
